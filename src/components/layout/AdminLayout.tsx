@@ -16,6 +16,7 @@ import {
   Lock,
   Globe,
   Sparkles,
+  TrendingUp,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
@@ -60,6 +61,7 @@ export const AdminLayout: React.FC<{ children: React.ReactNode; title?: string }
       badge: pendingReports.length,
       alert: pendingReports.length > 0,
     },
+    { label: 'Employer Acquisition', href: '/admin/acquisition', icon: <TrendingUp className="w-4 h-4" /> },
     { label: 'Employer Management', href: '/admin/employers', icon: <Building2 className="w-4 h-4" /> },
     { label: 'Agency Management', href: '/admin/agencies', icon: <Users2 className="w-4 h-4" /> },
     { label: 'Candidate Records', href: '/admin/candidates', icon: <Users2 className="w-4 h-4" /> },

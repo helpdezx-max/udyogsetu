@@ -1510,6 +1510,255 @@ export interface Database {
         };
         Relationships: [];
       };
+      employer_prospects: {
+        Row: {
+          id: string;
+          company_name: string;
+          industry: string;
+          industrial_location: string;
+          official_website: string | null;
+          public_business_contact: string | null;
+          contact_person: string | null;
+          contact_source: string | null;
+          outreach_date: string | null;
+          outreach_method: 'email' | 'phone' | 'linkedin' | 'in_person' | 'referral' | 'other' | null;
+          response_status: 'no_response' | 'responsive' | 'interested' | 'not_interested' | 'follow_up_needed';
+          meeting_status: 'none' | 'scheduled' | 'completed' | 'rescheduled' | 'cancelled';
+          verification_status: 'unverified' | 'in_progress' | 'verified' | 'rejected';
+          vacancy_availability: 'immediate' | 'upcoming' | 'none' | 'unknown';
+          next_followup_date: string | null;
+          pipeline_stage:
+            | 'prospect_identified'
+            | 'research_completed'
+            | 'contacted'
+            | 'interested'
+            | 'meeting_scheduled'
+            | 'verification_started'
+            | 'employer_verified'
+            | 'first_vacancy_submitted'
+            | 'first_vacancy_published'
+            | 'active_employer'
+            | 'inactive_employer';
+          internal_notes: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          company_name: string;
+          industry: string;
+          industrial_location: string;
+          official_website?: string | null;
+          public_business_contact?: string | null;
+          contact_person?: string | null;
+          contact_source?: string | null;
+          outreach_date?: string | null;
+          outreach_method?: 'email' | 'phone' | 'linkedin' | 'in_person' | 'referral' | 'other' | null;
+          response_status?: 'no_response' | 'responsive' | 'interested' | 'not_interested' | 'follow_up_needed';
+          meeting_status?: 'none' | 'scheduled' | 'completed' | 'rescheduled' | 'cancelled';
+          verification_status?: 'unverified' | 'in_progress' | 'verified' | 'rejected';
+          vacancy_availability?: 'immediate' | 'upcoming' | 'none' | 'unknown';
+          next_followup_date?: string | null;
+          pipeline_stage?:
+            | 'prospect_identified'
+            | 'research_completed'
+            | 'contacted'
+            | 'interested'
+            | 'meeting_scheduled'
+            | 'verification_started'
+            | 'employer_verified'
+            | 'first_vacancy_submitted'
+            | 'first_vacancy_published'
+            | 'active_employer'
+            | 'inactive_employer';
+          internal_notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          company_name?: string;
+          industry?: string;
+          industrial_location?: string;
+          official_website?: string | null;
+          public_business_contact?: string | null;
+          contact_person?: string | null;
+          contact_source?: string | null;
+          outreach_date?: string | null;
+          outreach_method?: 'email' | 'phone' | 'linkedin' | 'in_person' | 'referral' | 'other' | null;
+          response_status?: 'no_response' | 'responsive' | 'interested' | 'not_interested' | 'follow_up_needed';
+          meeting_status?: 'none' | 'scheduled' | 'completed' | 'rescheduled' | 'cancelled';
+          verification_status?: 'unverified' | 'in_progress' | 'verified' | 'rejected';
+          vacancy_availability?: 'immediate' | 'upcoming' | 'none' | 'unknown';
+          next_followup_date?: string | null;
+          pipeline_stage?:
+            | 'prospect_identified'
+            | 'research_completed'
+            | 'contacted'
+            | 'interested'
+            | 'meeting_scheduled'
+            | 'verification_started'
+            | 'employer_verified'
+            | 'first_vacancy_submitted'
+            | 'first_vacancy_published'
+            | 'active_employer'
+            | 'inactive_employer';
+          internal_notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      industrial_pilot_locations: {
+        Row: {
+          id: string;
+          name: string;
+          marathi_name: string;
+          pincode: string;
+          zone: string;
+          key_industries: string[];
+          landmark: string;
+          transit_access: string;
+          active_companies_count: number;
+          open_jobs_count: number;
+          description: string;
+          pilot_priority: 'high' | 'medium' | 'expansion';
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id: string;
+          name: string;
+          marathi_name: string;
+          pincode: string;
+          zone: string;
+          key_industries?: string[];
+          landmark: string;
+          transit_access: string;
+          active_companies_count?: number;
+          open_jobs_count?: number;
+          description: string;
+          pilot_priority?: 'high' | 'medium' | 'expansion';
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          marathi_name?: string;
+          pincode?: string;
+          zone?: string;
+          key_industries?: string[];
+          landmark?: string;
+          transit_access?: string;
+          active_companies_count?: number;
+          open_jobs_count?: number;
+          description?: string;
+          pilot_priority?: 'high' | 'medium' | 'expansion';
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      agency_authorizations: {
+        Row: {
+          id: string;
+          agency_id: string;
+          client_company_name: string;
+          client_contact_person: string | null;
+          authorization_scope: string;
+          contract_labor_license_no: string | null;
+          mandate_valid_until: string;
+          is_direct_employer_representation_barred: boolean;
+          status: 'active' | 'expired' | 'revoked' | 'pending_audit';
+          internal_audit_notes: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          agency_id: string;
+          client_company_name: string;
+          client_contact_person?: string | null;
+          authorization_scope: string;
+          contract_labor_license_no?: string | null;
+          mandate_valid_until: string;
+          is_direct_employer_representation_barred?: boolean;
+          status?: 'active' | 'expired' | 'revoked' | 'pending_audit';
+          internal_audit_notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          agency_id?: string;
+          client_company_name?: string;
+          client_contact_person?: string | null;
+          authorization_scope?: string;
+          contract_labor_license_no?: string | null;
+          mandate_valid_until?: string;
+          is_direct_employer_representation_barred?: boolean;
+          status?: 'active' | 'expired' | 'revoked' | 'pending_audit';
+          internal_audit_notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      placement_records: {
+        Row: {
+          id: string;
+          application_id: string | null;
+          candidate_id: string | null;
+          company_id: string;
+          job_id: string | null;
+          offered_salary_monthly: number;
+          joining_date: string;
+          candidate_confirmation_status: 'pending' | 'confirmed' | 'declined' | 'disputed';
+          employer_confirmation_status: 'pending' | 'confirmed' | 'no_show' | 'disputed';
+          placement_status: 'offered' | 'accepted' | 'joined' | 'disputed' | 'cancelled';
+          dispute_reason: string | null;
+          verified_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          application_id?: string | null;
+          candidate_id?: string | null;
+          company_id: string;
+          job_id?: string | null;
+          offered_salary_monthly: number;
+          joining_date: string;
+          candidate_confirmation_status?: 'pending' | 'confirmed' | 'declined' | 'disputed';
+          employer_confirmation_status?: 'pending' | 'confirmed' | 'no_show' | 'disputed';
+          placement_status?: 'offered' | 'accepted' | 'joined' | 'disputed' | 'cancelled';
+          dispute_reason?: string | null;
+          verified_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          application_id?: string | null;
+          candidate_id?: string | null;
+          company_id?: string;
+          job_id?: string | null;
+          offered_salary_monthly?: number;
+          joining_date?: string;
+          candidate_confirmation_status?: 'pending' | 'confirmed' | 'declined' | 'disputed';
+          employer_confirmation_status?: 'pending' | 'confirmed' | 'no_show' | 'disputed';
+          placement_status?: 'offered' | 'accepted' | 'joined' | 'disputed' | 'cancelled';
+          dispute_reason?: string | null;
+          verified_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {

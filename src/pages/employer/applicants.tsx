@@ -59,6 +59,20 @@ export default function EmployerApplicantsPage() {
           </div>
         </div>
 
+        {/* SLA Escalation Alert Banner */}
+        <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-amber-700 shrink-0" />
+            <span>
+              <strong>Recruitment Response SLA Target:</strong> Responding to candidate profiles within 48 hours boosts
+              plant interview attendance by 40% across Chakan MIDC.
+            </span>
+          </div>
+          <span className="text-3xs font-extrabold uppercase px-2.5 py-1 rounded-full bg-white border border-amber-300 text-amber-900 shadow-2xs">
+            Target: &lt;48h
+          </span>
+        </div>
+
         <div className="space-y-4">
           {filteredApps.map((app) => (
             <Card key={app.id} className="p-5 space-y-4">
