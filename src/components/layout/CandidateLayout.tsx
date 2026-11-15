@@ -10,6 +10,7 @@ import {
   Bell,
   Settings,
   ShieldCheck,
+  Bot,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
@@ -36,6 +37,7 @@ export const CandidateLayout: React.FC<{ children: React.ReactNode; title?: stri
       badge: savedJobIds.length,
     },
     { label: 'Resume & Certificates', href: '/candidate/resume', icon: <FileText className="w-4 h-4" /> },
+    { label: 'AI Career Assistant', href: '/candidate/assistant', icon: <Bot className="w-4 h-4" /> },
     { label: 'Notifications', href: '/candidate/notifications', icon: <Bell className="w-4 h-4" />, badge: 2 },
     { label: 'Account Settings', href: '/candidate/settings', icon: <Settings className="w-4 h-4" /> },
   ];

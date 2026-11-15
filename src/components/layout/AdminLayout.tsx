@@ -15,6 +15,7 @@ import {
   Settings,
   Lock,
   Globe,
+  Sparkles,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
@@ -46,6 +47,11 @@ export const AdminLayout: React.FC<{ children: React.ReactNode; title?: string }
       label: 'Job Sources & Discovery',
       href: '/admin/sources',
       icon: <Globe className="w-4 h-4" />,
+    },
+    {
+      label: 'AI & WhatsApp Control',
+      href: '/admin/ai-control',
+      icon: <Sparkles className="w-4 h-4" />,
     },
     {
       label: 'Complaints & Reports',
