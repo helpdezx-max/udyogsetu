@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/freshness-and-risk",
       "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/admin/discovery/run",
+      "schedule": "30 21 * * *"
     }
   ]
 }

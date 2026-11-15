@@ -9,7 +9,8 @@
     "lint": "eslint src",
     "test:security": "node tests/security/tenant-isolation.test.mjs",
     "test:trust": "node tests/security/trust-safety.test.mjs",
-    "test": "node tests/security/tenant-isolation.test.mjs && node tests/security/trust-safety.test.mjs"
+    "test:discovery": "node tests/discovery/discovery-schema.test.mjs && npx tsx tests/discovery/connectors.test.ts && npx tsx tests/discovery/normalizer.test.ts && npx tsx tests/discovery/ingestion.test.ts && npx tsx tests/discovery/admin-discovery-api.test.ts",
+    "test": "node tests/security/tenant-isolation.test.mjs && node tests/security/trust-safety.test.mjs && node tests/discovery/discovery-schema.test.mjs && npx tsx tests/discovery/connectors.test.ts && npx tsx tests/discovery/normalizer.test.ts && npx tsx tests/discovery/ingestion.test.ts && npx tsx tests/discovery/admin-discovery-api.test.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.0",
