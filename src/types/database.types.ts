@@ -1211,6 +1211,110 @@ export interface Database {
         };
         Relationships: [];
       };
+      discovery_sources: {
+        Row: {
+          id: string;
+          name: string;
+          website_url: string;
+          category: 'career_page' | 'job_board' | 'agency_page' | 'industrial_announcement' | 'employer_feed' | 'partner_feed' | 'manual_submission';
+          source_owner: string | null;
+          access_method: 'http_get' | 'rss_feed' | 'json_api' | 'manual_url';
+          permission_status: 'not_reviewed' | 'review_required' | 'approved' | 'restricted' | 'rejected';
+          crawl_frequency_minutes: number;
+          last_successful_crawl: string | null;
+          last_attempted_crawl: string | null;
+          reliability_score: number;
+          is_enabled: boolean;
+          rate_limit_per_minute: number;
+          error_history: Json;
+          admin_notes: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          website_url: string;
+          category: 'career_page' | 'job_board' | 'agency_page' | 'industrial_announcement' | 'employer_feed' | 'partner_feed' | 'manual_submission';
+          source_owner?: string | null;
+          access_method?: 'http_get' | 'rss_feed' | 'json_api' | 'manual_url';
+          permission_status?: 'not_reviewed' | 'review_required' | 'approved' | 'restricted' | 'rejected';
+          crawl_frequency_minutes?: number;
+          last_successful_crawl?: string | null;
+          last_attempted_crawl?: string | null;
+          reliability_score?: number;
+          is_enabled?: boolean;
+          rate_limit_per_minute?: number;
+          error_history?: Json;
+          admin_notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          website_url?: string;
+          category?: 'career_page' | 'job_board' | 'agency_page' | 'industrial_announcement' | 'employer_feed' | 'partner_feed' | 'manual_submission';
+          source_owner?: string | null;
+          access_method?: 'http_get' | 'rss_feed' | 'json_api' | 'manual_url';
+          permission_status?: 'not_reviewed' | 'review_required' | 'approved' | 'restricted' | 'rejected';
+          crawl_frequency_minutes?: number;
+          last_successful_crawl?: string | null;
+          last_attempted_crawl?: string | null;
+          reliability_score?: number;
+          is_enabled?: boolean;
+          rate_limit_per_minute?: number;
+          error_history?: Json;
+          admin_notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      discovery_runs: {
+        Row: {
+          id: string;
+          source_id: string;
+          status: 'running' | 'completed' | 'failed' | 'partial';
+          vacancies_discovered: number;
+          vacancies_ingested: number;
+          duplicates_detected: number;
+          error_log: Json;
+          started_at: string;
+          completed_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          source_id: string;
+          status: 'running' | 'completed' | 'failed' | 'partial';
+          vacancies_discovered?: number;
+          vacancies_ingested?: number;
+          duplicates_detected?: number;
+          error_log?: Json;
+          started_at?: string;
+          completed_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          source_id?: string;
+          status?: 'running' | 'completed' | 'failed' | 'partial';
+          vacancies_discovered?: number;
+          vacancies_ingested?: number;
+          duplicates_detected?: number;
+          error_log?: Json;
+          started_at?: string;
+          completed_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "discovery_runs_source_id_fkey";
+            columns: ["source_id"];
+            isOneToOne: false;
+            referencedRelation: "discovery_sources";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
     };
     Views: Record<string, never>;
     Functions: {
