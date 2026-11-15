@@ -494,3 +494,6 @@ export const trustService = {
     }
   },
 };
+
+export const evaluateJobRisk = trustService.evaluateJobRisk;
+
