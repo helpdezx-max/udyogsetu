@@ -64,9 +64,9 @@ export class IngestionPipeline {
       const candTokens = new Set(candTitleClean.split(/\s+/));
       const exTokens = new Set(exTitle.split(/\s+/));
       let overlap = 0;
-      for (const t of candTokens) {
+      candTokens.forEach((t) => {
         if (exTokens.has(t)) overlap++;
-      }
+      });
       const similarity = overlap / Math.max(candTokens.size, exTokens.size);
       if (similarity >= 0.8 && exComp === candCompClean) {
         is_duplicate = true;

@@ -14,6 +14,7 @@ import {
   BarChart3,
   Settings,
   Lock,
+  Globe,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
@@ -40,6 +41,11 @@ export const AdminLayout: React.FC<{ children: React.ReactNode; title?: string }
       label: 'Job Moderation Queue',
       href: '/admin/moderation',
       icon: <CheckCircle className="w-4 h-4" />,
+    },
+    {
+      label: 'Job Sources & Discovery',
+      href: '/admin/sources',
+      icon: <Globe className="w-4 h-4" />,
     },
     {
       label: 'Complaints & Reports',
