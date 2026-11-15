@@ -1,0 +1,81 @@
+{
+  "brandName": "UdyogSetu",
+  "brandTagline": "Industrial Employment Network • Chakan & Maharashtra",
+  "demoBadge": "PHASE 1 DEMO ENVIRONMENT",
+  "demoNotice": "Demonstration data for Chakan MIDC and surrounding industrial hubs. No backend required.",
+  
+  "nav": {
+    "findJobs": "Find Jobs",
+    "companies": "Company Directory",
+    "walkins": "Walk-in Interviews",
+    "locations": "Industrial Clusters",
+    "about": "About Platform",
+    "trust": "Trust & Safety",
+    "candidatePortal": "Candidate Portal",
+    "employerPortal": "Employer Portal",
+    "agencyPortal": "Agency Portal",
+    "adminPortal": "Admin Moderation",
+    "postJob": "Post Industrial Job",
+    "login": "Sign In",
+    "register": "Register"
+  },
+
+  "hero": {
+    "headline": "Find Your Next Job Closer to Home.",
+    "subheadline": "Discover genuine factory, manufacturing and industrial job opportunities across Chakan MIDC, Khed City, Mahalunge, Kuruli, and surrounding clusters.",
+    "searchPlaceholder": "Search by role (e.g. CNC Operator, Welder, Electrician, Assembly)",
+    "locationPlaceholder": "All Industrial Clusters",
+    "searchButton": "Search Verified Vacancies",
+    "popularTag": "Popular Searches:",
+    "activeJobsLabel": "Active Verified Openings",
+    "avgSalaryLabel": "Transparent Starting Salary",
+    "walkinsLabel": "Today's Walk-in Drives",
+    "candidateCta": "I am a Job Seeker",
+    "employerCta": "Hire Factory Manpower"
+  },
+
+  "filters": {
+    "title": "Filter Industrial Jobs",
+    "cluster": "Industrial Cluster / Area",
+    "allClusters": "All Clusters (Chakan, Khed, etc.)",
+    "category": "Job Category / Trade",
+    "allCategories": "All Trade Categories",
+    "experience": "Experience Required",
+    "allExperience": "Any Experience Level",
+    "qualification": "Minimum Qualification",
+    "allQualifications": "Any Qualification",
+    "shift": "Shift Preference",
+    "allShifts": "Any Shift",
+    "employmentType": "Employment Type",
+    "allTypes": "All Types (On-Roll / Contract)",
+    "fresherOnly": "Freshers Welcome Only",
+    "walkInOnly": "Walk-in Drives Only",
+    "verifiedOnly": "Direct Verified Plants Only",
+    "clearAll": "Reset Filters"
+  },
+
+  "jobCard": {
+    "openings": "Openings",
+    "inHand": "In-hand / month",
+    "gross": "Gross",
+    "shift": "Shift",
+    "busProvided": "Bus Route Available",
+    "canteenProvided": "Canteen Subsidized",
+    "roomHelp": "Room / Hostel Support",
+    "viewDetails": "View Full Details",
+    "applyNow": "Apply Now",
+    "applied": "Applied",
+    "save": "Save",
+    "saved": "Saved",
+    "confirmedOn": "Confirmed on",
+    "walkinTag": "Walk-in Today"
+  },
+
+  "roles": {
+    "public": "Public Visitor",
+    "candidate": "Candidate",
+    "employer": "Plant HR",
+    "agency": "Manpower Agency",
+    "admin": "Platform Admin"
+  }
+}
