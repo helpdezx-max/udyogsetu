@@ -1315,6 +1315,201 @@ export interface Database {
           }
         ];
       };
+      whatsapp_consent_records: {
+        Row: {
+          id: string;
+          phone_number: string;
+          user_id: string | null;
+          consent_status: 'opted_in' | 'opted_out' | 'pending';
+          consent_source: string;
+          categories_accepted: string[];
+          opted_in_at: string;
+          opted_out_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          phone_number: string;
+          user_id?: string | null;
+          consent_status?: 'opted_in' | 'opted_out' | 'pending';
+          consent_source?: string;
+          categories_accepted?: string[];
+          opted_in_at?: string;
+          opted_out_at?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          phone_number?: string;
+          user_id?: string | null;
+          consent_status?: 'opted_in' | 'opted_out' | 'pending';
+          consent_source?: string;
+          categories_accepted?: string[];
+          opted_in_at?: string;
+          opted_out_at?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      whatsapp_message_logs: {
+        Row: {
+          id: string;
+          recipient_phone: string;
+          template_name: string;
+          language_code: string;
+          idempotency_key: string;
+          message_payload: Json;
+          status: 'queued' | 'sent' | 'delivered' | 'read' | 'failed';
+          whatsapp_message_id: string | null;
+          error_message: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          recipient_phone: string;
+          template_name: string;
+          language_code?: string;
+          idempotency_key: string;
+          message_payload?: Json;
+          status?: 'queued' | 'sent' | 'delivered' | 'read' | 'failed';
+          whatsapp_message_id?: string | null;
+          error_message?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          recipient_phone?: string;
+          template_name?: string;
+          language_code?: string;
+          idempotency_key?: string;
+          message_payload?: Json;
+          status?: 'queued' | 'sent' | 'delivered' | 'read' | 'failed';
+          whatsapp_message_id?: string | null;
+          error_message?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      job_alert_preferences: {
+        Row: {
+          id: string;
+          user_id: string;
+          preferred_trades: string[];
+          preferred_clusters: string[];
+          min_salary: number;
+          shift_preference: string;
+          alert_frequency: 'immediate' | 'daily_digest' | 'weekly_digest' | 'disabled';
+          notification_channels: string[];
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          preferred_trades?: string[];
+          preferred_clusters?: string[];
+          min_salary?: number;
+          shift_preference?: string;
+          alert_frequency?: 'immediate' | 'daily_digest' | 'weekly_digest' | 'disabled';
+          notification_channels?: string[];
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          preferred_trades?: string[];
+          preferred_clusters?: string[];
+          min_salary?: number;
+          shift_preference?: string;
+          alert_frequency?: 'immediate' | 'daily_digest' | 'weekly_digest' | 'disabled';
+          notification_channels?: string[];
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      ai_usage_logs: {
+        Row: {
+          id: string;
+          feature_name: string;
+          model_name: string;
+          prompt_tokens: number;
+          completion_tokens: number;
+          estimated_cost_usd: number;
+          status: 'success' | 'fallback_rule_based' | 'failed';
+          user_id: string | null;
+          error_details: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          feature_name: string;
+          model_name: string;
+          prompt_tokens?: number;
+          completion_tokens?: number;
+          estimated_cost_usd?: number;
+          status?: 'success' | 'fallback_rule_based' | 'failed';
+          user_id?: string | null;
+          error_details?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          feature_name?: string;
+          model_name?: string;
+          prompt_tokens?: number;
+          completion_tokens?: number;
+          estimated_cost_usd?: number;
+          status?: 'success' | 'fallback_rule_based' | 'failed';
+          user_id?: string | null;
+          error_details?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      ai_feature_settings: {
+        Row: {
+          id: string;
+          feature_key: string;
+          is_enabled: boolean;
+          model_provider: string;
+          model_name: string;
+          monthly_token_budget: number;
+          description: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          feature_key: string;
+          is_enabled?: boolean;
+          model_provider?: string;
+          model_name?: string;
+          monthly_token_budget?: number;
+          description?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          feature_key?: string;
+          is_enabled?: boolean;
+          model_provider?: string;
+          model_name?: string;
+          monthly_token_budget?: number;
+          description?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {
