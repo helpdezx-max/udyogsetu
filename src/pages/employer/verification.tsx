@@ -27,7 +27,26 @@ import { TrustBadge, TrustBadgeExplainerModal } from '../../components/ui/TrustB
 export default function EmployerVerificationPage() {
   const { companies } = useApp();
   const { user, isConfigured } = useAuth();
-  const company = companies.find((c) => c.id === 'comp-1') || companies[0];
+  const company = companies[0] || {
+    id: '',
+    name: 'Your Manufacturing Unit',
+    clusterName: 'Chakan MIDC',
+    specificAddress: 'Plot 45, Chakan MIDC, Pune 410501',
+    verificationStatus: 'pending',
+    facilities: [],
+    contactEmail: user?.email || 'hr@company.com',
+    udyamRegistrationNo: 'UDYAM-MH-26-XXXXXXX',
+    gstin: '27AXXXXXXXXXXXZX',
+    establishedYear: 2020,
+    employeeBand: '200-500',
+    directEmployer: true,
+    logoLetter: 'M',
+    logoPlaceholderBg: 'bg-brand-600',
+    contactPhone: '+91 2135 XXXXXX',
+    openVacanciesCount: 0,
+    description: 'Direct manufacturing employer operating in the Chakan-Pune industrial belt.',
+    slug: 'plant-profile',
+  };
 
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -58,9 +77,8 @@ export default function EmployerVerificationPage() {
       if (isConfigured && user) {
         const { error } = await employerService.uploadVerificationDocument(
           company.id,
-          docType,
           file,
-          user.id
+          docType
         );
         if (error) {
           setUploadError(error.message || 'Failed to upload verification document.');
@@ -221,13 +239,13 @@ export default function EmployerVerificationPage() {
                   <TrustBadge badge="rep_verified" interactive />
                 </div>
                 <p className="text-xs text-indigo-800 mt-1 leading-relaxed">
-                  Confirms the logged-in representative ({user?.email || 'hr@sahyadri-autotech.com'}) has verified work email access and designated HR hiring authorization from the factory management.
+                  Confirms the logged-in representative ({user?.email || 'hr@company.com'}) has verified work email access and designated HR hiring authorization from the factory management.
                 </p>
               </div>
             </div>
             <div className="text-3xs text-indigo-700 font-medium flex items-center justify-between border-t border-indigo-200/80 pt-2.5">
               <span>Status: <strong className="uppercase font-bold text-indigo-900">Verified Representative</strong></span>
-              <span>Domain: @sahyadri-autotech.com</span>
+              <span>Domain: {user?.email ? `@${user.email.split('@')[1]}` : 'Corporate Work Email'}</span>
             </div>
           </div>
         </div>

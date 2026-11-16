@@ -17,14 +17,15 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 
 export default function EmployerDashboardPage() {
-  const { jobs, applications } = useApp();
+  const { jobs, applications, companies } = useApp();
 
-  const plantJobs = jobs.filter((j) => j.companyId === 'comp-1');
+  const currentCompany = companies[0] || null;
+  const plantJobs = currentCompany ? jobs.filter((j) => j.companyId === currentCompany.id) : jobs;
 
   return (
     <EmployerLayout>
       <Head>
-        <title>Plant HR Recruitment Dashboard • Sahyadri Precision</title>
+        <title>Plant HR Recruitment Dashboard • UdyogSetu</title>
       </Head>
 
       <div className="space-y-6">
@@ -130,28 +131,47 @@ export default function EmployerDashboardPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-industrial-100">
-                {plantJobs.map((j) => (
-                  <tr key={j.id} className="hover:bg-industrial-50/50">
-                    <td className="py-3 px-3 font-bold text-industrial-900">{j.title}</td>
-                    <td className="py-3 px-3 text-industrial-600">{j.category}</td>
-                    <td className="py-3 px-3 font-semibold text-industrial-800">{j.openingsCount}</td>
-                    <td className="py-3 px-3 font-bold text-emerald-700">
-                      ₹{j.salary.inHandMonthly.toLocaleString('en-IN')}/mo
-                    </td>
-                    <td className="py-3 px-3">
-                      <span className="text-2xs font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                        {j.status}
-                      </span>
-                    </td>
-                    <td className="py-3 px-3 text-right">
-                      <Link href={`/jobs/${j.id}`}>
-                        <Button size="sm" variant="outline" className="text-2xs px-2.5 py-0.5">
-                          View
-                        </Button>
-                      </Link>
+                {plantJobs.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="py-8 text-center text-industrial-500">
+                      <Briefcase className="w-6 h-6 text-industrial-400 mx-auto mb-2" />
+                      <p className="font-semibold text-neutral-800">No Active Vacancies Posted</p>
+                      <p className="text-2xs text-neutral-500 mt-1">
+                        Post your first manufacturing vacancy to start receiving verified local applications.
+                      </p>
+                      <div className="mt-3">
+                        <Link href="/employer/post-job">
+                          <Button size="sm" variant="outline" className="text-2xs font-semibold">
+                            Post Vacancy
+                          </Button>
+                        </Link>
+                      </div>
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  plantJobs.map((j) => (
+                    <tr key={j.id} className="hover:bg-industrial-50/50">
+                      <td className="py-3 px-3 font-bold text-industrial-900">{j.title}</td>
+                      <td className="py-3 px-3 text-industrial-600">{j.category}</td>
+                      <td className="py-3 px-3 font-semibold text-industrial-800">{j.openingsCount}</td>
+                      <td className="py-3 px-3 font-bold text-emerald-700">
+                        ₹{j.salary.inHandMonthly.toLocaleString('en-IN')}/mo
+                      </td>
+                      <td className="py-3 px-3">
+                        <span className="text-2xs font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                          {j.status}
+                        </span>
+                      </td>
+                      <td className="py-3 px-3 text-right">
+                        <Link href={`/jobs/${j.id}`}>
+                          <Button size="sm" variant="outline" className="text-2xs px-2.5 py-0.5">
+                            View
+                          </Button>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -167,33 +187,45 @@ export default function EmployerDashboardPage() {
           </div>
 
           <div className="space-y-3">
-            {applications.map((app) => (
-              <div
-                key={app.id}
-                className="p-3.5 rounded-xl border border-industrial-200 bg-industrial-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
-              >
-                <div>
-                  <div className="font-bold text-industrial-900">Mahesh Santosh Shinde</div>
-                  <div className="text-2xs text-industrial-500">
-                    Applied for: <span className="font-semibold text-industrial-700">{app.jobTitle}</span> • Applied {app.appliedDate}
-                  </div>
-                  {app.candidateNotes && (
-                    <div className="text-2xs text-industrial-600 mt-1 italic">"{app.candidateNotes}"</div>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <span className="text-2xs font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-300">
-                    {app.currentStatus}
-                  </span>
-                  <Link href="/employer/applicants">
-                    <Button size="sm" variant="outline" className="text-2xs px-2.5 py-1">
-                      Action
-                    </Button>
-                  </Link>
-                </div>
+            {applications.length === 0 ? (
+              <div className="py-8 text-center space-y-2 border border-dashed border-industrial-200 rounded-xl bg-industrial-50/50 p-6">
+                <Users2 className="w-8 h-8 text-industrial-400 mx-auto" />
+                <h4 className="text-sm font-bold text-industrial-900">No Candidate Applications Yet</h4>
+                <p className="text-xs text-industrial-500 max-w-sm mx-auto">
+                  When candidates apply for your industrial vacancies or walk-in drives, their profiles will appear here for review and interview scheduling.
+                </p>
               </div>
-            ))}
+            ) : (
+              applications.map((app) => (
+                <div
+                  key={app.id}
+                  className="p-3.5 rounded-xl border border-industrial-200 bg-industrial-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+                >
+                  <div>
+                    <div className="font-bold text-industrial-900">
+                      Candidate ID #{app.id.slice(0, 8)}
+                    </div>
+                    <div className="text-2xs text-industrial-500">
+                      Applied for: <span className="font-semibold text-industrial-700">{app.jobTitle}</span> • Applied {app.appliedDate}
+                    </div>
+                    {app.candidateNotes && (
+                      <div className="text-2xs text-industrial-600 mt-1 italic">&quot;{app.candidateNotes}&quot;</div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xs font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-300">
+                      {app.currentStatus}
+                    </span>
+                    <Link href="/employer/applicants">
+                      <Button size="sm" variant="outline" className="text-2xs px-2.5 py-1">
+                        Action
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { getSupabaseClient } from '../lib/supabase/client';
 import { storageService } from './storageService';
-import { Company, SAMPLE_COMPANIES, INITIAL_APPLICATIONS } from '../data/demo-data';
+import { Company } from '../data/demo-data';
 
 export const employerService = {
   /**
@@ -13,11 +13,7 @@ export const employerService = {
   }> {
     const client = getSupabaseClient();
     if (!client) {
-      return {
-        company: SAMPLE_COMPANIES[0],
-        role: 'owner',
-        error: null,
-      };
+      return { company: null, role: null, error: null };
     }
 
     try {
@@ -49,7 +45,7 @@ export const employerService = {
         establishedYear: c.established_year || 2010,
         description: c.description || '',
         facilities: c.facilities || [],
-        logoPlaceholderBg: 'bg-industrial-900',
+        logoPlaceholderBg: 'bg-neutral-900',
         logoLetter: c.name.charAt(0).toUpperCase(),
         contactEmail: c.contact_email,
         contactPhone: c.contact_phone,
@@ -58,7 +54,7 @@ export const employerService = {
 
       return { company, role: memberRow.member_role, error: null };
     } catch (err: any) {
-      return { company: SAMPLE_COMPANIES[0], role: 'owner', error: err };
+      return { company: null, role: null, error: err };
     }
   },
 
@@ -75,16 +71,17 @@ export const employerService = {
     try {
       const dbUpdates: any = {};
       if (updates.name) dbUpdates.name = updates.name;
-      if (updates.specificAddress) dbUpdates.specific_address = updates.specificAddress;
-      if (updates.industry) dbUpdates.industry = updates.industry;
-      if (updates.employeeBand) dbUpdates.employee_band = updates.employeeBand;
       if (updates.description) dbUpdates.description = updates.description;
-      if (updates.facilities) dbUpdates.facilities = updates.facilities;
+      if (updates.specificAddress) dbUpdates.specific_address = updates.specificAddress;
       if (updates.contactEmail) dbUpdates.contact_email = updates.contactEmail;
       if (updates.contactPhone) dbUpdates.contact_phone = updates.contactPhone;
+      if (updates.employeeBand) dbUpdates.employee_band = updates.employeeBand;
+      if (updates.facilities) dbUpdates.facilities = updates.facilities;
       if (updates.udyamRegistrationNo) dbUpdates.udyam_registration_no = updates.udyamRegistrationNo;
       if (updates.gstin) dbUpdates.gstin = updates.gstin;
       if (updates.factoryLicenseNo) dbUpdates.factory_license_no = updates.factoryLicenseNo;
+
+      dbUpdates.updated_at = new Date().toISOString();
 
       const { error } = await (client as any)
         .from('companies')
@@ -99,53 +96,36 @@ export const employerService = {
   },
 
   /**
-   * Upload Company Verification Document & Register verification record
+   * Submit Statutory Document for Plant Verification
    */
   async uploadVerificationDocument(
     companyId: string,
-    docType: 'gstin_cert' | 'udyam_cert' | 'midc_allotment' | 'factory_license',
     file: File,
-    userId: string
+    docType: string,
+    documentNumber?: string
   ): Promise<{ data: any; error: Error | null }> {
-    const { data: uploadData, error: uploadError } = await storageService.uploadVerificationDocument(
-      companyId,
-      docType,
-      file
-    );
-
-    if (uploadError || !uploadData) {
-      return { data: null, error: uploadError || new Error('Upload failed') };
-    }
-
     const client = getSupabaseClient();
     if (!client) {
-      return { data: { id: `demo-doc-${Date.now()}` }, error: null };
+      return { data: { documentNumber, path: `demo-docs/${file.name}` }, error: null };
     }
 
     try {
-      // 1. Insert into company_documents
-      const { data: docRecord, error: docError } = await (client as any)
-        .from('company_documents')
-        .insert({
-          company_id: companyId,
-          document_type: docType,
-          file_path: uploadData.path,
-          file_name: uploadData.name,
-          uploaded_by: userId,
-        })
-        .select()
-        .single();
+      const { data: uploadData, error: uploadErr } = await storageService.uploadVerificationDocument(
+        companyId,
+        docType,
+        file
+      );
+      const storagePath = uploadData?.path;
+      if (uploadErr || !storagePath) throw uploadErr || new Error('Document upload failed');
 
-      if (docError) throw docError;
-
-      // 2. Upsert verification request
-      await (client as any)
+      // Save or update verification record
+      const { data: docRecord, error: dbErr } = await (client as any)
         .from('company_verifications')
         .upsert(
           {
             company_id: companyId,
-            status: 'pending',
-            notes: `Document uploaded: ${docType}`,
+            status: 'submitted',
+            notes: `Submitted ${docType} document for physical/registry audit: ${file.name}`,
           },
           { onConflict: 'company_id' }
         );
@@ -162,7 +142,7 @@ export const employerService = {
   async getApplicants(companyId: string): Promise<{ data: any[]; error: Error | null }> {
     const client = getSupabaseClient();
     if (!client) {
-      return { data: INITIAL_APPLICATIONS, error: null };
+      return { data: [], error: null };
     }
 
     try {
@@ -185,7 +165,7 @@ export const employerService = {
       if (error) throw error;
       return { data: data || [], error: null };
     } catch (err: any) {
-      return { data: INITIAL_APPLICATIONS, error: err };
+      return { data: [], error: err };
     }
   },
 
@@ -204,12 +184,10 @@ export const employerService = {
     try {
       const updates: any = {
         current_status: newStatus,
-        interviewer_notes: notes || null,
+        updated_at: new Date().toISOString(),
       };
-
-      if (interviewDate) {
-        updates.interview_scheduled_date = interviewDate;
-      }
+      if (notes) updates.interviewer_notes = notes;
+      if (interviewDate) updates.interview_scheduled_date = interviewDate;
 
       const { error } = await (client as any)
         .from('applications')

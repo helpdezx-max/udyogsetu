@@ -11,8 +11,8 @@ export default function CandidateResumePage() {
   const { candidateProfile, updateCandidateProfile } = useApp();
   const { user, isConfigured } = useAuth();
 
-  const [resumeName, setResumeName] = useState(candidateProfile.resumeFileName || 'Mahesh_Shinde_ITI_Resume.pdf');
-  const [uploadedTime, setUploadedTime] = useState('10-Nov-2026');
+  const [resumeName, setResumeName] = useState(candidateProfile.resumeFileName || '');
+  const [uploadedTime, setUploadedTime] = useState(candidateProfile.resumeFileName ? 'Uploaded previously' : 'No document attached');
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -30,7 +30,7 @@ export default function CandidateResumePage() {
       }
 
       if (isConfigured && user) {
-        const { error } = await candidateService.uploadResume(user.id, candidateProfile.id, file);
+        const { error } = await candidateService.uploadResume(candidateProfile.id || user.id, file);
         if (error) {
           setUploadError(error.message || 'Failed to upload resume to Supabase Storage.');
           setIsUploading(false);
@@ -86,7 +86,9 @@ export default function CandidateResumePage() {
                 <FileText className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="font-bold text-sm text-industrial-900">{resumeName}</h4>
+                <h4 className="font-bold text-sm text-industrial-900">
+                  {resumeName || 'No resume uploaded yet (PDF format required)'}
+                </h4>
                 <p className="text-2xs text-industrial-500">
                   Uploaded {uploadedTime} • Protected by Row Level Security
                 </p>

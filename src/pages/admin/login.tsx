@@ -13,8 +13,8 @@ export default function AdminLoginPage() {
   const { signIn, isConfigured } = useAuth();
   const { setActiveRole } = useApp();
 
-  const [adminUser, setAdminUser] = useState('moderator@udyogsetu.demo');
-  const [adminPass, setAdminPass] = useState('admin1234');
+  const [adminUser, setAdminUser] = useState('');
+  const [adminPass, setAdminPass] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 

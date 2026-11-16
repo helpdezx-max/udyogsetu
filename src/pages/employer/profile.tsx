@@ -9,7 +9,15 @@ import { Button } from '../../components/ui/Button';
 
 export default function EmployerProfilePage() {
   const { companies } = useApp();
-  const company = companies.find((c) => c.id === 'comp-1') || companies[0];
+  const company = companies[0] || {
+    id: '',
+    name: '',
+    clusterName: 'Chakan MIDC Phase 1',
+    specificAddress: '',
+    contactPhone: '',
+    contactEmail: '',
+    description: '',
+  };
 
   const [plantName, setPlantName] = useState(company.name);
   const [address, setAddress] = useState(company.specificAddress);

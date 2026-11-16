@@ -74,59 +74,68 @@ export default function EmployerApplicantsPage() {
         </div>
 
         <div className="space-y-4">
-          {filteredApps.map((app) => (
-            <Card key={app.id} className="p-5 space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-industrial-100">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-brand-600 text-white font-bold flex items-center justify-center shrink-0">
-                    M
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-sm text-industrial-900">Mahesh Santosh Shinde</h3>
-                    <p className="text-xs text-industrial-500">
-                      Applied for: <span className="font-semibold text-industrial-800">{app.jobTitle}</span>
-                    </p>
-                    <div className="flex items-center gap-3 text-2xs text-industrial-600 mt-1">
-                      <span>ITI Machinist (NCVT 2022)</span>
-                      <span>•</span>
-                      <span>28 Months Exp</span>
-                      <span>•</span>
-                      <span>Residing: Chakan Ambethan</span>
+          {filteredApps.length === 0 ? (
+            <div className="py-12 text-center space-y-2 border border-dashed border-industrial-200 rounded-xl bg-industrial-50/50 p-6">
+              <Users2 className="w-8 h-8 text-industrial-400 mx-auto" />
+              <h4 className="text-sm font-bold text-industrial-900">No Applicants in Selected Stage</h4>
+              <p className="text-xs text-industrial-500 max-w-sm mx-auto">
+                Candidate submissions from Chakan and Pune manufacturing corridors will appear here for review, skill testing, and gate interviews.
+              </p>
+            </div>
+          ) : (
+            filteredApps.map((app) => (
+              <Card key={app.id} className="p-5 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-industrial-100">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-brand-600 text-white font-bold flex items-center justify-center shrink-0">
+                      C
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-sm text-industrial-900">
+                        Candidate ID #{app.id.slice(0, 8)}
+                      </h3>
+                      <p className="text-xs text-industrial-500">
+                        Applied for: <span className="font-semibold text-industrial-800">{app.jobTitle}</span>
+                      </p>
+                      <div className="flex items-center gap-3 text-2xs text-industrial-600 mt-1">
+                        <span>Cluster: {app.clusterName}</span>
+                        <span>•</span>
+                        <span>Applied: {app.appliedDate}</span>
+                      </div>
                     </div>
                   </div>
+
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`text-2xs font-bold px-2.5 py-0.5 rounded-full border ${
+                        app.currentStatus === 'Interview Scheduled'
+                          ? 'bg-amber-100 text-amber-900 border-amber-300'
+                          : app.currentStatus === 'Selected'
+                          ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
+                          : 'bg-blue-50 text-blue-800 border-blue-200'
+                      }`}
+                    >
+                      {app.currentStatus}
+                    </span>
+                    <Link href={`/jobs/${app.jobId}`}>
+                      <Button size="sm" variant="outline" className="text-2xs px-2.5 py-1">
+                        View Job
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`text-2xs font-bold px-2.5 py-0.5 rounded-full border ${
-                      app.currentStatus === 'Interview Scheduled'
-                        ? 'bg-amber-100 text-amber-900 border-amber-300'
-                        : app.currentStatus === 'Selected'
-                        ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
-                        : 'bg-blue-50 text-blue-800 border-blue-200'
-                    }`}
-                  >
-                    {app.currentStatus}
-                  </span>
-                  <Link href={`/employer/candidates/cand-001`}>
-                    <Button size="sm" variant="outline" className="text-2xs px-2.5 py-1">
-                      Full Profile
-                    </Button>
-                  </Link>
-                </div>
-              </div>
+                {app.candidateNotes && (
+                  <div className="text-xs bg-industrial-50 p-2.5 rounded-lg border border-industrial-200 text-industrial-700">
+                    <span className="font-semibold">Candidate Message:</span> &quot;{app.candidateNotes}&quot;
+                  </div>
+                )}
 
-              {app.candidateNotes && (
-                <div className="text-xs bg-industrial-50 p-2.5 rounded-lg border border-industrial-200 text-industrial-700">
-                  <span className="font-semibold">Candidate Message:</span> "{app.candidateNotes}"
-                </div>
-              )}
-
-              {/* Action Pipeline Control */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pt-1 text-xs">
-                <div className="text-2xs font-bold text-industrial-500 uppercase">
-                  Advance Recruitment Stage (Interactive Demo):
-                </div>
+                {/* Action Pipeline Control */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-1 text-xs">
+                  <div className="text-2xs font-bold text-industrial-500 uppercase">
+                    Advance Recruitment Stage:
+                  </div>
 
                 <div className="flex flex-wrap gap-1.5">
                   <button
@@ -162,7 +171,7 @@ export default function EmployerApplicantsPage() {
                 </div>
               </div>
             </Card>
-          ))}
+          )))}
         </div>
       </div>
     </EmployerLayout>

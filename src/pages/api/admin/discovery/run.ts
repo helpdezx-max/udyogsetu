@@ -47,40 +47,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
-    // Fallback seed sources if DB table not yet populated or offline
+    // If no approved sources are found in registry
     if (sources.length === 0) {
-      sources = [
-        {
-          id: 'src-mahindra-demo',
-          name: 'Mahindra & Mahindra Chakan Plant Direct Careers',
-          website_url: 'https://jobs.mahindra.com/search/?q=chakan',
-          category: 'career_page',
-          source_owner: 'Mahindra & Mahindra Ltd.',
-          access_method: 'http_get',
-          permission_status: 'approved',
-          crawl_frequency_minutes: 720,
-          last_successful_crawl: null,
-          last_attempted_crawl: null,
-          reliability_score: 98,
-          is_enabled: true,
-          rate_limit_per_minute: 6
-        },
-        {
-          id: 'src-bajaj-demo',
-          name: 'Bajaj Auto Chakan Production Openings',
-          website_url: 'https://www.bajajauto.com/careers/openings',
-          category: 'career_page',
-          source_owner: 'Bajaj Auto Ltd.',
-          access_method: 'http_get',
-          permission_status: 'approved',
-          crawl_frequency_minutes: 720,
-          last_successful_crawl: null,
-          last_attempted_crawl: null,
-          reliability_score: 96,
-          is_enabled: true,
-          rate_limit_per_minute: 6
-        }
-      ];
+      return res.status(200).json({
+        success: true,
+        timestamp: new Date().toISOString(),
+        sourcesProcessed: 0,
+        runs: [],
+        message: 'No enabled and approved discovery sources registered in database.'
+      });
     }
 
     // 3. Execute Discovery Runs in Isolated Boundary

@@ -139,15 +139,6 @@ export default async function handler(
           }
         }
       }
-    } else {
-      // Demo / Staging simulation mode
-      reconfirmationJobIds.push('demo-job-3', 'demo-job-7');
-      riskFindings.push({
-        jobId: 'demo-job-risk-1',
-        score: 65,
-        level: 'high',
-        flags: ['ANOMALOUS_HELPER_SALARY', 'REGISTRATION_FEE_SUSPICION'],
-      });
     }
 
     return res.status(200).json({
@@ -155,7 +146,7 @@ export default async function handler(
       timestamp: now.toISOString(),
       reconfirmationRequiredCount: reconfirmationJobIds.length,
       temporarilyUnavailableCount: suspendedJobIds.length,
-      riskSignalsScanned: 18,
+      riskSignalsScanned: reconfirmationJobIds.length + suspendedJobIds.length + riskFindings.length,
       riskSignalsGenerated: riskFindings.length,
       details: {
         reconfirmationJobIds,

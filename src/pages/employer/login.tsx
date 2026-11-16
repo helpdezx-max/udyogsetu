@@ -13,8 +13,8 @@ export default function EmployerLoginPage() {
   const { signIn, isConfigured } = useAuth();
   const { setActiveRole } = useApp();
 
-  const [email, setEmail] = useState('hr@sahyadripolymers.demo');
-  const [password, setPassword] = useState('password123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -96,7 +96,7 @@ export default function EmployerLoginPage() {
             <span>
               {isConfigured
                 ? 'Secured with Supabase PostgreSQL multi-tenant Row Level Security.'
-                : 'Demo Credentials pre-filled for local test-driving.'}
+                : 'Local Mode: Enter your registered plant HR email and password.'}
             </span>
           </div>
         </div>

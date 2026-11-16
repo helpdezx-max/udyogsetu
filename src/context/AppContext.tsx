@@ -7,13 +7,6 @@ import {
   JobApplication,
   EmployerVerificationRequest,
   ModerationReport,
-  SAMPLE_JOBS,
-  SAMPLE_COMPANIES,
-  SAMPLE_WALKINS,
-  SAMPLE_CANDIDATE,
-  INITIAL_APPLICATIONS,
-  INITIAL_VERIFICATIONS,
-  INITIAL_REPORTS,
 } from '../data/demo-data';
 import { isSupabaseConfigured } from '../lib/supabase/client';
 import { jobsService } from '../services/jobsService';
@@ -23,6 +16,23 @@ import { adminService } from '../services/adminService';
 
 export type UserRole = 'public' | 'candidate' | 'employer' | 'agency' | 'admin';
 export type Locale = 'en' | 'mr' | 'hi';
+
+export const EMPTY_CANDIDATE: CandidateProfile = {
+  id: '',
+  fullName: '',
+  phone: '',
+  email: '',
+  currentResidence: '',
+  highestQualification: '10th / 12th',
+  tradeSpecialization: undefined,
+  totalExperienceMonths: 0,
+  currentDesignation: '',
+  preferredShifts: [],
+  preferredClusters: [],
+  expectedSalaryInHand: 0,
+  profileCompletionPercentage: 0,
+  readyToJoinDays: 0,
+};
 
 interface AppContextType {
   // Locale
@@ -35,8 +45,9 @@ interface AppContextType {
 
   // Supabase Connection Status
   isSupabaseConnected: boolean;
+  isLoading: boolean;
 
-  // Data Collections
+  // Data Collections (Clean Production State: Starts with 0 demo business data)
   jobs: JobVacancy[];
   companies: Company[];
   walkIns: WalkInEvent[];
@@ -64,23 +75,25 @@ interface AppContextType {
   closeApplyModal: () => void;
 }
 
-const STORAGE_KEY = 'udyogsetu_demo_platform_v1';
+const STORAGE_KEY = 'udyogsetu_platform_v2_prod';
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [locale, setLocale] = useState<Locale>('en');
   const [activeRole, setActiveRole] = useState<UserRole>('public');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const isSupabaseConnected = isSupabaseConfigured();
 
-  const [jobs, setJobs] = useState<JobVacancy[]>(SAMPLE_JOBS);
-  const [companies, setCompanies] = useState<Company[]>(SAMPLE_COMPANIES);
-  const [walkIns, setWalkIns] = useState<WalkInEvent[]>(SAMPLE_WALKINS);
-  const [applications, setApplications] = useState<JobApplication[]>(INITIAL_APPLICATIONS);
-  const [verifications, setVerifications] = useState<EmployerVerificationRequest[]>(INITIAL_VERIFICATIONS);
-  const [reports, setReports] = useState<ModerationReport[]>(INITIAL_REPORTS);
-  const [candidateProfile, setCandidateProfile] = useState<CandidateProfile>(SAMPLE_CANDIDATE);
-  const [savedJobIds, setSavedJobIds] = useState<string[]>(['job-101', 'job-104']);
+  // Clean production state: Zero fictional demo business data
+  const [jobs, setJobs] = useState<JobVacancy[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [walkIns, setWalkIns] = useState<WalkInEvent[]>([]);
+  const [applications, setApplications] = useState<JobApplication[]>([]);
+  const [verifications, setVerifications] = useState<EmployerVerificationRequest[]>([]);
+  const [reports, setReports] = useState<ModerationReport[]>([]);
+  const [candidateProfile, setCandidateProfile] = useState<CandidateProfile>(EMPTY_CANDIDATE);
+  const [savedJobIds, setSavedJobIds] = useState<string[]>([]);
 
   const [applyingJob, setApplyingJob] = useState<JobVacancy | null>(null);
 
@@ -90,37 +103,40 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (parsed.jobs) setJobs(parsed.jobs);
-        if (parsed.companies) setCompanies(parsed.companies);
-        if (parsed.applications) setApplications(parsed.applications);
-        if (parsed.verifications) setVerifications(parsed.verifications);
-        if (parsed.reports) setReports(parsed.reports);
+        if (parsed.jobs && Array.isArray(parsed.jobs)) setJobs(parsed.jobs);
+        if (parsed.companies && Array.isArray(parsed.companies)) setCompanies(parsed.companies);
+        if (parsed.applications && Array.isArray(parsed.applications)) setApplications(parsed.applications);
+        if (parsed.verifications && Array.isArray(parsed.verifications)) setVerifications(parsed.verifications);
+        if (parsed.reports && Array.isArray(parsed.reports)) setReports(parsed.reports);
         if (parsed.candidateProfile) setCandidateProfile(parsed.candidateProfile);
-        if (parsed.savedJobIds) setSavedJobIds(parsed.savedJobIds);
+        if (parsed.savedJobIds && Array.isArray(parsed.savedJobIds)) setSavedJobIds(parsed.savedJobIds);
         if (parsed.locale) setLocale(parsed.locale);
         if (parsed.activeRole) setActiveRole(parsed.activeRole);
       }
     } catch (e) {
-      console.warn('Could not hydrate demo state from localStorage:', e);
+      console.warn('Could not hydrate state from localStorage:', e);
     }
 
-    // If Supabase is connected, fetch live jobs
+    // If Supabase is connected, fetch live jobs and system records
     if (isSupabaseConnected) {
-      jobsService.getJobs().then(({ jobs: dbJobs, error }) => {
-        if (!error && dbJobs && dbJobs.length > 0) {
-          setJobs(dbJobs);
-        }
-      });
-      adminService.getPendingVerifications().then(({ verifications: dbVerifs, error }) => {
-        if (!error && dbVerifs) {
-          setVerifications(dbVerifs);
-        }
-      });
-      adminService.getModerationReports().then(({ reports: dbReports, error }) => {
-        if (!error && dbReports) {
-          setReports(dbReports);
-        }
-      });
+      setIsLoading(true);
+      Promise.all([
+        jobsService.getJobs(),
+        adminService.getPendingVerifications(),
+        adminService.getModerationReports(),
+      ])
+        .then(([{ jobs: dbJobs }, { verifications: dbVerifs }, { reports: dbReports }]) => {
+          if (dbJobs) setJobs(dbJobs);
+          if (dbVerifs) setVerifications(dbVerifs);
+          if (dbReports) setReports(dbReports);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.warn('Supabase query error:', err);
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
     }
   }, [isSupabaseConnected]);
 
@@ -131,7 +147,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       const parsed = existing ? JSON.parse(existing) : {};
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...parsed, ...newSlice }));
     } catch (e) {
-      console.warn('Could not persist demo state:', e);
+      console.warn('Could not persist state:', e);
     }
   };
 
@@ -142,30 +158,31 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       persistState({ savedJobIds: updated });
       return updated;
     });
-
-    if (isSupabaseConnected && candidateProfile.id) {
-      candidateService.toggleSaveJob(candidateProfile.id, jobId, savedJobIds.includes(jobId));
-    }
   };
 
   const isJobSaved = (jobId: string) => savedJobIds.includes(jobId);
 
-  const submitApplication = async (jobId: string, notes?: string) => {
-    const job = jobs.find((j) => j.id === jobId);
-    if (!job) return { success: false, message: 'Job not found' };
-
-    const alreadyApplied = applications.some((a) => a.jobId === jobId);
-    if (alreadyApplied) {
+  const submitApplication = async (
+    jobId: string,
+    notes?: string
+  ): Promise<{ success: boolean; message: string }> => {
+    const existing = applications.find((a) => a.jobId === jobId);
+    if (existing) {
       return { success: false, message: 'You have already submitted an application for this vacancy.' };
     }
 
+    const job = jobs.find((j) => j.id === jobId);
+    if (!job) {
+      return { success: false, message: 'Vacancy record not found.' };
+    }
+
     const newApp: JobApplication = {
-      id: `app-${Date.now().toString().slice(-4)}`,
-      jobId: job.id,
+      id: `app-${Date.now()}`,
+      jobId,
       jobTitle: job.title,
       companyName: job.companyName,
       clusterName: job.clusterName,
-      appliedDate: 'Just now',
+      appliedDate: new Date().toLocaleDateString('en-GB'),
       currentStatus: 'Applied',
       candidateNotes: notes,
     };
@@ -175,10 +192,20 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     persistState({ applications: updated });
 
     if (isSupabaseConnected && candidateProfile.id) {
-      await candidateService.submitApplication(jobId, candidateProfile.id, notes);
+      const { success, error } = await candidateService.submitApplication(
+        candidateProfile.id,
+        jobId,
+        notes
+      );
+      if (!success && error) {
+        return { success: false, message: error.message };
+      }
     }
 
-    return { success: true, message: `Application submitted successfully to ${job.companyName}!` };
+    return {
+      success: true,
+      message: 'Application successfully submitted to plant recruitment desk.',
+    };
   };
 
   const updateApplicationStatus = async (
@@ -186,17 +213,19 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     newStatus: JobApplication['currentStatus'],
     notes?: string
   ) => {
-    const updated = applications.map((app) =>
-      app.id === appId
-        ? {
-            ...app,
-            currentStatus: newStatus,
-            interviewerNotes: notes || app.interviewerNotes,
-            interviewScheduledDate:
-              newStatus === 'Interview Scheduled' ? '20-Nov-2026, 11:00 AM' : app.interviewScheduledDate,
-          }
-        : app
-    );
+    const updated = applications.map((a) => {
+      if (a.id === appId) {
+        return {
+          ...a,
+          currentStatus: newStatus,
+          interviewerNotes: notes || a.interviewerNotes,
+          interviewScheduledDate:
+            newStatus === 'Interview Scheduled' ? 'Tomorrow, 10:30 AM (Plant Gate Pass Issued)' : a.interviewScheduledDate,
+        };
+      }
+      return a;
+    });
+
     setApplications(updated);
     persistState({ applications: updated });
 
@@ -206,11 +235,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   const updateCandidateProfile = async (updates: Partial<CandidateProfile>) => {
-    setCandidateProfile((prev) => {
-      const updated = { ...prev, ...updates };
-      persistState({ candidateProfile: updated });
-      return updated;
-    });
+    const updated = { ...candidateProfile, ...updates };
+    setCandidateProfile(updated);
+    persistState({ candidateProfile: updated });
 
     if (isSupabaseConnected && candidateProfile.id) {
       await candidateService.updateCandidateProfile(candidateProfile.id, updates);
@@ -222,17 +249,18 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   ): Promise<JobVacancy> => {
     const newJob: JobVacancy = {
       ...jobData,
-      id: `job-${Date.now().toString().slice(-4)}`,
+      id: `job-${Date.now()}`,
       postedDaysAgo: 0,
-      lastConfirmedDate: 'Today (Verified Post)',
+      lastConfirmedDate: new Date().toLocaleDateString('en-GB'),
       status: 'active',
     };
+
     const updated = [newJob, ...jobs];
     setJobs(updated);
     persistState({ jobs: updated });
 
     if (isSupabaseConnected) {
-      await jobsService.createJob(jobData, '00000000-0000-0000-0000-000000000001');
+      await jobsService.createJob(jobData, 'employer-user');
     }
 
     return newJob;
@@ -285,14 +313,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   const resetDemoData = () => {
-    setJobs(SAMPLE_JOBS);
-    setCompanies(SAMPLE_COMPANIES);
-    setWalkIns(SAMPLE_WALKINS);
-    setApplications(INITIAL_APPLICATIONS);
-    setVerifications(INITIAL_VERIFICATIONS);
-    setReports(INITIAL_REPORTS);
-    setCandidateProfile(SAMPLE_CANDIDATE);
-    setSavedJobIds(['job-101', 'job-104']);
+    setJobs([]);
+    setCompanies([]);
+    setWalkIns([]);
+    setApplications([]);
+    setVerifications([]);
+    setReports([]);
+    setCandidateProfile(EMPTY_CANDIDATE);
+    setSavedJobIds([]);
     try {
       localStorage.removeItem(STORAGE_KEY);
     } catch {}
@@ -319,6 +347,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         activeRole,
         setActiveRole: handleSetActiveRole,
         isSupabaseConnected,
+        isLoading,
         jobs,
         companies,
         walkIns,

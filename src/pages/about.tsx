@@ -81,7 +81,7 @@ export default function AboutPage() {
           </div>
           <Link href="/employer/post-job">
             <button className="bg-white text-neutral-900 hover:bg-neutral-100 text-xs font-bold px-5 py-2.5 rounded-xl whitespace-nowrap shadow-xs transition-colors">
-              Post Factory Job (Demo)
+              Post Factory Job
             </button>
           </Link>
         </div>

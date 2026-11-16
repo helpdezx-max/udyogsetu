@@ -32,7 +32,7 @@ export default function TermsPage() {
           </div>
 
           <div className="p-4 bg-neutral-100 border border-neutral-200 rounded-2xl text-neutral-700 font-medium text-xs">
-            Phase 1 is a frontend simulation. No actual legal or employment contract is created in this demonstration tier.
+            UdyogSetu connects candidates directly with verified manufacturing employers and authorized contractors. Employment agreements and statutory compliance remain the direct responsibility of the respective hiring entities.
           </div>
         </div>
       </div>

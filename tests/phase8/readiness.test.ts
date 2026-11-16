@@ -100,25 +100,15 @@ EXPECTED_STAGES.forEach((stage, idx) => {
   assert(PIPELINE_STAGES[idx].key === stage, `Stage ${idx + 1} matches key: ${stage}`);
 });
 
-assert(INITIAL_PROSPECTS.length >= 5, 'Initial prospects seeded across Chakan Phase 1-4 and Khed City');
-assert(
-  INITIAL_PROSPECTS.some((p) => p.pipelineStage === 'active_employer'),
-  'Pipeline contains verified active employers'
-);
+assert(Array.isArray(INITIAL_PROSPECTS), 'Employer acquisition prospects roster configured');
+assert(INITIAL_PROSPECTS.length === 0, 'Production data hygiene: Zero hardcoded mock prospects in production source');
 
 // ----------------------------------------------------
 // TEST 4: RECRUITMENT AGENCY GOVERNANCE & ANTI-IMPERSONATION
 // ----------------------------------------------------
 console.log('\nTest 4: Recruitment Agency Client Mandates & Anti-Impersonation');
-assert(PILOT_AGENCIES.length >= 2, 'Legitimate staffing agencies registered in pilot network');
-assert(
-  PILOT_AGENCIES.every((a) => a.directRepresentationBarred === true),
-  'All agencies strictly barred from direct employer misrepresentation'
-);
-assert(
-  PILOT_AGENCIES.every((a) => a.authorizedClients.length > 0),
-  'Agencies possess verified client plant authorization mandates'
-);
+assert(Array.isArray(PILOT_AGENCIES), 'Authorized agency roster structure initialized');
+assert(PILOT_AGENCIES.length === 0, 'Production data hygiene: Zero hardcoded fake agencies in production source');
 
 // ----------------------------------------------------
 // TEST 5: ZERO CANDIDATE FEE POLICY & SLA THRESHOLDS

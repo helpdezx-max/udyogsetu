@@ -34,68 +34,7 @@ export interface AuthorizedAgency {
   notes: string;
 }
 
-export const PILOT_AGENCIES: AuthorizedAgency[] = [
-  {
-    id: 'ag-1',
-    name: 'Pragati Manpower Services & Contractors',
-    cluster: 'Chakan MIDC Phase 1',
-    clraLicense: 'LAB-CON-REG-2024-81',
-    epfoRegistration: 'MH/PUN/0084920/000',
-    esicRegistration: '31000849200000999',
-    director: 'Mr. Balasaheb Thorat',
-    phone: '+91 98224 55102',
-    verificationStatus: 'verified',
-    specializations: ['CNC/VMC Machine Operators', 'Apprenticeship Sourcing', 'Line Assembly'],
-    authorizedClients: [
-      { clientName: 'Sahyadri Precision Auto-Tech Ltd.', scope: 'VMC Operators (12)', validUntil: '31-Dec-2026' },
-      { clientName: 'Bajaj Ancillary Pressings Unit 2', scope: 'Press Operators (20)', validUntil: '30-Jun-2027' },
-      { clientName: 'Khed Integrated Hydraulics', scope: 'Assembly Trainees (15)', validUntil: '31-Mar-2027' },
-    ],
-    candidateHandlingRating: 4.9,
-    complaintsCount: 0,
-    directRepresentationBarred: true,
-    notes: 'Audited Form V/VI CLRA licenses on file. 100% compliant with zero-fee candidate policy.',
-  },
-  {
-    id: 'ag-2',
-    name: 'Apex Industrial Manpower Solutions',
-    cluster: 'Chakan MIDC Phase 2',
-    clraLicense: 'LAB-CON-REG-2023-44',
-    epfoRegistration: 'MH/PUN/0091840/000',
-    esicRegistration: '31000918400000888',
-    director: 'Mr. Anil Gite',
-    phone: '+91 94220 88319',
-    verificationStatus: 'verified',
-    specializations: ['Fitter & Tool & Die', 'Warehouse Material Handlers', 'Powder Coating'],
-    authorizedClients: [
-      { clientName: 'Hyundai Construction Sub-Assembly', scope: 'Fabrication Welders (8)', validUntil: '15-Jan-2027' },
-      { clientName: 'IndoSpace Warehouse Facility 3', scope: 'Forklift Drivers (14)', validUntil: '28-Feb-2027' },
-    ],
-    candidateHandlingRating: 4.7,
-    complaintsCount: 0,
-    directRepresentationBarred: true,
-    notes: 'Verified client authorization letters submitted. Distinct agency badges enforced on all listings.',
-  },
-  {
-    id: 'ag-3',
-    name: 'Sai Shraddha Technical Staffing Agency',
-    cluster: 'Kuruli Industrial Belt',
-    clraLicense: 'LAB-CON-REG-2025-12',
-    epfoRegistration: 'MH/PUN/0073210/000',
-    esicRegistration: '31000732100000777',
-    director: 'Mr. Pandurang Kadam',
-    phone: '+91 98813 44021',
-    verificationStatus: 'pending_audit',
-    specializations: ['ITI Apprentices', 'Shopfloor Helpers', 'Commercial Packaging'],
-    authorizedClients: [
-      { clientName: 'Kuruli Micro-Fasteners Ltd.', scope: 'Machine Helpers (6)', validUntil: '31-Oct-2026' },
-    ],
-    candidateHandlingRating: 4.2,
-    complaintsCount: 1,
-    directRepresentationBarred: true,
-    notes: 'Under review for delayed ESIC card disbursement in Q2. Direct employer posting strictly locked.',
-  },
-];
+export const PILOT_AGENCIES: AuthorizedAgency[] = [];
 
 export default function AdminAgenciesPage() {
   const [agencies, setAgencies] = useState<AuthorizedAgency[]>(PILOT_AGENCIES);
@@ -144,7 +83,16 @@ export default function AdminAgenciesPage() {
 
         {/* Operational Roster */}
         <div className="space-y-4">
-          {filtered.map((agency) => (
+          {filtered.length === 0 ? (
+            <Card className="p-12 text-center text-xs text-neutral-500 border-dashed">
+              <Users2 className="w-8 h-8 text-neutral-400 mx-auto mb-2" />
+              <p className="font-bold text-sm text-neutral-900">No Recruitment Agencies in Audit Roster</p>
+              <p className="text-2xs text-neutral-500 mt-1 max-w-sm mx-auto">
+                Third-party staffing vendors and labor contractors undergo statutory CLRA, EPFO, and ESIC verification before being authorized on the platform.
+              </p>
+            </Card>
+          ) : (
+            filtered.map((agency) => (
             <Card key={agency.id} className="p-5 space-y-4 hover:border-neutral-400 transition-all">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-neutral-100">
                 <div>
@@ -243,7 +191,7 @@ export default function AdminAgenciesPage() {
                 </div>
               </div>
             </Card>
-          ))}
+          )))}
         </div>
       </div>
     </AdminLayout>

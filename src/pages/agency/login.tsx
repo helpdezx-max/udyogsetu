@@ -13,8 +13,8 @@ export default function AgencyLoginPage() {
   const { signIn, isConfigured } = useAuth();
   const { setActiveRole } = useApp();
 
-  const [email, setEmail] = useState('contact@pragatimanpower.demo');
-  const [password, setPassword] = useState('password123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 

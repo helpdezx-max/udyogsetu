@@ -14,52 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'GET') {
     if (!supabase) {
-      return res.status(200).json({
-        sources: [
-          {
-            id: 'src-1',
-            name: 'Mahindra & Mahindra Chakan Plant Direct Careers',
-            website_url: 'https://jobs.mahindra.com/search/?q=chakan',
-            category: 'career_page',
-            source_owner: 'Mahindra & Mahindra Ltd.',
-            access_method: 'http_get',
-            permission_status: 'approved',
-            crawl_frequency_minutes: 720,
-            reliability_score: 98,
-            is_enabled: true,
-            rate_limit_per_minute: 6,
-            admin_notes: 'Direct OEM career portal for Chakan automotive manufacturing facility.'
-          },
-          {
-            id: 'src-2',
-            name: 'Bajaj Auto Chakan Production Openings',
-            website_url: 'https://www.bajajauto.com/careers/openings',
-            category: 'career_page',
-            source_owner: 'Bajaj Auto Ltd.',
-            access_method: 'http_get',
-            permission_status: 'approved',
-            crawl_frequency_minutes: 720,
-            reliability_score: 96,
-            is_enabled: true,
-            rate_limit_per_minute: 6,
-            admin_notes: 'Two-wheeler and commercial vehicle assembly, press shop and weld shop roles.'
-          },
-          {
-            id: 'src-3',
-            name: 'General Motors / Talegaon Vendor Park Feeds',
-            website_url: 'https://example.com/talegaon-vendors/jobs',
-            category: 'job_board',
-            source_owner: 'Talegaon Vendor Association',
-            access_method: 'http_get',
-            permission_status: 'review_required',
-            crawl_frequency_minutes: 1440,
-            reliability_score: 80,
-            is_enabled: false,
-            rate_limit_per_minute: 5,
-            admin_notes: 'Requires legal terms review before automated crawling can be enabled.'
-          }
-        ]
-      });
+      return res.status(200).json({ sources: [] });
     }
 
     const { data, error } = await supabase

@@ -1,6 +1,6 @@
 import { getSupabaseClient } from '../lib/supabase/client';
 import { storageService } from './storageService';
-import { CandidateProfile, JobApplication, SAMPLE_CANDIDATE, INITIAL_APPLICATIONS } from '../data/demo-data';
+import { CandidateProfile, JobApplication } from '../data/demo-data';
 
 export const candidateService = {
   /**
@@ -13,11 +13,7 @@ export const candidateService = {
   }> {
     const client = getSupabaseClient();
     if (!client) {
-      return {
-        profile: SAMPLE_CANDIDATE,
-        candidateId: 'demo-cand-001',
-        error: null,
-      };
+      return { profile: null, candidateId: null, error: null };
     }
 
     try {
@@ -46,22 +42,22 @@ export const candidateService = {
         fullName: profileRow.profiles?.full_name || 'Candidate',
         phone: profileRow.profiles?.phone || '',
         email: profileRow.profiles?.email || '',
-        currentResidence: profileRow.current_residence || 'Chakan Ambethan Chowk',
+        currentResidence: profileRow.current_residence || '',
         highestQualification: profileRow.highest_qualification,
         tradeSpecialization: profileRow.trade_specialization || undefined,
         totalExperienceMonths: profileRow.total_experience_months || 0,
         currentDesignation: profileRow.current_designation || 'Technician',
         preferredShifts: ['Rotational 3-Shifts (A/B/C)'],
         preferredClusters: ['Chakan MIDC Phase 1', 'Chakan MIDC Phase 2'],
-        expectedSalaryInHand: profileRow.expected_salary_in_hand || 18000,
+        expectedSalaryInHand: profileRow.expected_salary_in_hand || 0,
         resumeFileName: latestResume,
-        profileCompletionPercentage: profileRow.profile_completion_percentage || 50,
+        profileCompletionPercentage: profileRow.profile_completion_percentage || 0,
         readyToJoinDays: profileRow.ready_to_join_days || 0,
       };
 
       return { profile, candidateId: profileRow.id, error: null };
     } catch (err: any) {
-      return { profile: SAMPLE_CANDIDATE, candidateId: 'demo-cand-001', error: err };
+      return { profile: null, candidateId: null, error: err };
     }
   },
 
@@ -69,50 +65,32 @@ export const candidateService = {
    * Update Candidate Profile
    */
   async updateCandidateProfile(
-    userId: string,
+    candidateId: string,
     updates: Partial<CandidateProfile>
   ): Promise<{ error: Error | null }> {
     const client = getSupabaseClient();
     if (!client) return { error: null };
 
     try {
-      // Calculate completion score
-      let score = 30;
-      if (updates.currentResidence) score += 15;
-      if (updates.tradeSpecialization) score += 15;
-      if (updates.expectedSalaryInHand) score += 10;
-      if (updates.totalExperienceMonths && updates.totalExperienceMonths > 0) score += 15;
-      if (updates.resumeFileName) score += 15;
-      score = Math.min(100, score);
-
-      const dbUpdates: any = {
-        profile_completion_percentage: score,
-      };
-
-      if (updates.currentResidence !== undefined) dbUpdates.current_residence = updates.currentResidence;
-      if (updates.highestQualification !== undefined) dbUpdates.highest_qualification = updates.highestQualification;
+      const dbUpdates: any = {};
+      if (updates.highestQualification) dbUpdates.highest_qualification = updates.highestQualification;
       if (updates.tradeSpecialization !== undefined) dbUpdates.trade_specialization = updates.tradeSpecialization;
       if (updates.totalExperienceMonths !== undefined) dbUpdates.total_experience_months = updates.totalExperienceMonths;
-      if (updates.currentDesignation !== undefined) dbUpdates.current_designation = updates.currentDesignation;
+      if (updates.currentDesignation) dbUpdates.current_designation = updates.currentDesignation;
       if (updates.expectedSalaryInHand !== undefined) dbUpdates.expected_salary_in_hand = updates.expectedSalaryInHand;
+      if (updates.currentResidence) dbUpdates.current_residence = updates.currentResidence;
       if (updates.readyToJoinDays !== undefined) dbUpdates.ready_to_join_days = updates.readyToJoinDays;
+      if (updates.profileCompletionPercentage !== undefined)
+        dbUpdates.profile_completion_percentage = updates.profileCompletionPercentage;
+
+      dbUpdates.updated_at = new Date().toISOString();
 
       const { error } = await (client as any)
         .from('candidate_profiles')
         .update(dbUpdates)
-        .eq('user_id', userId);
+        .eq('id', candidateId);
 
       if (error) throw error;
-
-      // Update profile name / phone if provided
-      if (updates.fullName || updates.phone) {
-        const profUpdates: any = {};
-        if (updates.fullName) profUpdates.full_name = updates.fullName;
-        if (updates.phone) profUpdates.phone = updates.phone;
-
-        await (client as any).from('profiles').update(profUpdates).eq('id', userId);
-      }
-
       return { error: null };
     } catch (err: any) {
       return { error: err };
@@ -120,62 +98,51 @@ export const candidateService = {
   },
 
   /**
-   * Upload and register candidate resume
+   * Upload Candidate Resume & record metadata
    */
   async uploadResume(
-    userId: string,
     candidateId: string,
     file: File
-  ): Promise<{ resumeRecord: any; error: Error | null }> {
-    const { data: uploadData, error: uploadError } = await storageService.uploadResume(userId, file);
-    if (uploadError || !uploadData) {
-      return { resumeRecord: null, error: uploadError || new Error('Upload failed') };
-    }
-
+  ): Promise<{ url: string | null; fileName: string | null; error: Error | null }> {
     const client = getSupabaseClient();
     if (!client) {
-      return {
-        resumeRecord: {
-          file_name: uploadData.name,
-          file_path: uploadData.path,
-        },
-        error: null,
-      };
+      return { url: null, fileName: file.name, error: null };
     }
 
     try {
-      const { data, error } = await (client as any)
-        .from('candidate_resumes')
-        .insert({
-          candidate_id: candidateId,
-          file_path: uploadData.path,
-          file_name: uploadData.name,
-          file_size_bytes: uploadData.sizeBytes,
-          mime_type: uploadData.mimeType,
-          is_default: true,
-        })
-        .select()
-        .single();
+      const { data: uploadData, error: uploadErr } = await storageService.uploadResume(candidateId, file);
+      const storagePath = uploadData?.path;
+      if (uploadErr || !storagePath) throw uploadErr || new Error('Upload failed');
 
-      if (error) throw error;
-      return { resumeRecord: data, error: null };
+      // Save metadata in candidate_resumes table
+      const { error: dbErr } = await (client as any).from('candidate_resumes').insert({
+        candidate_id: candidateId,
+        storage_path: storagePath,
+        file_name: file.name,
+        file_size_bytes: file.size,
+        mime_type: file.type || 'application/pdf',
+        is_primary: true,
+      });
+
+      if (dbErr) throw dbErr;
+
+      return { url: storagePath, fileName: file.name, error: null };
     } catch (err: any) {
-      return { resumeRecord: null, error: err };
+      return { url: null, fileName: null, error: err };
     }
   },
 
   /**
-   * Submit Job Application
+   * Submit Job Application with Verification Checklist
    */
   async submitApplication(
-    jobId: string,
     candidateId: string,
-    candidateNotes?: string,
-    resumeId?: string
-  ): Promise<{ success: boolean; message: string }> {
+    jobId: string,
+    candidateNotes?: string
+  ): Promise<{ success: boolean; applicationId: string | null; error: Error | null }> {
     const client = getSupabaseClient();
     if (!client) {
-      return { success: true, message: 'Application submitted successfully (Demo Mode).' };
+      return { success: true, applicationId: `app-${Date.now()}`, error: null };
     }
 
     try {
@@ -184,23 +151,22 @@ export const candidateService = {
         .insert({
           job_id: jobId,
           candidate_id: candidateId,
-          resume_id: resumeId || null,
-          candidate_notes: candidateNotes || null,
           current_status: 'Applied',
+          candidate_notes: candidateNotes || null,
         })
         .select()
         .single();
 
       if (error) {
         if (error.code === '23505') {
-          return { success: false, message: 'You have already submitted an application for this vacancy.' };
+          return { success: false, applicationId: null, error: new Error('You have already applied for this vacancy.') };
         }
         throw error;
       }
 
-      return { success: true, message: 'Application submitted successfully to plant HR!' };
+      return { success: true, applicationId: data?.id, error: null };
     } catch (err: any) {
-      return { success: false, message: err.message || 'Failed to submit application.' };
+      return { success: false, applicationId: null, error: err };
     }
   },
 
@@ -213,7 +179,7 @@ export const candidateService = {
   }> {
     const client = getSupabaseClient();
     if (!client) {
-      return { applications: INITIAL_APPLICATIONS, error: null };
+      return { applications: [], error: null };
     }
 
     try {
@@ -228,7 +194,7 @@ export const candidateService = {
       const applications: JobApplication[] = (data || []).map((row: any) => ({
         id: row.id,
         jobId: row.job_id,
-        jobTitle: row.jobs?.title || 'Machining Vacancy',
+        jobTitle: row.jobs?.title || 'Industrial Vacancy',
         companyName: row.jobs?.companies?.name || 'Verified Plant',
         clusterName: row.jobs?.industrial_clusters?.name || 'Chakan MIDC',
         appliedDate: new Date(row.applied_date).toLocaleDateString('en-GB'),
@@ -242,7 +208,7 @@ export const candidateService = {
 
       return { applications, error: null };
     } catch (err: any) {
-      return { applications: INITIAL_APPLICATIONS, error: err };
+      return { applications: [], error: err };
     }
   },
 
@@ -251,7 +217,7 @@ export const candidateService = {
    */
   async getSavedJobIds(candidateId: string): Promise<string[]> {
     const client = getSupabaseClient();
-    if (!client) return ['job-101', 'job-104'];
+    if (!client) return [];
 
     try {
       const { data } = await client

@@ -19,15 +19,16 @@ import {
   ChevronRight,
   GraduationCap,
   Sparkles,
+  Info,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useLocale } from '../hooks/useLocale';
 import { JobCard } from '../components/common/JobCard';
-import { INDUSTRIAL_CLUSTERS } from '../data/demo-data';
+import { CHAKAN_PILOT_LOCATIONS } from '../data/pilot-locations';
 
 export default function HomePage() {
   const router = useRouter();
-  const { jobs, companies, walkIns } = useApp();
+  const { jobs, companies, walkIns, isLoading } = useApp();
   const { t } = useLocale();
 
   const [keyword, setKeyword] = useState('');
@@ -44,39 +45,112 @@ export default function HomePage() {
     });
   };
 
+  const getCategoryCount = (catName: string) => jobs.filter((j) => j.category === catName).length;
+
   const categories = [
-    { name: 'Machining & CNC', count: '14 Vacancies', icon: <Cpu className="w-5 h-5 text-indigo-700" />, bg: 'bg-[#F2F6FD]', border: 'border-[#D8E6FA]' },
-    { name: 'Welding & Fabrication', count: '16 Vacancies', icon: <Layers className="w-5 h-5 text-amber-700" />, bg: 'bg-[#FFF9EE]', border: 'border-[#FAECBF]' },
-    { name: 'Assembly & Line', count: '45 Vacancies', icon: <Wrench className="w-5 h-5 text-emerald-700" />, bg: 'bg-[#F1F8F4]', border: 'border-[#D5ECE0]' },
-    { name: 'Quality Control & CMM', count: '8 Vacancies', icon: <CheckCircle className="w-5 h-5 text-purple-700" />, bg: 'bg-[#F7F4FC]', border: 'border-[#E8E0F5]' },
-    { name: 'Maintenance & Electrical', count: '7 Vacancies', icon: <Factory className="w-5 h-5 text-rose-700" />, bg: 'bg-[#FAF4F0]', border: 'border-[#F4E3DA]' },
-    { name: 'Warehouse & Logistics', count: '12 Vacancies', icon: <Building2 className="w-5 h-5 text-slate-700" />, bg: 'bg-[#F7F8FA]', border: 'border-[#E4E6EB]' },
+    {
+      name: 'Machining & CNC',
+      count: getCategoryCount('Machining & CNC'),
+      icon: <Cpu className="w-5 h-5 text-indigo-700" />,
+      bg: 'bg-[#F2F6FD]',
+      border: 'border-[#D8E6FA]',
+    },
+    {
+      name: 'Welding & Fabrication',
+      count: getCategoryCount('Welding & Fabrication'),
+      icon: <Layers className="w-5 h-5 text-amber-700" />,
+      bg: 'bg-[#FFF9EE]',
+      border: 'border-[#FAECBF]',
+    },
+    {
+      name: 'Assembly & Line',
+      count: getCategoryCount('Assembly & Line'),
+      icon: <Wrench className="w-5 h-5 text-emerald-700" />,
+      bg: 'bg-[#F1F8F4]',
+      border: 'border-[#D5ECE0]',
+    },
+    {
+      name: 'Quality Control & CMM',
+      count: getCategoryCount('Quality Control & CMM'),
+      icon: <CheckCircle className="w-5 h-5 text-purple-700" />,
+      bg: 'bg-[#F7F4FC]',
+      border: 'border-[#E8E0F5]',
+    },
+    {
+      name: 'Maintenance & Electrical',
+      count: getCategoryCount('Maintenance & Electrical'),
+      icon: <Factory className="w-5 h-5 text-rose-700" />,
+      bg: 'bg-[#FAF4F0]',
+      border: 'border-[#F4E3DA]',
+    },
+    {
+      name: 'Warehouse & Logistics',
+      count: getCategoryCount('Warehouse & Logistics'),
+      icon: <Building2 className="w-5 h-5 text-slate-700" />,
+      bg: 'bg-[#F7F8FA]',
+      border: 'border-[#E4E6EB]',
+    },
   ];
+
+  const getQualCount = (qualPrefix: string) =>
+    jobs.filter((j) => j.qualificationRequired && j.qualificationRequired.includes(qualPrefix)).length;
 
   const qualifications = [
-    { title: '10th / 12th Pass', desc: 'Assembly Helper, Press Feeder, Store Assistant', count: '38 Openings', bg: 'bg-[#F7F8FA]', border: 'border-[#E4E6EB]' },
-    { title: 'ITI Certificate Holders', desc: 'VMC Operator, CNC Lathe, Die Setter, Maintenance', count: '42 Openings', bg: 'bg-[#F1F8F4]', border: 'border-[#D5ECE0]' },
-    { title: 'Diploma (Mechanical / Auto)', desc: 'Junior Engineer, CMM Quality Inspector, Toolmaker', count: '24 Openings', bg: 'bg-[#F2F6FD]', border: 'border-[#D8E6FA]' },
-    { title: 'B.E. / B.Tech Engineers', desc: 'Production Shift Incharge, EHS Safety Officer', count: '12 Openings', bg: 'bg-[#F7F4FC]', border: 'border-[#E8E0F5]' },
+    {
+      title: '10th / 12th Pass',
+      prefix: '10th',
+      desc: 'Assembly Helper, Press Feeder, Store Assistant',
+      count: getQualCount('10th'),
+      bg: 'bg-[#F7F8FA]',
+      border: 'border-[#E4E6EB]',
+    },
+    {
+      title: 'ITI Certificate Holders',
+      prefix: 'ITI',
+      desc: 'VMC Operator, CNC Lathe, Die Setter, Maintenance',
+      count: getQualCount('ITI'),
+      bg: 'bg-[#F1F8F4]',
+      border: 'border-[#D5ECE0]',
+    },
+    {
+      title: 'Diploma (Mechanical / Auto)',
+      prefix: 'Diploma',
+      desc: 'Junior Engineer, CMM Quality Inspector, Toolmaker',
+      count: getQualCount('Diploma'),
+      bg: 'bg-[#F2F6FD]',
+      border: 'border-[#D8E6FA]',
+    },
+    {
+      title: 'B.E. / B.Tech Engineers',
+      prefix: 'B.E.',
+      desc: 'Production Shift Incharge, EHS Safety Officer',
+      count: getQualCount('B.E.'),
+      bg: 'bg-[#F7F4FC]',
+      border: 'border-[#E8E0F5]',
+    },
   ];
 
-  const featuredJobs = jobs.slice(0, 6);
+  const featuredJobs = jobs.filter((j) => j.status === 'active').slice(0, 6);
   const todayWalkIns = walkIns.slice(0, 3);
   const verifiedCompanies = companies.filter((c) => c.verificationStatus === 'verified').slice(0, 6);
 
   return (
     <>
       <Head>
-        <title>UdyogSetu • Genuine Industrial Jobs in Chakan MIDC & Pune Belt</title>
+        <title>UdyogSetu • Genuine Industrial Jobs in Chakan MIDC &amp; Pune Belt</title>
+        <meta
+          name="description"
+          content="Find verified direct factory jobs, CNC machining, welding, assembly, and ITI apprenticeship positions across Chakan MIDC and Pune."
+        />
       </Head>
 
       <div className="space-y-12 pb-16">
-        {/* 1. HERO SECTION (Clean, Modern, Approachable) */}
+        {/* 1. HERO SECTION */}
         <section className="px-5 sm:px-10 lg:px-14 pt-10 sm:pt-14 pb-10 border-b border-neutral-100 bg-gradient-to-b from-[#FAFAFA] to-white">
           <div className="max-w-4xl mx-auto text-center space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200/80 text-3xs sm:text-2xs font-bold uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Direct Factory Recruitment • Chakan MIDC & Pune Belt</span>
+              <span>Direct Factory Recruitment • Chakan MIDC &amp; Pune Belt</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-neutral-950 leading-tight">
@@ -112,7 +186,7 @@ export default function HomePage() {
                   className="w-full text-xs sm:text-sm pl-10 pr-3 py-2.5 rounded-xl bg-neutral-50/70 border border-transparent focus:bg-white focus:border-neutral-300 focus:outline-none text-neutral-800 cursor-pointer"
                 >
                   <option value="">{t('hero.locationPlaceholder') || 'All Industrial Clusters'}</option>
-                  {INDUSTRIAL_CLUSTERS.map((cl) => (
+                  {CHAKAN_PILOT_LOCATIONS.map((cl) => (
                     <option key={cl.id} value={cl.name}>
                       {cl.name}
                     </option>
@@ -123,31 +197,13 @@ export default function HomePage() {
               <div className="md:col-span-3">
                 <button
                   type="submit"
-                  className="w-full h-full min-h-[42px] bg-neutral-900 hover:bg-black text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition-colors flex items-center justify-center gap-1.5"
+                  className="w-full bg-neutral-900 hover:bg-black text-white text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl shadow-xs transition-colors flex items-center justify-center gap-1.5"
                 >
-                  <Search className="w-3.5 h-3.5" />
-                  <span>{t('hero.searchButton') || 'Search Jobs'}</span>
+                  <Search className="w-4 h-4" />
+                  <span>{t('hero.ctaButton') || 'Search Vacancies'}</span>
                 </button>
               </div>
             </form>
-
-            {/* Popular Search Chips */}
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-1.5 text-xs text-neutral-500">
-              <span className="text-3xs font-bold uppercase tracking-wider text-neutral-400">Popular:</span>
-              {['VMC Operator', 'MIG Welder', 'CNC Lathe', 'Assembly Freshers', 'Electrician'].map((tag) => (
-                <button
-                  key={tag}
-                  type="button"
-                  onClick={() => {
-                    setKeyword(tag);
-                    router.push(`/jobs?q=${encodeURIComponent(tag)}`);
-                  }}
-                  className="px-2.5 py-1 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-3xs font-medium border border-neutral-200/60 transition-colors"
-                >
-                  {tag}
-                </button>
-              ))}
-            </div>
 
             {/* Quick CTAs */}
             <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
@@ -159,7 +215,7 @@ export default function HomePage() {
               <Link href="/walk-ins">
                 <button className="bg-[#FFF9EE] hover:bg-[#FAEDC8] text-[#7C5104] border border-[#FAECBF] text-xs font-semibold px-4 py-2.5 rounded-full transition-colors flex items-center gap-1.5">
                   <CalendarCheck2 className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Today's Walk-in Drives</span>
+                  <span>Plant Gate Walk-ins</span>
                 </button>
               </Link>
               <Link href="/employer/post-job">
@@ -171,7 +227,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 2. FEATURED INDUSTRIAL VACANCIES (Pastel Card Grid) */}
+        {/* 2. FEATURED INDUSTRIAL VACANCIES */}
         <section className="px-5 sm:px-10 lg:px-14 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
@@ -195,14 +251,43 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-            {featuredJobs.map((job, idx) => (
-              <JobCard key={job.id} job={job} index={idx} />
-            ))}
-          </div>
+          {featuredJobs.length === 0 ? (
+            <div className="bg-[#F7F8FA] border border-[#E4E6EB] rounded-3xl p-8 sm:p-12 text-center space-y-4 max-w-2xl mx-auto">
+              <div className="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-2xs flex items-center justify-center mx-auto text-neutral-500">
+                <Briefcase className="w-6 h-6" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-base font-bold text-neutral-900">
+                  New Industrial Vacancies Coming Soon
+                </h3>
+                <p className="text-xs text-neutral-500 leading-relaxed max-w-md mx-auto">
+                  Direct manufacturing units in Chakan Phase 1–4 and Khed City are currently onboarding positions. Check
+                  back for verified factory roles or set up instant WhatsApp alerts.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <Link href="/candidate/assistant">
+                  <button className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors">
+                    Set Up Job Alert on WhatsApp
+                  </button>
+                </Link>
+                <Link href="/locations">
+                  <button className="bg-white hover:bg-neutral-50 border border-neutral-200 text-neutral-800 text-xs font-semibold px-4 py-2 rounded-xl transition-colors">
+                    Explore 12 Industrial Belts
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+              {featuredJobs.map((job, idx) => (
+                <JobCard key={job.id} job={job} index={idx} />
+              ))}
+            </div>
+          )}
         </section>
 
-        {/* 3. TODAY'S WALK-IN SPOTLIGHT (Pastel Warm Cards) */}
+        {/* 3. TODAY'S WALK-IN SPOTLIGHT */}
         <section className="px-5 sm:px-10 lg:px-14 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
@@ -221,67 +306,78 @@ export default function HomePage() {
               href="/walk-ins"
               className="text-xs font-bold text-neutral-900 hover:underline flex items-center gap-1"
             >
-              <span>View full calendar</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+              <span>View Full Calendar</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {todayWalkIns.map((walkin) => (
-              <div
-                key={walkin.id}
-                className="bg-[#FFF9EE] border border-[#FAECBF] rounded-3xl p-5 flex flex-col justify-between space-y-4 hover:shadow-card transition-all"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-3xs font-bold px-2.5 py-0.5 rounded-full bg-[#FAEDC8] text-[#7C5104] uppercase tracking-wide">
-                      {walkin.eventDates}
-                    </span>
-                    <span className="text-xs font-bold text-[#7C5104]">
-                      {walkin.openingsCount} Vacancies
-                    </span>
+          {todayWalkIns.length === 0 ? (
+            <div className="bg-[#FFF9EE] border border-[#FAECBF] rounded-3xl p-6 text-center space-y-2">
+              <CalendarCheck2 className="w-6 h-6 text-amber-700 mx-auto" />
+              <h3 className="text-xs font-bold text-neutral-900">No Spot Gate Drives Scheduled Today</h3>
+              <p className="text-2xs text-neutral-600 max-w-sm mx-auto">
+                Verified walk-in drives are typically conducted on Mondays and Saturdays. Browse regular vacancies or
+                check back for upcoming plant gate drives.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {todayWalkIns.map((walkin) => (
+                <div
+                  key={walkin.id}
+                  className="bg-[#FFF9EE] border border-[#FAECBF] rounded-3xl p-5 flex flex-col justify-between space-y-4 hover:shadow-card transition-all"
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-3xs font-bold px-2.5 py-0.5 rounded-full bg-[#FAEDC8] text-[#7C5104] uppercase tracking-wide">
+                        {walkin.eventDates}
+                      </span>
+                      <span className="text-xs font-bold text-[#7C5104]">
+                        {walkin.openingsCount} Vacancies
+                      </span>
+                    </div>
+
+                    <div>
+                      <h3 className="font-bold text-neutral-900 text-sm">{walkin.jobTitle}</h3>
+                      <p className="text-xs font-medium text-neutral-600">{walkin.companyName}</p>
+                    </div>
+
+                    <div className="text-xs space-y-1.5 py-2.5 border-y border-amber-200/50 text-neutral-600">
+                      <div className="flex items-start gap-1.5">
+                        <Clock className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+                        <span>{walkin.reportingTime}</span>
+                      </div>
+                      <div className="flex items-start gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+                        <span className="line-clamp-2">{walkin.venueAddress}</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div>
-                    <h3 className="font-bold text-neutral-900 text-sm">{walkin.jobTitle}</h3>
-                    <p className="text-xs font-medium text-neutral-600">{walkin.companyName}</p>
-                  </div>
-
-                  <div className="text-xs space-y-1.5 py-2.5 border-y border-amber-200/50 text-neutral-600">
-                    <div className="flex items-start gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
-                      <span>{walkin.reportingTime}</span>
-                    </div>
-                    <div className="flex items-start gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
-                      <span className="line-clamp-2">{walkin.venueAddress}</span>
-                    </div>
+                  <div className="flex items-center justify-between pt-1">
+                    <span className="text-xs font-bold text-neutral-900">
+                      {walkin.salaryDisplay.split('+')[0]}
+                    </span>
+                    <Link href={`/jobs/${walkin.jobId}`}>
+                      <button className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-xs transition-colors">
+                        View Venue
+                      </button>
+                    </Link>
                   </div>
                 </div>
-
-                <div className="flex items-center justify-between pt-1">
-                  <span className="text-xs font-bold text-neutral-900">
-                    {walkin.salaryDisplay.split('+')[0]}
-                  </span>
-                  <Link href={`/jobs/${walkin.jobId}`}>
-                    <button className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-xs transition-colors">
-                      View Venue
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
 
-        {/* 4. EXPLORE BY TRADE (Pastel Card Grid) */}
+        {/* 4. EXPLORE BY TRADE */}
         <section className="px-5 sm:px-10 lg:px-14 space-y-6">
           <div>
             <div className="text-3xs font-bold uppercase tracking-wider text-neutral-400 mb-1">
               Industrial Trades
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-neutral-900 tracking-tight">
-              Browse by Machine & Skill
+              Browse by Machine &amp; Skill
             </h2>
             <p className="text-xs text-neutral-500 mt-0.5">
               Positions mapped specifically to technical trade certifications and shop-floor experience.
@@ -302,14 +398,16 @@ export default function HomePage() {
                   <div className="text-xs font-bold text-neutral-900 group-hover:underline">
                     {cat.name}
                   </div>
-                  <div className="text-3xs text-neutral-500 mt-0.5">{cat.count}</div>
+                  <div className="text-3xs text-neutral-500 mt-0.5">
+                    {cat.count > 0 ? `${cat.count} Vacancies` : 'Explore Sector'}
+                  </div>
                 </div>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* 5. JOBS BY QUALIFICATION (Pastel Card Grid) */}
+        {/* 5. JOBS BY QUALIFICATION */}
         <section className="px-5 sm:px-10 lg:px-14 space-y-6">
           <div>
             <div className="text-3xs font-bold uppercase tracking-wider text-neutral-400 mb-1">
@@ -330,7 +428,7 @@ export default function HomePage() {
                   <div className="flex items-center justify-between mb-2">
                     <GraduationCap className="w-5 h-5 text-neutral-700" />
                     <span className="text-3xs font-bold text-neutral-700 bg-white/90 px-2 py-0.5 rounded-full border border-neutral-200">
-                      {q.count}
+                      {q.count > 0 ? `${q.count} Openings` : 'Explore'}
                     </span>
                   </div>
                   <h3 className="text-sm font-bold text-neutral-900 mb-1">{q.title}</h3>
@@ -349,7 +447,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 6. VERIFIED COMPANIES (Pastel Card Grid) */}
+        {/* 6. VERIFIED COMPANIES */}
         <section className="px-5 sm:px-10 lg:px-14 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
@@ -373,59 +471,75 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {verifiedCompanies.map((comp) => (
-              <div
-                key={comp.id}
-                className="bg-[#F7F8FA] border border-[#E4E6EB] rounded-3xl p-5 flex flex-col justify-between space-y-4 hover:shadow-card transition-all"
-              >
-                <div>
-                  <div className="flex items-start gap-3 mb-3">
-                    <div
-                      className={`w-10 h-10 rounded-xl ${comp.logoPlaceholderBg} text-white flex items-center justify-center font-bold text-sm shadow-xs shrink-0`}
-                    >
-                      {comp.logoLetter}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5">
-                        <h3 className="font-bold text-neutral-900 text-sm truncate">{comp.name}</h3>
-                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+          {verifiedCompanies.length === 0 ? (
+            <div className="bg-[#F1F8F4] border border-[#D5ECE0] rounded-3xl p-6 sm:p-8 text-center space-y-3">
+              <Building2 className="w-8 h-8 text-emerald-700 mx-auto" />
+              <h3 className="text-sm font-bold text-neutral-900">Expanding Manufacturing Employer Network</h3>
+              <p className="text-xs text-neutral-600 max-w-md mx-auto">
+                Industrial plants in Chakan MIDC are currently undergoing statutory Udyam and GSTIN verification audit.
+                Verified manufacturing units will appear here once audited.
+              </p>
+              <Link href="/employer/register">
+                <button className="bg-neutral-900 text-white text-xs font-semibold px-4 py-2 rounded-xl">
+                  Register Your Manufacturing Plant
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {verifiedCompanies.map((comp) => (
+                <div
+                  key={comp.id}
+                  className="bg-[#F7F8FA] border border-[#E4E6EB] rounded-3xl p-5 flex flex-col justify-between space-y-4 hover:shadow-card transition-all"
+                >
+                  <div>
+                    <div className="flex items-start gap-3 mb-3">
+                      <div
+                        className={`w-10 h-10 rounded-xl ${comp.logoPlaceholderBg} text-white flex items-center justify-center font-bold text-sm shadow-xs shrink-0`}
+                      >
+                        {comp.logoLetter}
                       </div>
-                      <p className="text-3xs text-neutral-500">{comp.industry}</p>
-                      <p className="text-3xs text-neutral-400 mt-0.5 flex items-center gap-1">
-                        <MapPin className="w-2.5 h-2.5" /> {comp.clusterName}
-                      </p>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          <h3 className="font-bold text-neutral-900 text-sm truncate">{comp.name}</h3>
+                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        </div>
+                        <p className="text-3xs text-neutral-500">{comp.industry}</p>
+                        <p className="text-3xs text-neutral-400 mt-0.5 flex items-center gap-1">
+                          <MapPin className="w-2.5 h-2.5" /> {comp.clusterName}
+                        </p>
+                      </div>
                     </div>
+
+                    <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed">
+                      {comp.description}
+                    </p>
                   </div>
 
-                  <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed">
-                    {comp.description}
-                  </p>
+                  <div className="pt-3 border-t border-neutral-200/60 flex items-center justify-between text-xs">
+                    <span className="font-bold text-neutral-900 text-3xs bg-white px-2 py-0.5 rounded-md border border-neutral-200">
+                      {comp.openVacanciesCount} Vacancies
+                    </span>
+                    <Link href={`/companies/${comp.slug || comp.id}`}>
+                      <button className="text-xs font-semibold text-neutral-900 hover:underline">
+                        Plant Profile →
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-
-                <div className="pt-3 border-t border-neutral-200/60 flex items-center justify-between text-xs">
-                  <span className="font-bold text-neutral-900 text-3xs bg-white px-2 py-0.5 rounded-md border border-neutral-200">
-                    {comp.openVacanciesCount} Vacancies
-                  </span>
-                  <Link href={`/companies/${comp.slug || comp.id}`}>
-                    <button className="text-xs font-semibold text-neutral-900 hover:underline">
-                      Plant Profile →
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
 
-        {/* 7. INDUSTRIAL CLUSTERS (Pastel Grid) */}
+        {/* 7. INDUSTRIAL CLUSTERS */}
         <section className="px-5 sm:px-10 lg:px-14 space-y-6">
           <div>
             <div className="text-3xs font-bold uppercase tracking-wider text-neutral-400 mb-1">
               Hyperlocal Geography
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-neutral-900 tracking-tight">
-              Industrial Hubs Across Chakan & North Pune
+              12 Industrial Hubs Across Chakan &amp; North Pune
             </h2>
             <p className="text-xs text-neutral-500 mt-0.5">
               Target vacancies situated within direct commuting distance of your residence or bus routes.
@@ -433,37 +547,45 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {INDUSTRIAL_CLUSTERS.map((cl) => (
-              <Link
-                key={cl.id}
-                href={`/jobs?cluster=${encodeURIComponent(cl.name)}`}
-                className="p-5 rounded-3xl bg-[#F7F8FA] border border-[#E4E6EB] hover:bg-white hover:shadow-card transition-all group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-3xs font-bold text-neutral-700 bg-white px-2 py-0.5 rounded border border-neutral-200">
-                      PIN {cl.pincode}
-                    </span>
-                    <span className="text-xs font-bold text-neutral-900">
-                      {cl.openJobsCount} Openings
-                    </span>
-                  </div>
-                  <h3 className="font-bold text-neutral-900 text-sm group-hover:underline">
-                    {cl.name}
-                  </h3>
-                  <p className="text-3xs text-neutral-500 mt-1 line-clamp-1">{cl.landmark}</p>
-                </div>
+            {CHAKAN_PILOT_LOCATIONS.map((cl) => {
+              const plantOpenings = jobs.filter(
+                (j) =>
+                  j.clusterName.toLowerCase().includes(cl.name.toLowerCase()) ||
+                  cl.name.toLowerCase().includes(j.clusterName.toLowerCase())
+              ).length;
 
-                <div className="mt-4 pt-2 border-t border-neutral-200/60 text-3xs text-neutral-500 flex items-center justify-between">
-                  <span>{cl.transitAccess.split('from')[0]}</span>
-                  <ArrowRight className="w-3 h-3 text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 transition-all" />
-                </div>
-              </Link>
-            ))}
+              return (
+                <Link
+                  key={cl.id}
+                  href={`/locations/${cl.id}`}
+                  className="p-5 rounded-3xl bg-[#F7F8FA] border border-[#E4E6EB] hover:bg-white hover:shadow-card transition-all group flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-3xs font-bold text-neutral-700 bg-white px-2 py-0.5 rounded border border-neutral-200">
+                        PIN {cl.pincode}
+                      </span>
+                      <span className="text-xs font-bold text-neutral-900">
+                        {plantOpenings > 0 ? `${plantOpenings} Openings` : 'Explore Hub'}
+                      </span>
+                    </div>
+                    <h3 className="font-bold text-neutral-900 text-sm group-hover:underline">
+                      {cl.name}
+                    </h3>
+                    <p className="text-3xs text-neutral-500 mt-1 line-clamp-1">{cl.landmark}</p>
+                  </div>
+
+                  <div className="mt-4 pt-2 border-t border-neutral-200/60 text-3xs text-neutral-500 flex items-center justify-between">
+                    <span>{cl.zone}</span>
+                    <ArrowRight className="w-3 h-3 text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 transition-all" />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
 
-        {/* 8. CANDIDATE SAFETY GUARANTEE (Pale Mint Card) */}
+        {/* 8. CANDIDATE SAFETY GUARANTEE */}
         <section className="px-5 sm:px-10 lg:px-14">
           <div className="p-6 rounded-3xl bg-[#F1F8F4] border border-[#D5ECE0] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex items-start gap-4">
@@ -472,11 +594,12 @@ export default function HomePage() {
               </div>
               <div>
                 <h3 className="text-base font-bold text-neutral-950">
-                  Candidate Safety & Anti-Fraud Guarantee
+                  Candidate Safety &amp; Anti-Fraud Guarantee
                 </h3>
                 <p className="text-xs text-neutral-600 mt-1 max-w-2xl leading-relaxed">
                   UdyogSetu strictly prohibits any recruitment charges. No legitimate factory or contractor will ask for
-                  registration fees, uniform security deposits, or file charges. If anyone asks for money, report them immediately.
+                  registration fees, uniform security deposits, or file charges. If anyone asks for money, report them
+                  immediately.
                 </p>
               </div>
             </div>
@@ -493,13 +616,14 @@ export default function HomePage() {
         <section className="px-5 sm:px-10 lg:px-14">
           <div className="p-8 sm:p-10 rounded-3xl bg-neutral-900 text-white text-center space-y-4">
             <span className="inline-block px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-3xs font-bold uppercase tracking-wider">
-              Factory HR & Plant Managers
+              Factory HR &amp; Plant Managers
             </span>
             <h2 className="text-2xl sm:text-3xl font-black tracking-tight max-w-xl mx-auto">
-              Hire Skilled Machine Operators, Fitters & Line Workers Faster
+              Hire Skilled Machine Operators, Fitters &amp; Line Workers Faster
             </h2>
             <p className="text-xs sm:text-sm text-neutral-400 max-w-lg mx-auto leading-relaxed">
-              Reach 15,000+ local ITI certificate holders, diploma engineers, and manufacturing technicians residing in the Chakan industrial corridor.
+              Connect directly with verified ITI certificate holders, diploma engineers, and manufacturing technicians
+              residing along direct Chakan transit corridors.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <Link href="/employer/post-job">

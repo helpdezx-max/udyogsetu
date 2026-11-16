@@ -11,7 +11,7 @@ export default function AdminSettingsPage() {
   const [resetSuccess, setResetSuccess] = useState(false);
 
   const handleReset = () => {
-    if (confirm('Are you sure you want to restore all demo data, applications, and verification queues?')) {
+    if (confirm('Are you sure you want to clear your local client session data and reload?')) {
       resetDemoData();
       setResetSuccess(true);
       setTimeout(() => setResetSuccess(false), 3000);
@@ -28,7 +28,7 @@ export default function AdminSettingsPage() {
         <div>
           <h2 className="text-xl font-bold text-industrial-900">Platform Administration Settings</h2>
           <p className="text-xs text-industrial-500 mt-0.5">
-            Configure moderation thresholds and manage local demo storage.
+            Configure moderation thresholds and manage local browser session cache.
           </p>
         </div>
 
@@ -38,7 +38,7 @@ export default function AdminSettingsPage() {
             <label className="flex items-center gap-2 cursor-pointer">
               <input type="checkbox" defaultChecked className="rounded text-purple-600 focus:ring-purple-500" />
               <span className="font-semibold text-industrial-800">
-                Require statutory Udyam & GSTIN verification before public publishing
+                Require statutory Udyam &amp; GSTIN verification before public publishing
               </span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
@@ -50,16 +50,16 @@ export default function AdminSettingsPage() {
           </div>
 
           <div className="space-y-2">
-            <h3 className="font-bold text-sm text-industrial-900 text-red-700">Prototype Demo State Management</h3>
+            <h3 className="font-bold text-sm text-industrial-900 text-neutral-800">Client Cache Management</h3>
             <p className="text-industrial-600">
-              Reset all modified records (newly posted jobs, updated verification approvals, applicant stages) to the initial demo state.
+              Clear cached browser records and reset local view state to sync fresh data from the server.
             </p>
-            <Button variant="danger" size="sm" onClick={handleReset} className="font-bold">
-              <RotateCcw className="w-4 h-4 mr-1.5" /> Restore Default Demo Data
+            <Button variant="outline" size="sm" onClick={handleReset} className="font-bold">
+              <RotateCcw className="w-4 h-4 mr-1.5" /> Clear Local Client Cache
             </Button>
             {resetSuccess && (
               <span className="text-xs font-bold text-emerald-700 flex items-center gap-1 mt-2">
-                <CheckCircle2 className="w-4 h-4" /> Demo data restored to factory defaults!
+                <CheckCircle2 className="w-4 h-4" /> Local client cache cleared!
               </span>
             )}
           </div>

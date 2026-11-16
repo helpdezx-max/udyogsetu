@@ -48,17 +48,19 @@ export const CandidateLayout: React.FC<{ children: React.ReactNode; title?: stri
       <div className="bg-[#F7F8FA] rounded-3xl border border-[#E4E6EB] p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3.5">
           <div className="w-12 h-12 rounded-2xl bg-neutral-900 text-white font-extrabold text-lg flex items-center justify-center shadow-xs">
-            {candidateProfile.fullName.charAt(0)}
+            {candidateProfile?.fullName?.charAt(0) || 'C'}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-base font-bold text-neutral-950">{candidateProfile.fullName}</h2>
+              <h2 className="text-base font-bold text-neutral-950">
+                {candidateProfile?.fullName || 'Candidate Profile'}
+              </h2>
               <span className="text-3xs font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                Profile Verified
+                Profile Active
               </span>
             </div>
             <p className="text-xs text-neutral-500">
-              {candidateProfile.tradeSpecialization} • {candidateProfile.currentResidence}
+              {candidateProfile?.tradeSpecialization || 'Industrial Trade'} • {candidateProfile?.currentResidence || 'Pune District'}
             </p>
           </div>
         </div>

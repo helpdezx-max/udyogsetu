@@ -160,35 +160,41 @@ export default function AdminDashboardPage() {
             </Link>
           </div>
 
-          <div className="space-y-3">
-            {pendingReports.slice(0, 2).map((r) => (
-              <div
-                key={r.id}
-                className="p-4 rounded-xl border border-red-200 bg-red-50/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
-              >
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-3xs font-black uppercase px-2 py-0.5 rounded bg-red-100 text-red-900 border border-red-200">
-                      {r.reason}
-                    </span>
-                    <h4 className="font-bold text-neutral-900 text-xs sm:text-sm">{r.jobTitle}</h4>
+          {pendingReports.length === 0 ? (
+            <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-800 font-medium text-center">
+              No pending fraud complaints or fee reports. The platform trust queue is clean!
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {pendingReports.slice(0, 2).map((r) => (
+                <div
+                  key={r.id}
+                  className="p-4 rounded-xl border border-red-200 bg-red-50/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+                >
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-3xs font-black uppercase px-2 py-0.5 rounded bg-red-100 text-red-900 border border-red-200">
+                        {r.reason}
+                      </span>
+                      <h4 className="font-bold text-neutral-900 text-xs sm:text-sm">{r.jobTitle}</h4>
+                    </div>
+                    <p className="text-2xs text-neutral-600 mt-1">
+                      Employer: <strong>{r.companyName}</strong> • Candidate: {r.reportedBy} ({r.reportedDate})
+                    </p>
+                    <p className="text-2xs text-neutral-500 italic mt-0.5 truncate max-w-md">
+                      &quot;{r.details}&quot;
+                    </p>
                   </div>
-                  <p className="text-2xs text-neutral-600 mt-1">
-                    Employer: <strong>{r.companyName}</strong> • Candidate: {r.reportedBy} ({r.reportedDate})
-                  </p>
-                  <p className="text-2xs text-neutral-500 italic mt-0.5 truncate max-w-md">
-                    &quot;{r.details}&quot;
-                  </p>
-                </div>
 
-                <Link href="/admin/reports">
-                  <Button size="sm" variant="outline" className="text-xs font-semibold whitespace-nowrap">
-                    Investigate Case
-                  </Button>
-                </Link>
-              </div>
-            ))}
-          </div>
+                  <Link href="/admin/reports">
+                    <Button size="sm" variant="outline" className="text-xs font-semibold whitespace-nowrap">
+                      Investigate Case
+                    </Button>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
         </Card>
       </div>
     </AdminLayout>

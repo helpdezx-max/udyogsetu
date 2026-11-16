@@ -1,5 +1,5 @@
 import { getSupabaseClient } from '../lib/supabase/client';
-import { JobVacancy, SAMPLE_JOBS } from '../data/demo-data';
+import { JobVacancy } from '../data/demo-data';
 
 export interface JobFilterParams {
   search?: string;
@@ -20,6 +20,7 @@ export interface JobFilterParams {
 export const jobsService = {
   /**
    * Fetch Jobs with Comprehensive Filtering & Full-Text Search
+   * Connects exclusively to live database records with zero mock fallbacks.
    */
   async getJobs(params: JobFilterParams = {}): Promise<{
     jobs: JobVacancy[];
@@ -28,53 +29,7 @@ export const jobsService = {
   }> {
     const client = getSupabaseClient();
     if (!client) {
-      // Graceful demo-data fallback
-      let filtered = [...SAMPLE_JOBS].filter((j) => j.status === 'active');
-
-      if (params.search) {
-        const q = params.search.toLowerCase();
-        filtered = filtered.filter(
-          (j) =>
-            j.title.toLowerCase().includes(q) ||
-            j.companyName.toLowerCase().includes(q) ||
-            j.specificLocation.toLowerCase().includes(q) ||
-            j.requiredSkills.some((s) => s.toLowerCase().includes(q))
-        );
-      }
-      if (params.clusterId && params.clusterId !== 'all') {
-        filtered = filtered.filter(
-          (j) => j.clusterName.toLowerCase().includes(params.clusterId!.toLowerCase())
-        );
-      }
-      if (params.category && params.category !== 'all') {
-        filtered = filtered.filter((j) => j.category === params.category);
-      }
-      if (params.qualification && params.qualification !== 'all') {
-        filtered = filtered.filter((j) => j.qualificationRequired === params.qualification);
-      }
-      if (params.employmentType && params.employmentType !== 'all') {
-        filtered = filtered.filter((j) => j.employmentType === params.employmentType);
-      }
-      if (params.shift && params.shift !== 'all') {
-        filtered = filtered.filter((j) => j.shiftType === params.shift);
-      }
-      if (params.minSalary) {
-        filtered = filtered.filter((j) => j.salary.inHandMonthly >= params.minSalary!);
-      }
-      if (params.maxSalary) {
-        filtered = filtered.filter((j) => j.salary.inHandMonthly <= params.maxSalary!);
-      }
-      if (params.busFacility) {
-        filtered = filtered.filter((j) => j.busFacilityProvided);
-      }
-      if (params.canteenFacility) {
-        filtered = filtered.filter((j) => j.canteenProvided);
-      }
-      if (params.walkInOnly) {
-        filtered = filtered.filter((j) => j.walkInAvailable);
-      }
-
-      return { jobs: filtered, totalCount: filtered.length, error: null };
+      return { jobs: [], totalCount: 0, error: null };
     }
 
     try {
@@ -184,8 +139,8 @@ export const jobsService = {
 
       return { jobs, totalCount: count || jobs.length, error: null };
     } catch (err: any) {
-      console.warn('Supabase jobs query error, using demo fallback:', err.message);
-      return { jobs: SAMPLE_JOBS, totalCount: SAMPLE_JOBS.length, error: err };
+      console.warn('Supabase jobs query error:', err.message);
+      return { jobs: [], totalCount: 0, error: err };
     }
   },
 
@@ -195,8 +150,7 @@ export const jobsService = {
   async getJobById(jobId: string): Promise<{ job: JobVacancy | null; error: Error | null }> {
     const client = getSupabaseClient();
     if (!client) {
-      const match = SAMPLE_JOBS.find((j) => j.id === jobId) || null;
-      return { job: match, error: null };
+      return { job: null, error: null };
     }
 
     try {
@@ -263,8 +217,7 @@ export const jobsService = {
 
       return { job, error: null };
     } catch (err: any) {
-      const match = SAMPLE_JOBS.find((j) => j.id === jobId) || null;
-      return { job: match, error: err };
+      return { job: null, error: err };
     }
   },
 
@@ -274,7 +227,7 @@ export const jobsService = {
   async createJob(jobData: any, userId: string): Promise<{ data: any; error: Error | null }> {
     const client = getSupabaseClient();
     if (!client) {
-      return { data: { id: `demo-job-${Date.now()}`, ...jobData }, error: null };
+      return { data: null, error: new Error('Cannot create job without database connection') };
     }
 
     try {
@@ -303,14 +256,14 @@ export const jobsService = {
           bus_facility_provided: jobData.busFacilityProvided || false,
           bus_routes: jobData.busRoutes || [],
           canteen_provided: jobData.canteenProvided || false,
-          accommodation_help: jobData.accommodationHelp || false,
+          accommodationHelp: jobData.accommodationHelp || false,
           walk_in_available: jobData.walkInAvailable || false,
           walk_in_dates: jobData.walkInDetails?.interviewDates || null,
-          walk_in_time: jobData.walk_inDetails?.reportingTime || null,
-          walk_in_venue: jobData.walk_inDetails?.venue || null,
-          walk_in_contact_person: jobData.walk_inDetails?.contactPerson || null,
-          walk_in_contact_phone: jobData.walk_inDetails?.contactPhone || null,
-          walk_in_documents: jobData.walk_inDetails?.documentsToCarry || [],
+          walk_in_time: jobData.walkInDetails?.reportingTime || null,
+          walk_in_venue: jobData.walkInDetails?.venue || null,
+          walk_in_contact_person: jobData.walkInDetails?.contactPerson || null,
+          walk_in_contact_phone: jobData.walkInDetails?.contactPhone || null,
+          walk_in_documents: jobData.walkInDetails?.documentsToCarry || [],
           recruitment_tier: jobData.recruitmentTier || 'verified_direct',
           description: jobData.description,
           responsibilities: jobData.responsibilities || [],

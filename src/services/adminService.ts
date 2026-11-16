@@ -1,10 +1,5 @@
 import { getSupabaseClient } from '../lib/supabase/client';
-import {
-  EmployerVerificationRequest,
-  ModerationReport,
-  INITIAL_VERIFICATIONS,
-  INITIAL_REPORTS,
-} from '../data/demo-data';
+import { EmployerVerificationRequest, ModerationReport } from '../data/demo-data';
 
 export const adminService = {
   /**
@@ -16,7 +11,7 @@ export const adminService = {
   }> {
     const client = getSupabaseClient();
     if (!client) {
-      return { verifications: INITIAL_VERIFICATIONS, error: null };
+      return { verifications: [], error: null };
     }
 
     try {
@@ -43,17 +38,17 @@ export const adminService = {
           gstinCert: 'GSTIN Registration Copy',
           udyamCert: 'MSME Udyam Certificate',
           midcAllotmentLetter: 'MIDC Industrial Plot Allotment Letter',
-          factoryLicense: 'Factory Act License No. 4412',
+          factoryLicense: 'Factory Act License',
         },
         contactPerson: 'Authorized Plant Signatory',
-        contactPhone: row.companies?.contact_phone || '+91 2135 258900',
+        contactPhone: row.companies?.contact_phone || '',
         status: row.status === 'verified' ? 'verified' : row.status === 'rejected' ? 'rejected' : 'pending',
         rejectionReason: row.rejection_reason || undefined,
       }));
 
       return { verifications, error: null };
     } catch (err: any) {
-      return { verifications: INITIAL_VERIFICATIONS, error: err };
+      return { verifications: [], error: err };
     }
   },
 
@@ -77,8 +72,8 @@ export const adminService = {
         .update({
           status,
           rejection_reason: reason || null,
-          reviewed_by: adminUserId || null,
-          reviewed_at: new Date().toISOString(),
+          verified_by: adminUserId || null,
+          verified_at: new Date().toISOString(),
         })
         .eq('id', verificationId);
 
@@ -91,11 +86,11 @@ export const adminService = {
         })
         .eq('id', companyId);
 
-      // 3. Log admin audit action
+      // 3. Log audit event
       if (adminUserId) {
         await (client as any).from('admin_audit_logs').insert({
           admin_id: adminUserId,
-          action: `VERIFICATION_${status.toUpperCase()}`,
+          action: `COMPANY_VERIFICATION_${status.toUpperCase()}`,
           target_type: 'company',
           target_id: companyId,
           details: { verificationId, status, reason },
@@ -117,7 +112,7 @@ export const adminService = {
   }> {
     const client = getSupabaseClient();
     if (!client) {
-      return { reports: INITIAL_REPORTS, error: null };
+      return { reports: [], error: null };
     }
 
     try {
@@ -149,7 +144,7 @@ export const adminService = {
 
       return { reports, error: null };
     } catch (err: any) {
-      return { reports: INITIAL_REPORTS, error: err };
+      return { reports: [], error: err };
     }
   },
 

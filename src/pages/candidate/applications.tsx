@@ -153,26 +153,14 @@ export default function CandidateApplicationsPage() {
                     </div>
                   )}
 
-                  {/* Interactive Status Changer (Demonstrating Frontend State) */}
-                  <div className="p-3 bg-industrial-50 rounded-xl border border-dashed border-industrial-300 flex flex-wrap items-center justify-between gap-3 text-xs">
-                    <span className="text-2xs font-bold text-industrial-500 uppercase">
-                      Test-Drive Application Flow (Demo Control):
+                  {/* Candidate Status Info Banner */}
+                  <div className="p-3 bg-industrial-50/80 rounded-xl border border-industrial-200 flex items-center justify-between gap-3 text-xs">
+                    <span className="text-2xs font-semibold text-industrial-600">
+                      Pipeline stage is updated directly by factory HR upon evaluation.
                     </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {stages.map((stg) => (
-                        <button
-                          key={stg}
-                          onClick={() => updateApplicationStatus(app.id, stg)}
-                          className={`px-2 py-1 rounded text-3xs font-bold uppercase transition-colors ${
-                            app.currentStatus === stg
-                              ? 'bg-industrial-900 text-white'
-                              : 'bg-white border border-industrial-300 text-industrial-700 hover:bg-industrial-100'
-                          }`}
-                        >
-                          Mark {stg}
-                        </button>
-                      ))}
-                    </div>
+                    <span className="text-2xs font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">
+                      Live ATS Sync
+                    </span>
                   </div>
                 </Card>
               );

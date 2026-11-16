@@ -1,5 +1,5 @@
 import { getSupabaseClient } from '../lib/supabase/client';
-import { JobVacancy, Company, ModerationReport, SAMPLE_JOBS, SAMPLE_COMPANIES, INITIAL_REPORTS } from '../data/demo-data';
+import { JobVacancy, Company, ModerationReport } from '../data/demo-data';
 
 export type VerificationStage =
   | 'unverified'
@@ -442,13 +442,13 @@ export const trustService = {
     const client = getSupabaseClient();
     if (!client) {
       return {
-        totalCompanies: SAMPLE_COMPANIES.length,
-        verifiedCompanies: SAMPLE_COMPANIES.filter((c) => c.verificationStatus === 'verified').length,
-        pendingVerifications: 1,
-        activeVerifiedVacancies: SAMPLE_JOBS.filter((j) => j.status === 'active').length,
+        totalCompanies: 0,
+        verifiedCompanies: 0,
+        pendingVerifications: 0,
+        activeVerifiedVacancies: 0,
         pendingModerationJobs: 0,
-        reconfirmationDueJobs: 1,
-        openComplaints: INITIAL_REPORTS.filter((r) => r.status === 'pending').length,
+        reconfirmationDueJobs: 0,
+        openComplaints: 0,
         highRiskEntitiesCount: 0,
       };
     }
@@ -482,13 +482,13 @@ export const trustService = {
       };
     } catch {
       return {
-        totalCompanies: SAMPLE_COMPANIES.length,
-        verifiedCompanies: 2,
-        pendingVerifications: 1,
-        activeVerifiedVacancies: SAMPLE_JOBS.length,
+        totalCompanies: 0,
+        verifiedCompanies: 0,
+        pendingVerifications: 0,
+        activeVerifiedVacancies: 0,
         pendingModerationJobs: 0,
-        reconfirmationDueJobs: 1,
-        openComplaints: 2,
+        reconfirmationDueJobs: 0,
+        openComplaints: 0,
         highRiskEntitiesCount: 0,
       };
     }

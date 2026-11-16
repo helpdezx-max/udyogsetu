@@ -32,9 +32,8 @@ export default function PrivacyPolicyPage() {
             </p>
           </div>
 
-          <div className="p-4 bg-[#FFF9EE] border border-[#FAECBF] rounded-2xl text-[#7C5104] font-medium text-xs">
-            Notice: This application is operating in Phase 1 frontend prototype mode. All records in this session are
-            simulated demo profiles for testing and design validation.
+          <div className="p-4 bg-[#F2F6FD] border border-[#D8E6FA] rounded-2xl text-[#1B4D8D] font-medium text-xs">
+            Notice: UdyogSetu implements strict role-based access control and Row Level Security. Resumes and candidate identity documents are encrypted at rest and accessible only to verified hiring managers.
           </div>
         </div>
       </div>

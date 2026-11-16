@@ -23,7 +23,8 @@ import {
 } from 'lucide-react';
 import { useApp, UserRole, Locale } from '../../context/AppContext';
 import { useLocale } from '../../hooks/useLocale';
-import { JobVacancy, INDUSTRIAL_CLUSTERS } from '../../data/demo-data';
+import { JobVacancy } from '../../data/demo-data';
+import { CHAKAN_PILOT_LOCATIONS } from '../../data/pilot-locations';
 
 interface PastelPalette {
   bg: string;
@@ -336,8 +337,8 @@ export default function FindJobsPage() {
               {/* Section 1: Industrial Location */}
               <div className="space-y-3">
                 <h4 className="text-xs font-bold text-neutral-900">Industrial Location</h4>
-                <div className="space-y-2 text-xs text-neutral-700">
-                  {INDUSTRIAL_CLUSTERS.map((cl) => {
+                <div className="space-y-2 text-xs text-neutral-700 max-h-60 overflow-y-auto pr-1">
+                  {CHAKAN_PILOT_LOCATIONS.map((cl) => {
                     const checked = selectedLocations.includes(cl.name);
                     return (
                       <label
@@ -711,21 +712,47 @@ export default function FindJobsPage() {
 
               {/* 5. THREE-COLUMN JOB CARD GRID ON DESKTOP (1 per row on mobile) */}
               {filteredJobs.length === 0 ? (
-                <div className="py-16 text-center space-y-3 bg-[#FAFAFA] rounded-3xl border border-dashed border-neutral-200">
-                  <Search className="w-8 h-8 text-neutral-400 mx-auto" />
-                  <h3 className="text-base font-bold text-neutral-900">
-                    No Matching Industrial Vacancies
-                  </h3>
-                  <p className="text-xs text-neutral-500 max-w-sm mx-auto">
-                    Try removing some of your selected location or shift filters to see more results across Chakan.
-                  </p>
-                  <button
-                    onClick={resetAllFilters}
-                    className="bg-neutral-900 text-white text-xs font-semibold px-4 py-2 rounded-xl mt-2 hover:bg-black transition-colors"
-                  >
-                    Reset All Filters
-                  </button>
-                </div>
+                jobs.length === 0 ? (
+                  <div className="py-16 text-center space-y-3 bg-[#FAFAFA] rounded-3xl border border-dashed border-neutral-200 p-8">
+                    <Factory className="w-10 h-10 text-neutral-400 mx-auto" />
+                    <h3 className="text-base font-bold text-neutral-900">
+                      New Industrial Vacancies Coming Soon
+                    </h3>
+                    <p className="text-xs text-neutral-500 max-w-md mx-auto">
+                      Employers in Chakan MIDC, Bhosari, Talegaon, and Khed City are currently onboarding and publishing verified openings. Check back shortly or register for alerts.
+                    </p>
+                    <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                      <Link
+                        href="/alerts"
+                        className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors inline-flex items-center gap-1.5"
+                      >
+                        <span>Get Free WhatsApp Job Alerts</span>
+                      </Link>
+                      <Link
+                        href="/employer/post-job"
+                        className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors inline-flex items-center gap-1.5"
+                      >
+                        <span>Post an Industrial Vacancy</span>
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="py-16 text-center space-y-3 bg-[#FAFAFA] rounded-3xl border border-dashed border-neutral-200">
+                    <Search className="w-8 h-8 text-neutral-400 mx-auto" />
+                    <h3 className="text-base font-bold text-neutral-900">
+                      No Matching Industrial Vacancies
+                    </h3>
+                    <p className="text-xs text-neutral-500 max-w-sm mx-auto">
+                      Try removing some of your selected location or shift filters to see more results across Chakan.
+                    </p>
+                    <button
+                      onClick={resetAllFilters}
+                      className="bg-neutral-900 text-white text-xs font-semibold px-4 py-2 rounded-xl mt-2 hover:bg-black transition-colors"
+                    >
+                      Reset All Filters
+                    </button>
+                  </div>
+                )
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                   {filteredJobs.map((job, idx) => {
@@ -868,10 +895,10 @@ export default function FindJobsPage() {
                 </div>
               )}
 
-              {/* Minimal Demo Note inside results */}
-              <div className="pt-6 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-3xs text-neutral-400">
-                <span>All listings are verified demonstration records for Chakan industrial corridors.</span>
-                <span className="font-mono">Phase 1 Demo • No Backend Required</span>
+              {/* Production Trust Footer Note */}
+              <div className="pt-6 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-3xs text-neutral-500">
+                <span>UdyogSetu verifies participating employers across Chakan, Bhosari, Talegaon, and Khed City. 100% free for candidates.</span>
+                <span className="font-semibold text-emerald-700">Zero Candidate Fee Guaranteed</span>
               </div>
             </main>
           </div>

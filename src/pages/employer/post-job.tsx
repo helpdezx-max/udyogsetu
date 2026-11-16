@@ -14,7 +14,12 @@ export default function PostJobPage() {
   const router = useRouter();
   const { addNewJob, companies, jobs } = useApp();
 
-  const currentCompany = companies.find((c) => c.id === 'comp-1') || companies[0];
+  const currentCompany = companies[0] || {
+    id: '',
+    name: 'Manufacturing Unit',
+    clusterName: 'Chakan MIDC Phase 1',
+    specificAddress: 'Plot 45, Chakan MIDC, Pune 410501',
+  };
 
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState<JobVacancy['category']>('Machining & CNC');
@@ -169,7 +174,7 @@ export default function PostJobPage() {
         {isSuccess && (
           <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-300 text-emerald-900 text-xs font-bold flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-            <span>Vacancy successfully published to demo state! Redirecting to Manage Vacancies...</span>
+            <span>Vacancy successfully published! Redirecting to Manage Vacancies...</span>
           </div>
         )}
 
@@ -433,7 +438,7 @@ export default function PostJobPage() {
                 Cancel
               </Button>
               <Button type="submit" variant="primary" className="font-bold">
-                Publish Vacancy (Demo)
+                Publish Vacancy
               </Button>
             </div>
           </form>

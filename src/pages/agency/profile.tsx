@@ -10,7 +10,7 @@ export default function AgencyProfilePage() {
   return (
     <AgencyLayout>
       <Head>
-        <title>Agency Profile & License Details • Pragati Manpower</title>
+        <title>Agency Profile &amp; License Details • Agency Portal</title>
       </Head>
 
       <div className="space-y-6">
@@ -23,13 +23,13 @@ export default function AgencyProfilePage() {
 
         <Card className="p-6 space-y-4 text-xs">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input label="Agency Legal Name" value="Pragati Manpower Services & Contractors" disabled />
-            <Input label="Labour Contractor License" value="LAB-CON-REG-2024-81" disabled />
+            <Input label="Agency Legal Name" value="Authorized Industrial Staffing Agency" disabled />
+            <Input label="Labour Contractor License" value="LAB-CON-REG-2026-XXXX" disabled />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input label="Chakan Office Address" value="Talegaon Chowk, Opp. State Bank, Chakan 410501" disabled />
-            <Input label="Director Contact" value="+91 98220 11920 (Mr. Balasaheb Thorat)" disabled />
+            <Input label="Chakan Office Address" value="Talegaon Chowk, Chakan 410501" disabled />
+            <Input label="Director Contact" value="+91 98220 XXXXX" disabled />
           </div>
 
           <div className="p-3 bg-blue-50 rounded-xl border border-blue-200 text-blue-900 flex items-center gap-2">

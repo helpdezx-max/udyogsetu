@@ -14,9 +14,9 @@ export default function CandidateLoginPage() {
   const { setActiveRole } = useApp();
 
   const [authMode, setAuthMode] = useState<'email' | 'otp'>('email');
-  const [email, setEmail] = useState('candidate.mahesh@udyogsetu.demo');
-  const [password, setPassword] = useState('password123');
-  const [phone, setPhone] = useState('9890144521');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -147,7 +147,7 @@ export default function CandidateLoginPage() {
               ) : (
                 <form onSubmit={handleVerifyOtp} className="space-y-4">
                   <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-800 text-center font-medium">
-                    Demo Mode OTP: Enter <span className="font-bold font-mono">1234</span>
+                    Enter the 4-digit verification OTP received on your mobile
                   </div>
 
                   <Input
@@ -180,7 +180,7 @@ export default function CandidateLoginPage() {
             <span>
               {isConfigured
                 ? 'Connected to live Supabase Authentication with Row Level Security.'
-                : 'Local Mode: Supabase credentials not set in .env. Test accounts are pre-filled for local inspection.'}
+                : 'Local Mode: Enter your registered candidate email and password.'}
             </span>
           </div>
         </div>

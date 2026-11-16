@@ -18,8 +18,15 @@ export const AgencyLayout: React.FC<{ children: React.ReactNode; title?: string 
   const router = useRouter();
   const { companies, jobs, applications } = useApp();
 
-  const currentAgency = companies.find((c) => c.id === 'comp-5') || companies[0];
-  const agencyJobs = jobs.filter((j) => j.companyId === currentAgency.id || j.recruitmentTier === 'verified_agency');
+  const currentAgency = companies.find((c) => c.id === 'comp-5') || companies[0] || {
+    id: '',
+    name: 'Licensed Labor Contractor',
+    clusterName: 'Chakan MIDC',
+    industry: 'Industrial Manpower & Staffing',
+  };
+  const agencyJobs = currentAgency.id
+    ? jobs.filter((j) => j.companyId === currentAgency.id || j.recruitmentTier === 'verified_agency')
+    : jobs.filter((j) => j.recruitmentTier === 'verified_agency');
 
   const navItems = [
     { label: 'Agency Overview', href: '/agency/dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },

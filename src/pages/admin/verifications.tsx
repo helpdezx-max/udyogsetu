@@ -35,7 +35,7 @@ export default function AdminVerificationsPage() {
     
     // Log audit decision
     await trustService.updateEmployerVerificationStage({
-      companyId: companyId || 'comp-1',
+      companyId: companyId || id,
       stage: 'verified',
       reviewerId: user?.id,
       method: verificationMethod,
@@ -59,7 +59,7 @@ export default function AdminVerificationsPage() {
       updateVerificationStatus(id, 'rejected', reason);
       
       await trustService.updateEmployerVerificationStage({
-        companyId: companyId || 'comp-1',
+        companyId: companyId || id,
         stage: 'rejected',
         reviewerId: user?.id,
         method: verificationMethod,
@@ -83,7 +83,7 @@ export default function AdminVerificationsPage() {
     );
     if (infoDetails) {
       await trustService.updateEmployerVerificationStage({
-        companyId: companyId || 'comp-1',
+        companyId: companyId || id,
         stage: 'additional_info_required',
         reviewerId: user?.id,
         method: verificationMethod,
@@ -160,7 +160,7 @@ export default function AdminVerificationsPage() {
                     <>
                       <Button
                         size="sm"
-                        onClick={() => handleApprove(v.id, 'comp-1')}
+                        onClick={() => handleApprove(v.id, v.companyId)}
                         className="text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white"
                       >
                         Approve
@@ -168,7 +168,7 @@ export default function AdminVerificationsPage() {
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => handleRequestInfo(v.id, 'comp-1')}
+                        onClick={() => handleRequestInfo(v.id, v.companyId)}
                         className="text-xs font-bold text-amber-700 border-amber-300 hover:bg-amber-50"
                       >
                         Request Info
@@ -176,7 +176,7 @@ export default function AdminVerificationsPage() {
                       <Button
                         size="sm"
                         variant="danger"
-                        onClick={() => handleReject(v.id, 'comp-1')}
+                        onClick={() => handleReject(v.id, v.companyId)}
                         className="text-xs font-bold"
                       >
                         Reject
@@ -267,7 +267,7 @@ export default function AdminVerificationsPage() {
                 </Button>
                 <Button
                   size="sm"
-                  onClick={() => handleApprove(selectedVerif.id, 'comp-1')}
+                  onClick={() => handleApprove(selectedVerif.id, selectedVerif.companyId)}
                   className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
                 >
                   Approve Verification

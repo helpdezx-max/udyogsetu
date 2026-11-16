@@ -74,7 +74,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <div className="font-bold text-neutral-900">Email Inquiries</div>
-                    <div className="text-neutral-600 text-3xs mt-0.5">help@udyogsetu.demo</div>
+                    <div className="text-neutral-600 text-3xs mt-0.5">help@udyogsetu.in</div>
                   </div>
                 </div>
               </div>
@@ -92,7 +92,7 @@ export default function ContactPage() {
                 <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
                 <h3 className="text-base font-bold text-neutral-950">Inquiry Received</h3>
                 <p className="text-xs text-neutral-600 max-w-sm mx-auto">
-                  Thank you! Our Chakan industrial support desk has logged your message. (Frontend Demo State)
+                  Thank you! Our Chakan industrial support desk has logged your message and will reach out within 24 working hours.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}

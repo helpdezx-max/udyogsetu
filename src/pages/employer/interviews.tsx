@@ -38,7 +38,9 @@ export default function EmployerInterviewsPage() {
                     <span className="text-2xs font-extrabold px-2 py-0.5 rounded bg-amber-100 text-amber-900 uppercase">
                       Confirmed Gate Interview
                     </span>
-                    <h3 className="font-bold text-base text-industrial-900 mt-1">Mahesh Santosh Shinde</h3>
+                    <h3 className="font-bold text-base text-industrial-900 mt-1">
+                      Candidate ID #{app.id.slice(0, 8)}
+                    </h3>
                     <p className="text-xs text-industrial-600">Candidate for: {app.jobTitle}</p>
                   </div>
 
@@ -53,7 +55,7 @@ export default function EmployerInterviewsPage() {
 
                 <div className="text-xs space-y-1 text-industrial-700">
                   <div>
-                    <span className="font-semibold">Assessment Type:</span> Practical VMC tool offset & 5S bench fitting
+                    <span className="font-semibold">Assessment Type:</span> Technical &amp; Safety Gate Evaluation
                   </div>
                   {app.interviewerNotes && (
                     <div className="italic text-2xs text-industrial-600">Note: "{app.interviewerNotes}"</div>

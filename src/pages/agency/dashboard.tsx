@@ -8,12 +8,15 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 
 export default function AgencyDashboardPage() {
-  const { jobs, applications } = useApp();
+  const { jobs, applications, companies } = useApp();
+
+  const totalMandateOpenings = jobs.reduce((sum, j) => sum + j.openingsCount, 0);
+  const spotWalkinCount = jobs.filter((j) => j.walkInAvailable).length;
 
   return (
     <AgencyLayout>
       <Head>
-        <title>Recruitment Agency & Contractor Portal • Pragati Manpower</title>
+        <title>Recruitment Agency &amp; Contractor Portal • UdyogSetu</title>
       </Head>
 
       <div className="space-y-6">
@@ -28,26 +31,26 @@ export default function AgencyDashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <Card className="p-4 border-l-4 border-l-indigo-600">
             <span className="text-2xs font-bold uppercase text-industrial-500">Client Plants Served</span>
-            <div className="text-2xl font-black text-industrial-900 mt-1">4 Plants</div>
-            <div className="text-3xs text-industrial-500 mt-1">Chakan Phase 1 & 2</div>
+            <div className="text-2xl font-black text-industrial-900 mt-1">{companies.length} Plants</div>
+            <div className="text-3xs text-industrial-500 mt-1">Verified Client Master</div>
           </Card>
 
           <Card className="p-4 border-l-4 border-l-brand-600">
             <span className="text-2xs font-bold uppercase text-industrial-500">Active Supply Mandates</span>
-            <div className="text-2xl font-black text-brand-700 mt-1">45 Openings</div>
-            <div className="text-3xs text-industrial-500 mt-1">Line Feeders & Fitters</div>
+            <div className="text-2xl font-black text-brand-700 mt-1">{totalMandateOpenings} Openings</div>
+            <div className="text-3xs text-industrial-500 mt-1">{jobs.length} Active Positions</div>
           </Card>
 
           <Card className="p-4 border-l-4 border-l-emerald-600">
-            <span className="text-2xs font-bold uppercase text-industrial-500">Deployed Workforce</span>
-            <div className="text-2xl font-black text-emerald-700 mt-1">210 Workers</div>
-            <div className="text-3xs text-emerald-600 font-semibold">100% PF/ESIC compliant</div>
+            <span className="text-2xs font-bold uppercase text-industrial-500">Candidate Pipeline</span>
+            <div className="text-2xl font-black text-emerald-700 mt-1">{applications.length} Candidates</div>
+            <div className="text-3xs text-emerald-600 font-semibold">100% Zero-fee policy</div>
           </Card>
 
           <Card className="p-4 border-l-4 border-l-amber-500">
-            <span className="text-2xs font-bold uppercase text-industrial-500">Daily Spot Walk-ins</span>
-            <div className="text-2xl font-black text-amber-700 mt-1">15 Today</div>
-            <div className="text-3xs text-amber-700 font-semibold">Interviewing at Talegaon Chowk</div>
+            <span className="text-2xs font-bold uppercase text-industrial-500">Spot Walk-ins Scheduled</span>
+            <div className="text-2xl font-black text-amber-700 mt-1">{spotWalkinCount} Drives</div>
+            <div className="text-3xs text-amber-700 font-semibold">Active Gate Drives</div>
           </Card>
         </div>
 
@@ -60,27 +63,39 @@ export default function AgencyDashboardPage() {
             </Link>
           </div>
 
-          <div className="space-y-3 text-xs">
-            <div className="p-4 rounded-xl border border-industrial-200 bg-industrial-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <h4 className="font-bold text-industrial-900">Sahyadri Precision Auto-Tech Ltd.</h4>
-                <p className="text-2xs text-industrial-500">Chakan Phase 1 • 20 Press Line Feeders & Assembly Workers</p>
+          {companies.length === 0 ? (
+            <div className="py-8 text-center space-y-2 border border-dashed border-industrial-200 rounded-xl bg-industrial-50/50 p-6">
+              <Building2 className="w-8 h-8 text-industrial-400 mx-auto" />
+              <h4 className="text-sm font-bold text-industrial-900">No Client Plant Mandates Connected</h4>
+              <p className="text-xs text-industrial-500 max-w-sm mx-auto">
+                Licensed manpower contractors connect their verified corporate manufacturing accounts here to post authorized plant vacancies.
+              </p>
+              <div className="pt-1">
+                <Link href="/agency/employers">
+                  <Button size="sm" variant="outline" className="text-xs">
+                    Connect Client Employer
+                  </Button>
+                </Link>
               </div>
-              <span className="text-2xs font-bold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200">
-                Active Contract
-              </span>
             </div>
-
-            <div className="p-4 rounded-xl border border-industrial-200 bg-industrial-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <h4 className="font-bold text-industrial-900">Indo-German Tool & Pressings Corp.</h4>
-                <p className="text-2xs text-industrial-500">Chakan Phase 2 • 15 MIG Welders & Helpers</p>
-              </div>
-              <span className="text-2xs font-bold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200">
-                Active Contract
-              </span>
+          ) : (
+            <div className="space-y-3 text-xs">
+              {companies.map((c) => (
+                <div
+                  key={c.id}
+                  className="p-4 rounded-xl border border-industrial-200 bg-industrial-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                >
+                  <div>
+                    <h4 className="font-bold text-industrial-900">{c.name}</h4>
+                    <p className="text-2xs text-industrial-500">{c.clusterName} • {c.industry}</p>
+                  </div>
+                  <span className="text-2xs font-bold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200">
+                    Active Client
+                  </span>
+                </div>
+              ))}
             </div>
-          </div>
+          )}
         </Card>
       </div>
     </AgencyLayout>

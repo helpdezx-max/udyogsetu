@@ -71,110 +71,7 @@ export const PIPELINE_STAGES: { key: PipelineStage; label: string; step: number;
   { key: 'inactive_employer', label: '11. Inactive Employer', step: 11, color: 'bg-rose-50 text-rose-800' },
 ];
 
-export const INITIAL_PROSPECTS: EmployerProspect[] = [
-  {
-    id: 'pr-1',
-    companyName: 'Chakan Precision Die & Pressworks Ltd.',
-    industry: 'Stamping & Press Tools',
-    industrialLocation: 'Chakan MIDC Phase 1',
-    officialWebsite: 'https://chakanprecision-demo.in',
-    publicBusinessContact: '+91 2135 278100',
-    contactPerson: 'Mr. Suhas Deshmukh',
-    contactRole: 'Plant Head / HR Manager',
-    contactSource: 'MCCIA Pune Directory 2026',
-    outreachDate: '10-Nov-2026',
-    outreachMethod: 'in_person',
-    responseStatus: 'interested',
-    meetingStatus: 'completed',
-    verificationStatus: 'verified',
-    vacancyAvailability: 'immediate',
-    nextFollowupDate: '18-Nov-2026',
-    pipelineStage: 'first_vacancy_submitted',
-    internalNotes:
-      'Met at plant gate 2. Urgent need for 8 CNC VMC Machinists and 4 CMM Quality Inspectors. Verified Udyam and GSTIN registration on portal.',
-  },
-  {
-    id: 'pr-2',
-    companyName: 'Varun Auto-Transmission Components',
-    industry: 'Automotive Powertrain',
-    industrialLocation: 'Chakan MIDC Phase 2',
-    officialWebsite: 'https://varunauto-demo.com',
-    publicBusinessContact: '+91 2135 289410',
-    contactPerson: 'Mrs. Rohini Patwardhan',
-    contactRole: 'Sr. Manager - Talent Acquisition',
-    contactSource: 'Industrial LinkedIn Search',
-    outreachDate: '12-Nov-2026',
-    outreachMethod: 'linkedin',
-    responseStatus: 'responsive',
-    meetingStatus: 'scheduled',
-    verificationStatus: 'in_progress',
-    vacancyAvailability: 'immediate',
-    nextFollowupDate: '17-Nov-2026',
-    pipelineStage: 'meeting_scheduled',
-    internalNotes:
-      'Demonstrated 0-fee candidate trust pledge. Scheduled in-person walk-through with Plant GM for Tuesday 11:00 AM.',
-  },
-  {
-    id: 'pr-3',
-    companyName: 'Khed Integrated Hydraulic Cylinders',
-    industry: 'Heavy Engineering',
-    industrialLocation: 'Khed City SEZ',
-    officialWebsite: 'https://khedhydraulic-demo.in',
-    publicBusinessContact: '+91 2135 301220',
-    contactPerson: 'Mr. Arvind Gaikwad',
-    contactRole: 'Factory HR Officer',
-    contactSource: 'Khed City SEZ Industrial Association Roster',
-    outreachDate: '14-Nov-2026',
-    outreachMethod: 'phone',
-    responseStatus: 'interested',
-    meetingStatus: 'none',
-    verificationStatus: 'unverified',
-    vacancyAvailability: 'upcoming',
-    nextFollowupDate: '19-Nov-2026',
-    pipelineStage: 'interested',
-    internalNotes:
-      'Expanding Phase 2 assembly line in Dec 2026. Needs 15 Fitter and Welder apprentices under NAPS/NATS.',
-  },
-  {
-    id: 'pr-4',
-    companyName: 'IndoSpace Logistics & Fulfillment Plant 4',
-    industry: 'Logistics & 3PL Warehousing',
-    industrialLocation: 'Mahalunge Ingale',
-    publicBusinessContact: '+91 20 6710 4400',
-    contactPerson: 'Mr. Nilesh Jadhav',
-    contactRole: 'Operations HR Lead',
-    contactSource: 'Field Visit - Talegaon Chakan Road',
-    outreachDate: '08-Nov-2026',
-    outreachMethod: 'email',
-    responseStatus: 'no_response',
-    meetingStatus: 'none',
-    verificationStatus: 'unverified',
-    vacancyAvailability: 'unknown',
-    nextFollowupDate: '16-Nov-2026',
-    pipelineStage: 'contacted',
-    internalNotes: 'Sent official Employer Introduction Kit and Chakan pilot brief. Follow-up phone call due today.',
-  },
-  {
-    id: 'pr-5',
-    companyName: 'Kuruli Micro-Fasteners & Wire Harness Ltd.',
-    industry: 'Precision Machining',
-    industrialLocation: 'Kuruli Industrial Belt',
-    publicBusinessContact: '+91 2135 244190',
-    contactPerson: 'Mr. Ramesh Shinde',
-    contactRole: 'Managing Partner',
-    contactSource: 'Kuruli Small Scale Industries Association',
-    outreachDate: '05-Nov-2026',
-    outreachMethod: 'in_person',
-    responseStatus: 'interested',
-    meetingStatus: 'completed',
-    verificationStatus: 'verified',
-    vacancyAvailability: 'immediate',
-    nextFollowupDate: '20-Nov-2026',
-    pipelineStage: 'active_employer',
-    internalNotes:
-      'Fully verified unit with 3 published active job listings on UdyogSetu. Fast response time to applicant technician profiles.',
-  },
-];
+export const INITIAL_PROSPECTS: EmployerProspect[] = [];
 
 export default function EmployerAcquisitionPage() {
   const [prospects, setProspects] = useState<EmployerProspect[]>(INITIAL_PROSPECTS);
@@ -421,7 +318,26 @@ export default function EmployerAcquisitionPage() {
 
             {/* Prospects Roster */}
             <div className="space-y-3">
-              {filteredProspects.map((p) => {
+              {filteredProspects.length === 0 ? (
+                <div className="py-12 text-center space-y-2 border border-dashed border-neutral-200 rounded-2xl bg-neutral-50/50 p-6">
+                  <Building2 className="w-8 h-8 text-neutral-400 mx-auto" />
+                  <h4 className="text-sm font-bold text-neutral-900">No Employer Prospects in Pipeline</h4>
+                  <p className="text-xs text-neutral-500 max-w-sm mx-auto">
+                    Log new plant prospect outreach, track HR meetings, and progress employers towards verified vacancy publishing.
+                  </p>
+                  <div className="pt-2">
+                    <Button
+                      size="sm"
+                      variant="primary"
+                      onClick={() => setIsAddModalOpen(true)}
+                      className="text-xs font-semibold"
+                    >
+                      <PlusCircle className="w-3.5 h-3.5 mr-1.5" /> Log First Plant Prospect
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                filteredProspects.map((p) => {
                 const stageObj = PIPELINE_STAGES.find((s) => s.key === p.pipelineStage) || PIPELINE_STAGES[0];
 
                 return (
@@ -517,7 +433,7 @@ export default function EmployerAcquisitionPage() {
                     </div>
                   </Card>
                 );
-              })}
+              }))}
             </div>
           </div>
         )}

@@ -21,8 +21,15 @@ export const EmployerLayout: React.FC<{ children: React.ReactNode; title?: strin
   const router = useRouter();
   const { companies, jobs, applications } = useApp();
 
-  const currentCompany = companies.find((c) => c.id === 'comp-1') || companies[0];
-  const companyJobs = jobs.filter((j) => j.companyId === currentCompany.id);
+  const currentCompany = companies.find((c) => c.id === 'comp-1') || companies[0] || {
+    id: '',
+    name: 'Manufacturing Unit',
+    clusterName: 'Chakan MIDC Phase 1',
+    industry: 'Automotive & Heavy Engineering',
+    logoPlaceholderBg: 'bg-neutral-900',
+    logoLetter: 'M',
+  };
+  const companyJobs = currentCompany.id ? jobs.filter((j) => j.companyId === currentCompany.id) : jobs;
 
   const navItems = [
     { label: 'Overview Dashboard', href: '/employer/dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },

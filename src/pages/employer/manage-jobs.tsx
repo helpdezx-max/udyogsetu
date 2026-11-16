@@ -9,8 +9,9 @@ import { Button } from '../../components/ui/Button';
 import { trustService } from '../../services/trustService';
 
 export default function ManageJobsPage() {
-  const { jobs, updateJobStatus } = useApp();
-  const plantJobs = jobs.filter((j) => j.companyId === 'comp-1' || j.companyName.includes('Sahyadri'));
+  const { jobs, updateJobStatus, companies } = useApp();
+  const currentCompany = companies[0] || null;
+  const plantJobs = currentCompany ? jobs.filter((j) => j.companyId === currentCompany.id) : jobs;
   const [reconfirmNotice, setReconfirmNotice] = useState<string | null>(null);
 
   const handleReconfirm = async (jobId: string) => {
@@ -72,7 +73,25 @@ export default function ManageJobsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-industrial-100">
-                {plantJobs.map((job) => {
+                {plantJobs.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="py-12 text-center text-industrial-500">
+                      <Briefcase className="w-8 h-8 text-industrial-400 mx-auto mb-2" />
+                      <p className="font-bold text-sm text-industrial-900">No Factory Vacancies Posted Yet</p>
+                      <p className="text-2xs text-industrial-500 mt-1 max-w-sm mx-auto">
+                        Your posted vacancies will appear here with automated 14-day freshness monitoring and candidate application tracking.
+                      </p>
+                      <div className="mt-3">
+                        <Link href="/employer/post-job">
+                          <Button size="sm" variant="primary" className="text-xs font-semibold">
+                            <PlusCircle className="w-3.5 h-3.5 mr-1.5" /> Post Your First Vacancy
+                          </Button>
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                ) : (
+                  plantJobs.map((job) => {
                   const freshness = trustService.calculateFreshness(job);
 
                   return (
@@ -150,7 +169,7 @@ export default function ManageJobsPage() {
                       </td>
                     </tr>
                   );
-                })}
+                }))}
               </tbody>
             </table>
           </div>
