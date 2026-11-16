@@ -47,6 +47,87 @@ export interface Database {
         };
         Relationships: [];
       };
+      team_invitations: {
+        Row: {
+          id: string;
+          company_id: string;
+          inviter_id: string | null;
+          email: string;
+          role: 'hr_admin' | 'recruiter' | 'hiring_manager' | 'interviewer';
+          token_hash: string;
+          status: 'pending' | 'accepted' | 'revoked' | 'expired';
+          expires_at: string;
+          accepted_by: string | null;
+          accepted_at: string | null;
+          department: string | null;
+          notes: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          company_id: string;
+          inviter_id?: string | null;
+          email: string;
+          role: 'hr_admin' | 'recruiter' | 'hiring_manager' | 'interviewer';
+          token_hash: string;
+          status?: 'pending' | 'accepted' | 'revoked' | 'expired';
+          expires_at?: string;
+          accepted_by?: string | null;
+          accepted_at?: string | null;
+          department?: string | null;
+          notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          company_id?: string;
+          inviter_id?: string | null;
+          email?: string;
+          role?: 'hr_admin' | 'recruiter' | 'hiring_manager' | 'interviewer';
+          token_hash?: string;
+          status?: 'pending' | 'accepted' | 'revoked' | 'expired';
+          expires_at?: string;
+          accepted_by?: string | null;
+          accepted_at?: string | null;
+          department?: string | null;
+          notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      auth_audit_logs: {
+        Row: {
+          id: string;
+          user_id: string | null;
+          event_type: string;
+          ip_address: string | null;
+          user_agent: string | null;
+          metadata: Record<string, any>;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id?: string | null;
+          event_type: string;
+          ip_address?: string | null;
+          user_agent?: string | null;
+          metadata?: Record<string, any>;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string | null;
+          event_type?: string;
+          ip_address?: string | null;
+          user_agent?: string | null;
+          metadata?: Record<string, any>;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       user_roles: {
         Row: {
           id: string;
@@ -502,21 +583,21 @@ export interface Database {
           id: string;
           company_id: string;
           user_id: string;
-          member_role: 'owner' | 'recruiter' | 'hiring_manager';
+          member_role: 'owner' | 'hr_admin' | 'recruiter' | 'hiring_manager' | 'interviewer';
           created_at: string;
         };
         Insert: {
           id?: string;
           company_id: string;
           user_id: string;
-          member_role: 'owner' | 'recruiter' | 'hiring_manager';
+          member_role: 'owner' | 'hr_admin' | 'recruiter' | 'hiring_manager' | 'interviewer';
           created_at?: string;
         };
         Update: {
           id?: string;
           company_id?: string;
           user_id?: string;
-          member_role?: 'owner' | 'recruiter' | 'hiring_manager';
+          member_role?: 'owner' | 'hr_admin' | 'recruiter' | 'hiring_manager' | 'interviewer';
           created_at?: string;
         };
         Relationships: [];
@@ -1782,3 +1863,7 @@ export interface Database {
     Enums: Record<string, never>;
   };
 }
+
+export type CompanyMemberRole = 'owner' | 'hr_admin' | 'recruiter' | 'hiring_manager' | 'interviewer';
+export type AgencyMemberRole = 'owner' | 'recruiter';
+export type TeamInvitationRole = 'hr_admin' | 'recruiter' | 'hiring_manager' | 'interviewer';

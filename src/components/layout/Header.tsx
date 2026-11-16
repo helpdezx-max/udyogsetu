@@ -16,33 +16,42 @@ import {
   Briefcase,
   Users2,
   Lock,
-  RotateCcw,
+  LogOut,
+  LogIn,
+  UserPlus,
+  Building,
 } from 'lucide-react';
-import { useApp, UserRole, Locale } from '../../context/AppContext';
+import { useApp, Locale } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import { useLocale } from '../../hooks/useLocale';
 
 export const Header: React.FC = () => {
   const router = useRouter();
-  const { savedJobIds, activeRole, setActiveRole, resetDemoData, isSupabaseConnected } = useApp();
+  const { savedJobIds, isSupabaseConnected } = useApp();
+  const { user, profile, activeRole, roles, workspaces, activeWorkspace, switchActiveWorkspace, signOut, isConfigured } = useAuth();
   const { locale, setLocale, t } = useLocale();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [portalDropdownOpen, setPortalDropdownOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
 
   const isActive = (path: string) => {
-    if (path === '/') return router.pathname === '/';
+    if (path === '/') return router.pathname === '';
     return router.pathname.startsWith(path);
   };
 
-  const handleRoleChange = (role: UserRole) => {
-    setActiveRole(role);
-    setPortalDropdownOpen(false);
+  const handleSignOut = async () => {
+    setUserDropdownOpen(false);
     setMobileMenuOpen(false);
-    if (role === 'candidate') router.push('/candidate/dashboard');
-    else if (role === 'employer') router.push('/employer/dashboard');
-    else if (role === 'agency') router.push('/agency/dashboard');
-    else if (role === 'admin') router.push('/admin/dashboard');
-    else router.push('/');
+    await signOut();
+    router.push('/signin?logged_out=1');
+  };
+
+  const getDashboardLink = () => {
+    if (!user) return '/signin';
+    if (roles.includes('admin') || activeRole === 'admin') return '/admin/dashboard';
+    if (roles.includes('agency') || activeRole === 'agency') return '/agency/dashboard';
+    if (roles.includes('employer') || activeRole === 'employer') return '/employer/dashboard';
+    return '/candidate/dashboard';
   };
 
   return (
@@ -130,7 +139,7 @@ export const Header: React.FC = () => {
         </Link>
       </nav>
 
-      {/* Compact Utility & Account Controls */}
+      {/* Utility Controls */}
       <div className="flex items-center gap-2 sm:gap-3">
         {/* Language Pill */}
         <div className="flex items-center border border-neutral-200 rounded-full p-0.5 text-3xs font-bold uppercase bg-neutral-50">
@@ -163,88 +172,122 @@ export const Header: React.FC = () => {
           )}
         </Link>
 
-        {/* Backend Connection Status Pill */}
-        <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-3xs font-bold border border-neutral-200 bg-neutral-50 text-neutral-700" title={isSupabaseConnected ? 'Connected to live Supabase database' : 'Running in local interactive mode'}>
-          <span className={`w-2 h-2 rounded-full ${isSupabaseConnected ? 'bg-emerald-500 animate-pulse' : 'bg-amber-400'}`} />
-          <span>{isSupabaseConnected ? 'Supabase Live' : 'Demo State'}</span>
-        </div>
-
-        {/* Persona Switcher Dropdown */}
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => setPortalDropdownOpen(!portalDropdownOpen)}
-            className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full border border-neutral-200 text-neutral-800 hover:bg-neutral-50 transition-colors"
-          >
-            <span className="capitalize">{activeRole}</span>
-            <ChevronDown className="w-3 h-3 text-neutral-400" />
-          </button>
-
-          {portalDropdownOpen && (
-            <div className="absolute right-0 mt-1.5 w-52 bg-white rounded-xl shadow-xl border border-neutral-200 py-1.5 z-50 text-xs">
-              <div className="px-3 py-1 text-3xs font-bold uppercase tracking-wider text-neutral-400">
-                Switch Portal Persona
+        {/* Authentication Controls */}
+        {user ? (
+          /* User is Signed In */
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+              className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-full border border-neutral-200 hover:border-neutral-300 bg-neutral-50 hover:bg-neutral-100 transition-colors"
+            >
+              <div className="w-6 h-6 rounded-full bg-neutral-900 text-white text-3xs font-black flex items-center justify-center uppercase">
+                {profile?.full_name?.charAt(0) || user.email?.charAt(0) || 'U'}
               </div>
-              <button
-                onClick={() => handleRoleChange('public')}
-                className="w-full text-left px-3 py-1.5 hover:bg-neutral-50 font-medium text-neutral-800 flex items-center gap-2"
-              >
-                <Search className="w-3.5 h-3.5 text-neutral-500" />
-                <span>Public Visitor</span>
-              </button>
-              <button
-                onClick={() => handleRoleChange('candidate')}
-                className="w-full text-left px-3 py-1.5 hover:bg-neutral-50 font-medium text-neutral-800 flex items-center gap-2"
-              >
-                <User className="w-3.5 h-3.5 text-blue-600" />
-                <span>Candidate (Mahesh)</span>
-              </button>
-              <button
-                onClick={() => handleRoleChange('employer')}
-                className="w-full text-left px-3 py-1.5 hover:bg-neutral-50 font-medium text-neutral-800 flex items-center gap-2"
-              >
-                <Briefcase className="w-3.5 h-3.5 text-amber-600" />
-                <span>Plant HR (Sahyadri)</span>
-              </button>
-              <button
-                onClick={() => handleRoleChange('agency')}
-                className="w-full text-left px-3 py-1.5 hover:bg-neutral-50 font-medium text-neutral-800 flex items-center gap-2"
-              >
-                <Users2 className="w-3.5 h-3.5 text-purple-600" />
-                <span>Agency (Pragati)</span>
-              </button>
-              <button
-                onClick={() => handleRoleChange('admin')}
-                className="w-full text-left px-3 py-1.5 hover:bg-neutral-50 font-medium text-neutral-800 border-t border-neutral-100 flex items-center gap-2"
-              >
-                <Lock className="w-3.5 h-3.5 text-rose-600" />
-                <span>Admin Moderation</span>
-              </button>
-
-              <div className="border-t border-neutral-100 mt-1 pt-1 px-3">
-                <button
-                  onClick={() => {
-                    if (confirm('Reset all demo state to factory default?')) {
-                      resetDemoData();
-                      router.reload();
-                    }
-                  }}
-                  className="w-full text-left py-1 text-3xs font-semibold text-neutral-400 hover:text-amber-600 flex items-center gap-1.5"
-                >
-                  <RotateCcw className="w-3 h-3" />
-                  <span>Reset Demo State</span>
-                </button>
+              <div className="text-left hidden sm:block">
+                <span className="text-xs font-bold text-neutral-900 block leading-tight max-w-[120px] truncate">
+                  {profile?.full_name || user.email?.split('@')[0]}
+                </span>
+                <span className="text-3xs uppercase font-extrabold text-amber-700 block leading-none">
+                  {activeWorkspace?.name || activeRole}
+                </span>
               </div>
-            </div>
-          )}
-        </div>
+              <ChevronDown className="w-3 h-3 text-neutral-400" />
+            </button>
 
-        {/* Post Job CTA */}
-        <Link href="/employer/post-job" className="hidden sm:inline-block">
-          <button className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-4 py-1.5 rounded-full shadow-xs transition-colors">
-            Post a Job
-          </button>
-        </Link>
+            {userDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-neutral-200 py-2 z-50 text-xs">
+                {/* User info header */}
+                <div className="px-4 py-2 border-b border-neutral-100">
+                  <p className="font-extrabold text-neutral-950 truncate">
+                    {profile?.full_name || 'Industrial User'}
+                  </p>
+                  <p className="text-3xs text-neutral-500 truncate">{user.email}</p>
+                </div>
+
+                {/* Direct Dashboard Link */}
+                <div className="p-1">
+                  <Link
+                    href={getDashboardLink()}
+                    onClick={() => setUserDropdownOpen(false)}
+                    className="w-full text-left px-3 py-2 rounded-xl hover:bg-neutral-50 font-bold text-neutral-900 flex items-center gap-2"
+                  >
+                    <Briefcase className="w-4 h-4 text-amber-600" />
+                    <span>Open My Workspace</span>
+                  </Link>
+                </div>
+
+                {/* Workspace Switcher if user has organizations */}
+                {workspaces.length > 1 && (
+                  <div className="border-t border-neutral-100 pt-1.5 p-1">
+                    <div className="px-3 py-1 text-3xs font-extrabold uppercase tracking-wider text-neutral-400">
+                      Switch Organization
+                    </div>
+                    {workspaces.map((ws) => (
+                      <button
+                        key={ws.id}
+                        onClick={() => {
+                          switchActiveWorkspace(ws.id);
+                          setUserDropdownOpen(false);
+                          if (ws.type === 'company') router.push('/employer/dashboard');
+                          else if (ws.type === 'agency') router.push('/agency/dashboard');
+                          else if (ws.type === 'admin') router.push('/admin/dashboard');
+                          else router.push('/candidate/dashboard');
+                        }}
+                        className={`w-full text-left px-3 py-1.5 rounded-xl font-medium flex items-center justify-between ${
+                          activeWorkspace?.id === ws.id ? 'bg-neutral-100 font-bold text-neutral-950' : 'hover:bg-neutral-50 text-neutral-700'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 truncate">
+                          {ws.type === 'company' && <Building className="w-3.5 h-3.5 text-amber-600 shrink-0" />}
+                          {ws.type === 'agency' && <Users2 className="w-3.5 h-3.5 text-purple-600 shrink-0" />}
+                          {ws.type === 'candidate' && <User className="w-3.5 h-3.5 text-blue-600 shrink-0" />}
+                          {ws.type === 'admin' && <Lock className="w-3.5 h-3.5 text-rose-600 shrink-0" />}
+                          <span className="truncate">{ws.name}</span>
+                        </div>
+                        {activeWorkspace?.id === ws.id && (
+                          <span className="text-3xs bg-neutral-900 text-white px-1.5 py-0.2 rounded font-bold">
+                            Active
+                          </span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Sign Out */}
+                <div className="border-t border-neutral-100 pt-1 p-1">
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full text-left px-3 py-2 rounded-xl text-red-600 hover:bg-red-50 font-bold flex items-center gap-2"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          /* User is NOT Signed In */
+          <div className="flex items-center gap-2">
+            <Link
+              href="/signin"
+              className="text-xs font-bold text-neutral-700 hover:text-neutral-950 px-3 py-1.5 rounded-full hover:bg-neutral-100 transition-colors flex items-center gap-1.5"
+            >
+              <LogIn className="w-3.5 h-3.5" />
+              <span>Sign In</span>
+            </Link>
+
+            <Link
+              href="/signup"
+              className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-xs transition-colors flex items-center gap-1.5"
+            >
+              <UserPlus className="w-3.5 h-3.5 text-amber-400" />
+              <span>Register</span>
+            </Link>
+          </div>
+        )}
 
         {/* Mobile Menu Hamburger */}
         <button
@@ -259,6 +302,22 @@ export const Header: React.FC = () => {
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border border-neutral-200 shadow-xl px-5 py-4 space-y-3 z-50">
+          {user && (
+            <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200 flex items-center justify-between">
+              <div>
+                <p className="text-xs font-bold text-neutral-950">{profile?.full_name || user.email}</p>
+                <p className="text-3xs uppercase font-extrabold text-amber-700">{activeWorkspace?.name || activeRole}</p>
+              </div>
+              <button
+                onClick={handleSignOut}
+                className="text-xs font-bold text-red-600 hover:underline flex items-center gap-1"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Sign Out</span>
+              </button>
+            </div>
+          )}
+
           <nav className="flex flex-col space-y-1 text-sm font-semibold text-neutral-700">
             <Link
               href="/jobs"
@@ -288,7 +347,7 @@ export const Header: React.FC = () => {
               }`}
             >
               <Building2 className="w-4 h-4" />
-              <span>Companies Directory</span>
+              <span>Companies</span>
             </Link>
             <Link
               href="/locations"
@@ -310,17 +369,35 @@ export const Header: React.FC = () => {
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>Trust & Safety</span>
             </Link>
-          </nav>
 
-          <div className="pt-3 border-t border-neutral-100 flex items-center justify-between">
-            <Link
-              href="/employer/post-job"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center bg-neutral-900 text-white font-semibold text-xs py-2 rounded-xl"
-            >
-              Post an Industrial Job
-            </Link>
-          </div>
+            {user ? (
+              <Link
+                href={getDashboardLink()}
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-xl bg-amber-50 text-amber-900 font-bold flex items-center gap-2 mt-2"
+              >
+                <Briefcase className="w-4 h-4 text-amber-700" />
+                <span>Go to My Workspace</span>
+              </Link>
+            ) : (
+              <div className="grid grid-cols-2 gap-2 pt-2 border-t border-neutral-100">
+                <Link
+                  href="/signin"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full text-center py-2 rounded-xl border border-neutral-200 text-xs font-bold text-neutral-800"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/signup"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full text-center py-2 rounded-xl bg-neutral-900 text-white text-xs font-bold"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
+          </nav>
         </div>
       )}
     </header>

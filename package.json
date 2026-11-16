@@ -13,7 +13,8 @@
     "test:phase6": "npx tsx tests/phase6/schema.test.ts && npx tsx tests/phase6/whatsapp.test.ts && npx tsx tests/phase6/alerts.test.ts && npx tsx tests/phase6/ai-client.test.ts && npx tsx tests/phase6/ai-features.test.ts",
     "test:phase8": "npx tsx tests/phase8/readiness.test.ts",
     "test:audit": "npx tsx tests/audit/production-audit.test.ts",
-    "test": "node tests/security/tenant-isolation.test.mjs && node tests/security/trust-safety.test.mjs && node tests/discovery/discovery-schema.test.mjs && npx tsx tests/discovery/connectors.test.ts && npx tsx tests/discovery/normalizer.test.ts && npx tsx tests/discovery/ingestion.test.ts && npx tsx tests/discovery/admin-discovery-api.test.ts && npm run test:phase6 && npm run test:phase8 && npm run test:audit"
+    "test:auth": "npx tsx tests/auth/auth-lifecycle.test.ts",
+    "test": "node tests/security/tenant-isolation.test.mjs && node tests/security/trust-safety.test.mjs && node tests/discovery/discovery-schema.test.mjs && npx tsx tests/discovery/connectors.test.ts && npx tsx tests/discovery/normalizer.test.ts && npx tsx tests/discovery/ingestion.test.ts && npx tsx tests/discovery/admin-discovery-api.test.ts && npm run test:phase6 && npm run test:phase8 && npm run test:audit && npm run test:auth"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.0",
