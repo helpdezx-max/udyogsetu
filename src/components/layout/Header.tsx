@@ -55,35 +55,35 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="w-full bg-white rounded-2xl sm:rounded-3xl shadow-lg border border-neutral-800/10 px-4 sm:px-7 py-3.5 sm:py-4 flex items-center justify-between gap-3 sm:gap-4 relative z-40">
+    <header className="w-full bg-white rounded-2xl sm:rounded-3xl shadow-mobbin border border-zinc-200/90 px-4 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3 sm:gap-4 relative z-40">
       {/* Brand Logo */}
       <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-        <div className="w-9 h-9 rounded-xl bg-neutral-900 text-white flex items-center justify-center shadow-xs group-hover:bg-neutral-800 transition-colors">
+        <div className="w-9 h-9 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs group-hover:bg-zinc-800 transition-colors">
           <Factory className="w-4 h-4 text-amber-400" />
         </div>
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="text-lg font-extrabold tracking-tight text-neutral-900">
+            <span className="text-lg font-black tracking-tight text-zinc-950">
               {t('brandName') || 'UdyogSetu'}
             </span>
-            <span className="bg-amber-100 text-amber-900 text-3xs font-black uppercase px-1.5 py-0.5 rounded tracking-wider">
+            <span className="bg-zinc-100 text-zinc-800 text-3xs font-extrabold uppercase px-1.5 py-0.5 rounded-md border border-zinc-200/60 tracking-wider">
               CHAKAN
             </span>
           </div>
-          <p className="text-3xs text-neutral-400 font-medium -mt-0.5 hidden sm:block">
+          <p className="text-3xs text-zinc-400 font-medium -mt-0.5 hidden sm:block">
             Industrial Employment Network
           </p>
         </div>
       </Link>
 
-      {/* Main Navigation Links (Desktop) */}
-      <nav className="hidden lg:flex items-center gap-1.5 text-xs font-semibold text-neutral-600">
+      {/* Main Navigation Links (Desktop - Mobbin Pill Style) */}
+      <nav className="hidden lg:flex items-center gap-1 text-xs font-medium text-zinc-600">
         <Link
           href="/jobs"
-          className={`rounded-full px-3.5 py-1.5 transition-colors flex items-center gap-1.5 ${
+          className={`rounded-full px-3.5 py-1.5 transition-all flex items-center gap-1.5 ${
             isActive('/jobs')
-              ? 'bg-neutral-900 text-white font-bold shadow-xs'
-              : 'hover:text-neutral-900 hover:bg-neutral-100'
+              ? 'bg-zinc-950 text-white font-semibold shadow-xs'
+              : 'hover:text-zinc-950 hover:bg-zinc-100'
           }`}
         >
           <Search className="w-3.5 h-3.5" />
@@ -92,22 +92,22 @@ export const Header: React.FC = () => {
 
         <Link
           href="/walk-ins"
-          className={`rounded-full px-3.5 py-1.5 transition-colors flex items-center gap-1.5 ${
+          className={`rounded-full px-3.5 py-1.5 transition-all flex items-center gap-1.5 ${
             isActive('/walk-ins')
-              ? 'bg-neutral-900 text-white font-bold shadow-xs'
-              : 'hover:text-neutral-900 hover:bg-neutral-100'
+              ? 'bg-zinc-950 text-white font-semibold shadow-xs'
+              : 'hover:text-zinc-950 hover:bg-zinc-100'
           }`}
         >
-          <CalendarCheck2 className="w-3.5 h-3.5 text-amber-600" />
+          <CalendarCheck2 className="w-3.5 h-3.5 text-amber-500" />
           <span>Walk-in Drives</span>
         </Link>
 
         <Link
           href="/companies"
-          className={`rounded-full px-3.5 py-1.5 transition-colors flex items-center gap-1.5 ${
+          className={`rounded-full px-3.5 py-1.5 transition-all flex items-center gap-1.5 ${
             isActive('/companies')
-              ? 'bg-neutral-900 text-white font-bold shadow-xs'
-              : 'hover:text-neutral-900 hover:bg-neutral-100'
+              ? 'bg-zinc-950 text-white font-semibold shadow-xs'
+              : 'hover:text-zinc-950 hover:bg-zinc-100'
           }`}
         >
           <Building2 className="w-3.5 h-3.5" />
@@ -116,22 +116,22 @@ export const Header: React.FC = () => {
 
         <Link
           href="/locations"
-          className={`rounded-full px-3.5 py-1.5 transition-colors flex items-center gap-1.5 ${
+          className={`rounded-full px-3.5 py-1.5 transition-all flex items-center gap-1.5 ${
             isActive('/locations')
-              ? 'bg-neutral-900 text-white font-bold shadow-xs'
-              : 'hover:text-neutral-900 hover:bg-neutral-100'
+              ? 'bg-zinc-950 text-white font-semibold shadow-xs'
+              : 'hover:text-zinc-950 hover:bg-zinc-100'
           }`}
         >
           <MapPin className="w-3.5 h-3.5" />
-          <span>Industrial Clusters</span>
+          <span>Clusters</span>
         </Link>
 
         <Link
           href="/trust-and-safety"
-          className={`rounded-full px-3.5 py-1.5 transition-colors flex items-center gap-1.5 ${
+          className={`rounded-full px-3.5 py-1.5 transition-all flex items-center gap-1.5 ${
             isActive('/trust-and-safety')
-              ? 'bg-neutral-900 text-white font-bold shadow-xs'
-              : 'hover:text-neutral-900 hover:bg-neutral-100'
+              ? 'bg-zinc-950 text-white font-semibold shadow-xs'
+              : 'hover:text-zinc-950 hover:bg-zinc-100'
           }`}
         >
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
@@ -142,15 +142,15 @@ export const Header: React.FC = () => {
       {/* Utility Controls */}
       <div className="flex items-center gap-2 sm:gap-3">
         {/* Language Pill */}
-        <div className="flex items-center border border-neutral-200 rounded-full p-0.5 text-3xs font-bold uppercase bg-neutral-50">
+        <div className="flex items-center border border-zinc-200/90 rounded-full p-0.5 text-3xs font-bold uppercase bg-zinc-50">
           {(['en', 'mr', 'hi'] as Locale[]).map((loc) => (
             <button
               key={loc}
               onClick={() => setLocale(loc)}
-              className={`px-2 py-0.5 rounded-full transition-colors ${
+              className={`px-2 py-0.5 rounded-full transition-all ${
                 locale === loc
-                  ? 'bg-neutral-900 text-white shadow-2xs'
-                  : 'text-neutral-500 hover:text-neutral-900'
+                  ? 'bg-zinc-950 text-white shadow-2xs font-semibold'
+                  : 'text-zinc-500 hover:text-zinc-900'
               }`}
             >
               {loc}
@@ -161,12 +161,12 @@ export const Header: React.FC = () => {
         {/* Saved Jobs Icon */}
         <Link
           href="/candidate/saved-jobs"
-          className="relative p-2 rounded-full border border-neutral-200 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 transition-colors"
+          className="relative p-2 rounded-full border border-zinc-200/90 text-zinc-600 hover:text-zinc-950 hover:bg-zinc-50 transition-colors"
           title="Saved Jobs"
         >
           <Bookmark className="w-4 h-4" />
           {savedJobIds.length > 0 && (
-            <span className="absolute -top-1 -right-1 bg-neutral-900 text-white text-3xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 bg-zinc-950 text-white text-3xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
               {savedJobIds.length}
             </span>
           )}
@@ -269,11 +269,11 @@ export const Header: React.FC = () => {
             )}
           </div>
         ) : (
-          /* User is NOT Signed In */
-          <div className="flex items-center gap-2">
+          /* User is NOT Signed In - Mobbin Pill Actions */
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <Link
               href="/signin"
-              className="text-xs font-bold text-neutral-700 hover:text-neutral-950 px-3 py-1.5 rounded-full hover:bg-neutral-100 transition-colors flex items-center gap-1.5"
+              className="text-xs font-semibold text-zinc-700 hover:text-zinc-950 px-3 py-1.5 rounded-full hover:bg-zinc-100 transition-colors flex items-center gap-1.5"
             >
               <LogIn className="w-3.5 h-3.5" />
               <span>Sign In</span>
@@ -281,7 +281,7 @@ export const Header: React.FC = () => {
 
             <Link
               href="/signup"
-              className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-xs transition-colors flex items-center gap-1.5"
+              className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-4 py-1.5 rounded-full shadow-xs transition-all flex items-center gap-1.5"
             >
               <UserPlus className="w-3.5 h-3.5 text-amber-400" />
               <span>Register</span>

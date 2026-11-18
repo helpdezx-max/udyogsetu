@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   CheckCircle2,
   CalendarCheck2,
+  ArrowUpRight,
 } from 'lucide-react';
 import { JobVacancy } from '../../data/demo-data';
 import { useApp } from '../../context/AppContext';
@@ -18,117 +19,52 @@ export interface JobCardProps {
   index?: number;
 }
 
-interface PastelPalette {
-  bg: string;
-  border: string;
-  chipBg: string;
-  chipText: string;
-  avatarBg: string;
-}
-
-const PASTEL_PALETTES: PastelPalette[] = [
-  {
-    // Pale Lavender
-    bg: 'bg-[#F7F4FC]',
-    border: 'border-[#E8E0F5]',
-    chipBg: 'bg-[#EDE5F8]',
-    chipText: 'text-[#4F2D87]',
-    avatarBg: 'bg-[#5B329B]',
-  },
-  {
-    // Mint / Sage
-    bg: 'bg-[#F1F8F4]',
-    border: 'border-[#D5ECE0]',
-    chipBg: 'bg-[#DCF2E6]',
-    chipText: 'text-[#1D603F]',
-    avatarBg: 'bg-[#186341]',
-  },
-  {
-    // Soft Airy Blue
-    bg: 'bg-[#F2F6FD]',
-    border: 'border-[#D8E6FA]',
-    chipBg: 'bg-[#DFEDFC]',
-    chipText: 'text-[#1B4D8D]',
-    avatarBg: 'bg-[#1D4ED8]',
-  },
-  {
-    // Blush / Warm Peach
-    bg: 'bg-[#FAF4F0]',
-    border: 'border-[#F4E3DA]',
-    chipBg: 'bg-[#F8E7DF]',
-    chipText: 'text-[#873A21]',
-    avatarBg: 'bg-[#C2410C]',
-  },
-  {
-    // Refined Slate Gray
-    bg: 'bg-[#F7F8FA]',
-    border: 'border-[#E4E6EB]',
-    chipBg: 'bg-[#EAECEF]',
-    chipText: 'text-[#374151]',
-    avatarBg: 'bg-[#334155]',
-  },
-  {
-    // Pale Butter Cream
-    bg: 'bg-[#FFF9EE]',
-    border: 'border-[#FAECBF]',
-    chipBg: 'bg-[#FAEDC8]',
-    chipText: 'text-[#7C5104]',
-    avatarBg: 'bg-[#B45309]',
-  },
-];
-
 export const JobCard: React.FC<JobCardProps> = ({ job, index = 0 }) => {
   const { toggleSaveJob, isJobSaved, openApplyModal, applications } = useApp();
   const { t } = useLocale();
 
   const saved = isJobSaved(job.id);
   const alreadyApplied = applications.some((a) => a.jobId === job.id);
-  
-  // Choose palette based on job id hash or index
-  const hash = job.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), index);
-  const palette = PASTEL_PALETTES[hash % PASTEL_PALETTES.length];
 
   return (
-    <div
-      className={`${palette.bg} ${palette.border} border rounded-3xl p-5 flex flex-col justify-between transition-all hover:shadow-card hover:-translate-y-0.5 relative group`}
-    >
+    <div className="bg-white border border-zinc-200/90 hover:border-zinc-300 rounded-2xl p-5 flex flex-col justify-between transition-all duration-200 shadow-subtle hover:shadow-mobbin-hover relative group">
       {/* Top Meta Bar */}
-      <div className="space-y-4">
+      <div className="space-y-3.5">
         <div className="flex items-start justify-between gap-2">
           {/* Verification / Freshness Badge */}
           <div className="flex flex-wrap items-center gap-1.5">
             {job.recruitmentTier === 'verified_direct' ? (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-3xs font-bold uppercase tracking-wider bg-white/90 text-emerald-800 border border-emerald-200 shadow-2xs">
-                <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                <span>Verified Plant</span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-3xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/60">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                <span>Verified Direct Plant</span>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-3xs font-bold uppercase tracking-wider bg-white/90 text-blue-800 border border-blue-200 shadow-2xs">
-                <span>Licensed Agency</span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-3xs font-semibold bg-zinc-100 text-zinc-700 border border-zinc-200/80">
+                <span>Licensed Contractor</span>
               </span>
             )}
 
             {job.walkInAvailable && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-3xs font-bold uppercase tracking-wider bg-white/90 text-amber-900 border border-amber-200">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-3xs font-semibold bg-amber-50 text-amber-800 border border-amber-200/60">
                 <CalendarCheck2 className="w-3 h-3 text-amber-600" />
-                <span>Walk-in</span>
+                <span>Walk-in Gate</span>
               </span>
             )}
           </div>
 
-          {/* Minimal Save Icon */}
+          {/* Minimal Save / Bookmark Button */}
           <button
             type="button"
             onClick={(e) => {
               e.preventDefault();
               toggleSaveJob(job.id);
             }}
-            className="w-8 h-8 rounded-full bg-white/90 hover:bg-white text-neutral-600 border border-neutral-200/60 shadow-2xs flex items-center justify-center transition-colors shrink-0"
+            className="w-8 h-8 rounded-xl bg-zinc-50 hover:bg-zinc-100 text-zinc-600 border border-zinc-200/80 flex items-center justify-center transition-colors shrink-0"
             title={saved ? 'Remove Bookmark' : 'Save Vacancy'}
           >
             <Bookmark
               className={`w-3.5 h-3.5 ${
-                saved ? 'fill-neutral-900 text-neutral-900' : 'text-neutral-500'
+                saved ? 'fill-zinc-900 text-zinc-900' : 'text-zinc-500'
               }`}
             />
           </button>
@@ -136,71 +72,70 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index = 0 }) => {
 
         {/* Company Avatar & Name */}
         <div className="flex items-center gap-2.5">
-          <div
-            className={`w-8 h-8 rounded-xl ${palette.avatarBg} text-white font-black text-xs flex items-center justify-center shadow-xs shrink-0`}
-          >
+          <div className="w-8 h-8 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shadow-xs shrink-0">
             {job.companyName.charAt(0)}
           </div>
           <div className="min-w-0">
-            <h4 className="text-xs font-bold text-neutral-800 truncate">
+            <h4 className="text-xs font-semibold text-zinc-800 truncate">
               {job.companyName}
             </h4>
-            <p className="text-3xs text-neutral-500 flex items-center gap-1 truncate">
-              <MapPin className="w-2.5 h-2.5 text-neutral-400 shrink-0" />
+            <p className="text-3xs text-zinc-500 flex items-center gap-1 truncate">
+              <MapPin className="w-2.5 h-2.5 text-zinc-400 shrink-0" />
               <span>{job.clusterName}</span>
             </p>
           </div>
         </div>
 
         {/* Job Title */}
-        <Link href={`/jobs/${job.id}`} className="block group-hover:underline">
-          <h3 className="text-base font-bold text-neutral-950 leading-snug line-clamp-2">
+        <Link href={`/jobs/${job.id}`} className="block group/title">
+          <h3 className="text-sm sm:text-base font-bold text-zinc-950 leading-snug line-clamp-2 group-hover/title:text-zinc-700 transition-colors">
             {job.title}
           </h3>
         </Link>
 
-        {/* Scannable Spec Tags */}
+        {/* Scannable Spec Tags (Mobbin pill style) */}
         <div className="flex flex-wrap gap-1.5 pt-1">
-          <span className={`text-3xs font-semibold px-2 py-0.5 rounded-lg ${palette.chipBg} ${palette.chipText}`}>
-            {job.shiftType.split(' ')[0]}
+          <span className="text-3xs font-medium px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/50">
+            {job.shiftType.split(' ')[0]} Shift
           </span>
-          <span className="text-3xs font-semibold px-2 py-0.5 rounded-lg bg-white/80 text-neutral-700 border border-neutral-200/60">
+          <span className="text-3xs font-medium px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/50">
             {job.qualificationRequired.split('(')[0].trim()}
           </span>
-          <span className="text-3xs font-semibold px-2 py-0.5 rounded-lg bg-white/80 text-neutral-700 border border-neutral-200/60">
+          <span className="text-3xs font-medium px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/50">
             {job.openingsCount} Openings
           </span>
           {job.busFacilityProvided && (
-            <span className="text-3xs font-semibold px-2 py-0.5 rounded-lg bg-white/80 text-blue-800 border border-blue-200/50">
-              Bus Facility
+            <span className="text-3xs font-medium px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200/50">
+              Bus Route
             </span>
           )}
         </div>
       </div>
 
       {/* Bottom Row: Salary + Dark Apply Button */}
-      <div className="pt-5 mt-4 border-t border-black/5 flex items-center justify-between gap-3">
+      <div className="pt-4 mt-4 border-t border-zinc-100 flex items-center justify-between gap-3">
         <div>
-          <div className="text-3xs font-bold uppercase tracking-wider text-neutral-500">
+          <div className="text-3xs font-medium uppercase tracking-wider text-zinc-400">
             In-hand Salary
           </div>
-          <div className="text-base sm:text-lg font-black text-neutral-950">
+          <div className="text-base sm:text-lg font-black text-zinc-950">
             ₹{job.salary.inHandMonthly.toLocaleString('en-IN')}{' '}
-            <span className="text-3xs font-medium text-neutral-500">/ mo</span>
+            <span className="text-3xs font-normal text-zinc-500">/ mo</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <Link href={`/jobs/${job.id}`}>
-            <button className="text-3xs font-bold text-neutral-600 hover:text-black px-2 py-1.5 rounded-lg">
-              Details
-            </button>
+            <span className="text-xs font-medium text-zinc-600 hover:text-zinc-950 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors inline-flex items-center gap-0.5">
+              <span>View</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </span>
           </Link>
 
           {alreadyApplied ? (
             <button
               disabled
-              className="bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-semibold px-3 py-2 rounded-xl cursor-default flex items-center gap-1"
+              className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold px-3 py-2 rounded-xl cursor-default flex items-center gap-1.5"
             >
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
               <span>Applied</span>
@@ -209,7 +144,7 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index = 0 }) => {
             <button
               type="button"
               onClick={() => openApplyModal(job)}
-              className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-xs transition-all active:scale-95"
+              className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-xs transition-all active:scale-95"
             >
               Apply now
             </button>

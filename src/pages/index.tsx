@@ -51,44 +51,44 @@ export default function HomePage() {
     {
       name: 'Machining & CNC',
       count: getCategoryCount('Machining & CNC'),
-      icon: <Cpu className="w-5 h-5 text-indigo-700" />,
-      bg: 'bg-[#F2F6FD]',
-      border: 'border-[#D8E6FA]',
+      icon: <Cpu className="w-5 h-5 text-zinc-900" />,
+      bg: 'bg-white',
+      border: 'border-zinc-200/90',
     },
     {
       name: 'Welding & Fabrication',
       count: getCategoryCount('Welding & Fabrication'),
-      icon: <Layers className="w-5 h-5 text-amber-700" />,
-      bg: 'bg-[#FFF9EE]',
-      border: 'border-[#FAECBF]',
+      icon: <Layers className="w-5 h-5 text-zinc-900" />,
+      bg: 'bg-white',
+      border: 'border-zinc-200/90',
     },
     {
       name: 'Assembly & Line',
       count: getCategoryCount('Assembly & Line'),
-      icon: <Wrench className="w-5 h-5 text-emerald-700" />,
-      bg: 'bg-[#F1F8F4]',
-      border: 'border-[#D5ECE0]',
+      icon: <Wrench className="w-5 h-5 text-zinc-900" />,
+      bg: 'bg-white',
+      border: 'border-zinc-200/90',
     },
     {
       name: 'Quality Control & CMM',
       count: getCategoryCount('Quality Control & CMM'),
-      icon: <CheckCircle className="w-5 h-5 text-purple-700" />,
-      bg: 'bg-[#F7F4FC]',
-      border: 'border-[#E8E0F5]',
+      icon: <CheckCircle className="w-5 h-5 text-zinc-900" />,
+      bg: 'bg-white',
+      border: 'border-zinc-200/90',
     },
     {
       name: 'Maintenance & Electrical',
       count: getCategoryCount('Maintenance & Electrical'),
-      icon: <Factory className="w-5 h-5 text-rose-700" />,
-      bg: 'bg-[#FAF4F0]',
-      border: 'border-[#F4E3DA]',
+      icon: <Factory className="w-5 h-5 text-zinc-900" />,
+      bg: 'bg-white',
+      border: 'border-zinc-200/90',
     },
     {
       name: 'Warehouse & Logistics',
       count: getCategoryCount('Warehouse & Logistics'),
-      icon: <Building2 className="w-5 h-5 text-slate-700" />,
-      bg: 'bg-[#F7F8FA]',
-      border: 'border-[#E4E6EB]',
+      icon: <Building2 className="w-5 h-5 text-zinc-900" />,
+      bg: 'bg-white',
+      border: 'border-zinc-200/90',
     },
   ];
 
@@ -101,32 +101,32 @@ export default function HomePage() {
       prefix: '10th',
       desc: 'Assembly Helper, Press Feeder, Store Assistant',
       count: getQualCount('10th'),
-      bg: 'bg-[#F7F8FA]',
-      border: 'border-[#E4E6EB]',
+      bg: 'bg-white',
+      border: 'border-zinc-200/90',
     },
     {
       title: 'ITI Certificate Holders',
       prefix: 'ITI',
       desc: 'VMC Operator, CNC Lathe, Die Setter, Maintenance',
       count: getQualCount('ITI'),
-      bg: 'bg-[#F1F8F4]',
-      border: 'border-[#D5ECE0]',
+      bg: 'bg-white',
+      border: 'border-zinc-200/90',
     },
     {
       title: 'Diploma (Mechanical / Auto)',
       prefix: 'Diploma',
       desc: 'Junior Engineer, CMM Quality Inspector, Toolmaker',
       count: getQualCount('Diploma'),
-      bg: 'bg-[#F2F6FD]',
-      border: 'border-[#D8E6FA]',
+      bg: 'bg-white',
+      border: 'border-zinc-200/90',
     },
     {
       title: 'B.E. / B.Tech Engineers',
       prefix: 'B.E.',
       desc: 'Production Shift Incharge, EHS Safety Officer',
       count: getQualCount('B.E.'),
-      bg: 'bg-[#F7F4FC]',
-      border: 'border-[#E8E0F5]',
+      bg: 'bg-white',
+      border: 'border-zinc-200/90',
     },
   ];
 
@@ -145,45 +145,45 @@ export default function HomePage() {
       </Head>
 
       <div className="space-y-12 pb-16">
-        {/* 1. HERO SECTION */}
-        <section className="px-5 sm:px-10 lg:px-14 pt-10 sm:pt-14 pb-10 border-b border-neutral-100 bg-gradient-to-b from-[#FAFAFA] to-white">
+        {/* 1. HERO SECTION (Mobbin Style) */}
+        <section className="px-5 sm:px-10 lg:px-14 pt-10 sm:pt-14 pb-12 border-b border-zinc-100 bg-gradient-to-b from-zinc-50/60 to-white">
           <div className="max-w-4xl mx-auto text-center space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200/80 text-3xs sm:text-2xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 text-zinc-800 border border-zinc-200/80 text-3xs sm:text-2xs font-semibold tracking-wide">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Direct Factory Recruitment • Chakan MIDC &amp; Pune Belt</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-neutral-950 leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-zinc-950 leading-tight">
               {t('hero.headline') || 'Find Your Next Job Closer to Home.'}
             </h1>
 
-            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed max-w-2xl mx-auto">
               {t('hero.subheadline') ||
                 'Discover genuine factory, manufacturing and industrial job opportunities across Chakan and surrounding industrial areas.'}
             </p>
 
-            {/* Prominent Search Bar */}
+            {/* Prominent Mobbin-style Search Bar */}
             <form
               onSubmit={handleHeroSearch}
-              className="mt-6 p-2 rounded-2xl bg-white border border-neutral-200/90 shadow-lg text-neutral-900 grid grid-cols-1 md:grid-cols-12 gap-2 text-left"
+              className="mt-6 p-2 rounded-2xl bg-white border border-zinc-200 shadow-mobbin hover:border-zinc-300 transition-all text-zinc-900 grid grid-cols-1 md:grid-cols-12 gap-2 text-left"
             >
               <div className="md:col-span-5 relative">
-                <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5 pointer-events-none" />
+                <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5 pointer-events-none" />
                 <input
                   type="text"
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
                   placeholder={t('hero.searchPlaceholder') || 'Job title, machine, skill (e.g. VMC Operator, Welder)...'}
-                  className="w-full text-xs sm:text-sm pl-10 pr-3 py-2.5 rounded-xl bg-neutral-50/70 border border-transparent focus:bg-white focus:border-neutral-300 focus:outline-none"
+                  className="w-full text-xs sm:text-sm pl-10 pr-3 py-2.5 rounded-xl bg-zinc-50/70 border border-transparent focus:bg-white focus:border-zinc-300 focus:outline-none"
                 />
               </div>
 
               <div className="md:col-span-4 relative">
-                <MapPin className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5 pointer-events-none" />
+                <MapPin className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5 pointer-events-none" />
                 <select
                   value={cluster}
                   onChange={(e) => setCluster(e.target.value)}
-                  className="w-full text-xs sm:text-sm pl-10 pr-3 py-2.5 rounded-xl bg-neutral-50/70 border border-transparent focus:bg-white focus:border-neutral-300 focus:outline-none text-neutral-800 cursor-pointer"
+                  className="w-full text-xs sm:text-sm pl-10 pr-3 py-2.5 rounded-xl bg-zinc-50/70 border border-transparent focus:bg-white focus:border-zinc-300 focus:outline-none text-zinc-800 cursor-pointer"
                 >
                   <option value="">{t('hero.locationPlaceholder') || 'All Industrial Clusters'}</option>
                   {CHAKAN_PILOT_LOCATIONS.map((cl) => (
@@ -197,7 +197,7 @@ export default function HomePage() {
               <div className="md:col-span-3">
                 <button
                   type="submit"
-                  className="w-full bg-neutral-900 hover:bg-black text-white text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl shadow-xs transition-colors flex items-center justify-center gap-1.5"
+                  className="w-full bg-zinc-950 hover:bg-zinc-800 text-white text-xs sm:text-sm font-semibold py-2.5 px-4 rounded-xl shadow-xs transition-colors flex items-center justify-center gap-1.5"
                 >
                   <Search className="w-4 h-4" />
                   <span>{t('hero.ctaButton') || 'Search Vacancies'}</span>
@@ -205,21 +205,21 @@ export default function HomePage() {
               </div>
             </form>
 
-            {/* Quick CTAs */}
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
+            {/* Quick CTAs (Mobbin Pills) */}
+            <div className="pt-4 flex flex-wrap items-center justify-center gap-2.5">
               <Link href="/jobs">
-                <button className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-5 py-2.5 rounded-full shadow-xs transition-colors">
+                <button className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-5 py-2.5 rounded-full shadow-xs transition-colors">
                   Browse All Jobs
                 </button>
               </Link>
               <Link href="/walk-ins">
-                <button className="bg-[#FFF9EE] hover:bg-[#FAEDC8] text-[#7C5104] border border-[#FAECBF] text-xs font-semibold px-4 py-2.5 rounded-full transition-colors flex items-center gap-1.5">
-                  <CalendarCheck2 className="w-3.5 h-3.5 text-amber-600" />
+                <button className="bg-zinc-100 hover:bg-zinc-200/80 text-zinc-800 border border-zinc-200/80 text-xs font-semibold px-4 py-2.5 rounded-full transition-colors flex items-center gap-1.5">
+                  <CalendarCheck2 className="w-3.5 h-3.5 text-amber-500" />
                   <span>Plant Gate Walk-ins</span>
                 </button>
               </Link>
               <Link href="/employer/post-job">
-                <button className="border border-neutral-200 text-neutral-800 hover:bg-neutral-50 text-xs font-semibold px-4 py-2.5 rounded-full transition-colors">
+                <button className="border border-zinc-200 text-zinc-800 hover:bg-zinc-50 text-xs font-semibold px-4 py-2.5 rounded-full transition-colors">
                   Post a Job (Plant HR)
                 </button>
               </Link>
