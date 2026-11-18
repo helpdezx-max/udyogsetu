@@ -51,12 +51,12 @@ export const HeroBannerSlider: React.FC = () => {
     setCurrentIndex(idx);
   };
 
-  // Auto-advance timer (every 5 seconds, pauses when hovered)
+  // Auto-advance timer (every 1 second, pauses when hovered)
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
       nextSlide();
-    }, 5000);
+    }, 1000);
     return () => clearInterval(interval);
   }, [isPaused, nextSlide]);
 
