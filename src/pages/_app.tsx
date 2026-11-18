@@ -22,6 +22,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           />
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
           <link rel="icon" href="/favicon.ico" />
+          <link rel="preload" href="/fonts/ProductSans-Regular.woff" as="font" type="font/woff" crossOrigin="anonymous" />
+          <link rel="preload" href="/fonts/ProductSans-Bold.woff" as="font" type="font/woff" crossOrigin="anonymous" />
         </Head>
 
         {/* Clean full-bleed Mobbin-style application shell */}

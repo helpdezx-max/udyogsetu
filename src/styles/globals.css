@@ -2,16 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Product Sans Typeface Definitions */
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Product Sans Light'), local('ProductSans-Light'),
+       url('/fonts/ProductSans-Light.woff') format('woff'),
+       url('https://fonts.cdnfonts.com/s/14955/ProductSans-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Product Sans'), local('ProductSans-Regular'),
+       url('/fonts/ProductSans-Regular.woff') format('woff'),
+       url('https://fonts.cdnfonts.com/s/14955/ProductSans-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Product Sans Medium'), local('ProductSans-Medium'),
+       url('/fonts/ProductSans-Medium.woff') format('woff'),
+       url('https://fonts.cdnfonts.com/s/14955/ProductSans-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Product Sans Bold'), local('ProductSans-Bold'),
+       url('/fonts/ProductSans-Bold.woff') format('woff'),
+       url('https://fonts.cdnfonts.com/s/14955/ProductSans-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local('Product Sans Black'), local('ProductSans-Black'),
+       url('/fonts/ProductSans-Black.woff') format('woff'),
+       url('https://fonts.cdnfonts.com/s/14955/ProductSans-Black.woff') format('woff');
+}
+
 @layer base {
   html {
     @apply scroll-smooth text-zinc-900;
+    font-family: 'Product Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
   body {
-    @apply bg-white text-zinc-900 antialiased font-sans selection:bg-zinc-950 selection:text-white min-h-screen;
+    @apply bg-white text-zinc-900 antialiased selection:bg-zinc-950 selection:text-white min-h-screen;
+    font-family: 'Product Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   /* Custom crisp scrollbars inspired by mobbin.com */
