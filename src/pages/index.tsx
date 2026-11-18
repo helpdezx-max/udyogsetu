@@ -145,16 +145,24 @@ export default function HomePage() {
 
       <div className="w-full space-y-16 pb-20">
         {/* 1. HERO SECTION (Mobbin Style) */}
-        <section className="relative border-b border-zinc-200/80 bg-gradient-to-b from-zinc-50/70 via-white to-white pt-12 sm:pt-20 pb-16">
+        <section className="relative border-b border-zinc-200/80 bg-gradient-to-b from-zinc-50/70 via-white to-white pt-8 sm:pt-12 pb-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            {/* Hero Visual Banner */}
-            <div className="w-full max-w-5xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200/90 shadow-mobbin bg-white hover:border-zinc-300 transition-all">
-              <img
-                src="/images/hero-banner.jpg"
-                alt="UdyogSetu • Find Verified Factory Jobs Without Middlemen • Chakan MIDC & Pune Belt"
-                className="w-full h-auto object-cover block"
-              />
+            {/* Visual Graphic Banner */}
+            <div className="max-w-4xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200/90 shadow-subtle hover:border-zinc-300 hover:shadow-mobbin transition-all">
+              <Link href="/jobs" className="block group cursor-pointer" title="Browse Verified Vacancies">
+                <img
+                  src="/images/hero-banner.jpg"
+                  alt="UdyogSetu • Direct Factory Recruitment • Chakan MIDC & Pune Belt"
+                  className="w-full h-auto object-cover block group-hover:scale-[1.005] transition-transform duration-300"
+                />
+              </Link>
             </div>
+
+            {/* Main Headline */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 leading-[1.08] max-w-4xl mx-auto">
+              Find Verified Factory Jobs, <br className="hidden sm:inline" />
+              <span className="text-zinc-500">Without Middlemen.</span>
+            </h1>
 
             {/* Subtitle */}
             <p className="text-sm sm:text-base text-zinc-600 leading-relaxed max-w-2xl mx-auto">
