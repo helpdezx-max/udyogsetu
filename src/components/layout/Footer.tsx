@@ -9,12 +9,9 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand & Mission */}
           <div className="md:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-2xs group-hover:bg-zinc-800 transition-colors">
-                <Factory className="w-4 h-4 text-amber-400" />
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-base font-black tracking-tight text-zinc-950">
+            <Link href="/" className="flex items-center group">
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold tracking-tight text-zinc-950">
                   UdyogSetu
                 </span>
                 <span className="bg-zinc-200/80 text-zinc-800 text-3xs font-extrabold uppercase px-1.5 py-0.5 rounded-md tracking-wider">

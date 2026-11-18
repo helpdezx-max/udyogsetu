@@ -205,7 +205,7 @@ export default function HomePage() {
                   className="w-full sm:w-auto bg-zinc-950 hover:bg-zinc-800 text-white text-xs sm:text-sm font-semibold py-3 px-6 rounded-xl sm:rounded-full shadow-xs transition-colors flex items-center justify-center gap-2 shrink-0 cursor-pointer"
                 >
                   <Search className="w-4 h-4" />
-                  <span>{t('hero.ctaButton') || 'Search Vacancies'}</span>
+                  <span>{t('hero.searchButton') || 'Search Vacancies'}</span>
                 </button>
               </form>
 

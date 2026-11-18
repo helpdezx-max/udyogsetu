@@ -58,14 +58,11 @@ export const Header: React.FC = () => {
     <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-zinc-200/80 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5 flex items-center justify-between gap-3 sm:gap-4">
         {/* Brand Logo */}
-      <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-        <div className="w-9 h-9 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs group-hover:bg-zinc-800 transition-colors">
-          <Factory className="w-4 h-4 text-amber-400" />
-        </div>
+      <Link href="/" className="flex items-center group shrink-0">
         <div>
-          <div className="flex items-center gap-1.5">
-            <span className="text-lg font-black tracking-tight text-zinc-950">
-              {t('brandName') || 'UdyogSetu'}
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-bold tracking-tight text-zinc-950 group-hover:text-zinc-700 transition-colors">
+              UdyogSetu
             </span>
             <span className="bg-zinc-100 text-zinc-800 text-3xs font-extrabold uppercase px-1.5 py-0.5 rounded-md border border-zinc-200/60 tracking-wider">
               CHAKAN
