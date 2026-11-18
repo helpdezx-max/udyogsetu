@@ -151,24 +151,84 @@ export default function CandidateSignupPage() {
         />
       </Head>
 
-      <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-10 px-4">
-        <div className="max-w-xl w-full bg-white rounded-3xl border border-industrial-200 p-7 sm:p-9 shadow-xl space-y-6">
-          {/* Header */}
-          <div className="text-center space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center mx-auto shadow-sm">
-              <User className="w-6 h-6" />
+      <div className="min-h-[calc(100vh-65px)] w-full grid grid-cols-1 lg:grid-cols-2 bg-white">
+        {/* Left Column: Visual Image Panel (50% on desktop) */}
+        <div className="relative hidden lg:flex flex-col justify-between overflow-hidden bg-zinc-950 p-10 xl:p-14 text-white">
+          {/* Background Hero Image */}
+          <img
+            src="/images/auth-hero.jpg"
+            alt="Rozzy Candidate Recruitment"
+            className="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.80] contrast-[1.05]"
+          />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/40 to-zinc-950/50 pointer-events-none" />
+
+          {/* Top Branding Pill / Badge */}
+          <div className="relative z-10 flex items-center justify-between">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs font-semibold text-white shadow-lg">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Candidate Portal • 100% Free Forever</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-industrial-950 tracking-tight">
-              Candidate Registration
-            </h1>
-            <p className="text-xs sm:text-sm text-industrial-600">
-              Direct employment network for Chakan MIDC, Khed City & Pune manufacturing plants.
-            </p>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-3xs font-extrabold text-emerald-800">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span>100% FREE FOREVER FOR JOB SEEKERS • ₹0 FEES</span>
+            <span className="text-3xs uppercase tracking-widest font-extrabold text-white/80 bg-white/10 border border-white/20 px-3 py-1 rounded-md backdrop-blur-md">
+              CHAKAN MIDC
+            </span>
+          </div>
+
+          {/* Bottom Value Proposition & Trust Highlights */}
+          <div className="relative z-10 space-y-6 max-w-lg">
+            <div className="space-y-2.5">
+              <h2 className="text-3xl xl:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                Start Your Next Factory Shift. <br />
+                <span className="text-emerald-400">Zero Middlemen. ₹0 Fees.</span>
+              </h2>
+              <p className="text-sm text-zinc-300 leading-relaxed">
+                Join over 15,000+ skilled ITI trades, CNC machinists, welders, and production operators getting hired directly by top manufacturing plants across Pune.
+              </p>
+            </div>
+
+            {/* Candidate Benefits */}
+            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/15 text-2xs text-zinc-300">
+              <div className="space-y-1">
+                <span className="block text-lg font-black text-white">₹0 Fee</span>
+                <span className="text-zinc-400 font-medium">Guaranteed Free</span>
+              </div>
+              <div className="space-y-1">
+                <span className="block text-lg font-black text-white">Direct</span>
+                <span className="text-zinc-400 font-medium">Plant Gate Walk-ins</span>
+              </div>
+              <div className="space-y-1">
+                <span className="block text-lg font-black text-white">WhatsApp</span>
+                <span className="text-zinc-400 font-medium">Instant Job Alerts</span>
+              </div>
             </div>
           </div>
+        </div>
+
+        {/* Right Column: Candidate Registration Form (50% on desktop) */}
+        <div className="flex items-center justify-center p-6 sm:p-10 lg:p-12 xl:p-14 bg-white min-h-[calc(100vh-65px)]">
+          <div className="max-w-xl w-full bg-white rounded-3xl border border-zinc-200/90 p-7 sm:p-9 shadow-subtle hover:shadow-mobbin transition-all space-y-6">
+            {/* Header */}
+            <div className="text-center space-y-3">
+              <div className="flex justify-center">
+                <img
+                  src="/images/logo.png"
+                  alt="Rozzy"
+                  className="h-9 sm:h-10 w-auto object-contain block"
+                />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
+                  Candidate Registration
+                </h1>
+                <p className="text-xs sm:text-sm text-zinc-500 mt-1">
+                  Direct employment network for Chakan MIDC, Khed City & Pune manufacturing plants.
+                </p>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-3xs font-extrabold text-emerald-800">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                <span>100% FREE FOREVER FOR JOB SEEKERS • ₹0 FEES</span>
+              </div>
+            </div>
 
           {/* Success Banner */}
           {registeredSuccess && (
@@ -432,6 +492,7 @@ export default function CandidateSignupPage() {
           </div>
         </div>
       </div>
-    </>
-  );
+    </div>
+  </>
+);
 }

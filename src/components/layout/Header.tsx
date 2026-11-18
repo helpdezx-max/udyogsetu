@@ -21,7 +21,7 @@ import {
   UserPlus,
   Building,
 } from 'lucide-react';
-import { useApp, Locale } from '../../context/AppContext';
+import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
 import { useLocale } from '../../hooks/useLocale';
 
@@ -29,7 +29,7 @@ export const Header: React.FC = () => {
   const router = useRouter();
   const { savedJobIds, isSupabaseConnected } = useApp();
   const { user, profile, activeRole, roles, workspaces, activeWorkspace, switchActiveWorkspace, signOut, isConfigured } = useAuth();
-  const { locale, setLocale, t } = useLocale();
+  const { t } = useLocale();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
@@ -141,23 +141,6 @@ export const Header: React.FC = () => {
 
       {/* Utility Controls */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Language Pill */}
-        <div className="flex items-center border border-zinc-200/90 rounded-full p-0.5 text-3xs font-bold uppercase bg-zinc-50">
-          {(['en', 'mr', 'hi'] as Locale[]).map((loc) => (
-            <button
-              key={loc}
-              onClick={() => setLocale(loc)}
-              className={`px-2 py-0.5 rounded-full transition-all ${
-                locale === loc
-                  ? 'bg-zinc-950 text-white shadow-2xs font-semibold'
-                  : 'text-zinc-500 hover:text-zinc-900'
-              }`}
-            >
-              {loc}
-            </button>
-          ))}
-        </div>
-
         {/* Saved Jobs Icon */}
         <Link
           href="/candidate/saved-jobs"

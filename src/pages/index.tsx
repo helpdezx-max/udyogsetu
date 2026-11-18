@@ -206,16 +206,18 @@ export default function HomePage() {
                   <span>{t('hero.searchButton') || 'Search Vacancies'}</span>
                 </button>
               </form>
+            </div>
 
-              {/* Popular Searches Pill Chips */}
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5 text-xs">
-                <span className="text-zinc-400 text-2xs uppercase tracking-wider font-semibold mr-1">Popular:</span>
+            {/* Popular Searches Pill Chips (Single Line) */}
+            <div className="mt-3 flex items-center justify-center gap-1.5 text-xs max-w-5xl mx-auto overflow-x-auto no-scrollbar py-1 whitespace-nowrap">
+              <span className="text-zinc-400 text-2xs uppercase tracking-wider font-semibold mr-1 shrink-0">Popular:</span>
+              <div className="flex items-center gap-1.5 shrink-0">
                 {POPULAR_SEARCHES.map((term) => (
                   <button
                     key={term}
                     type="button"
                     onClick={() => handleQuickSearch(term)}
-                    className="px-3 py-1 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-zinc-950 text-2xs font-medium transition-colors"
+                    className="px-2.5 py-1 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-zinc-950 text-2xs font-medium transition-colors shrink-0 whitespace-nowrap cursor-pointer"
                   >
                     {term}
                   </button>
