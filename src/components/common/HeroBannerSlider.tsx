@@ -80,26 +80,26 @@ export const HeroBannerSlider: React.FC = () => {
 
   return (
     <div
-      className="relative w-full max-w-6xl mx-auto group select-none"
+      className="relative w-full mx-auto group select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       {/* Slider Window */}
-      <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/90 shadow-subtle hover:border-zinc-300 hover:shadow-mobbin transition-all relative bg-zinc-50">
+      <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/90 shadow-subtle hover:border-zinc-300 hover:shadow-mobbin transition-all relative bg-zinc-50 aspect-[1024/341]">
         {/* Slides Track */}
         <div
-          className="flex transition-transform duration-500 ease-out"
+          className="flex transition-transform duration-500 ease-out h-full"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {BANNERS.map((banner, idx) => (
-            <div key={banner.id} className="w-full shrink-0 relative">
-              <Link href={banner.link} className="block w-full cursor-pointer" title={banner.title}>
+            <div key={banner.id} className="w-full h-full shrink-0 relative">
+              <Link href={banner.link} className="block w-full h-full cursor-pointer" title={banner.title}>
                 <img
                   src={banner.image}
                   alt={banner.alt}
-                  className="w-full h-auto object-cover block"
+                  className="w-full h-full object-cover block"
                   loading={idx === 0 ? 'eager' : 'lazy'}
                 />
               </Link>
@@ -129,7 +129,7 @@ export const HeroBannerSlider: React.FC = () => {
       <button
         type="button"
         onClick={prevSlide}
-        className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
+        className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
         aria-label="Previous Slide"
       >
         <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-900 stroke-[2.2]" />
@@ -139,7 +139,7 @@ export const HeroBannerSlider: React.FC = () => {
       <button
         type="button"
         onClick={nextSlide}
-        className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
+        className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
         aria-label="Next Slide"
       >
         <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-900 stroke-[2.2]" />
