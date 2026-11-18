@@ -51,12 +51,12 @@ export const HeroBannerSlider: React.FC = () => {
     setCurrentIndex(idx);
   };
 
-  // Auto-advance timer (every 1 second, pauses when hovered)
+  // Auto-advance timer (every 5 seconds, pauses when hovered)
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
       nextSlide();
-    }, 1000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [isPaused, nextSlide]);
 
@@ -80,7 +80,7 @@ export const HeroBannerSlider: React.FC = () => {
 
   return (
     <div
-      className="relative max-w-4xl mx-auto group select-none"
+      className="relative w-full max-w-6xl mx-auto group select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -129,20 +129,20 @@ export const HeroBannerSlider: React.FC = () => {
       <button
         type="button"
         onClick={prevSlide}
-        className="absolute -left-3 sm:-left-5 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-lg border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-sm"
+        className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
         aria-label="Previous Slide"
       >
-        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-900 stroke-[2.2]" />
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-900 stroke-[2.2]" />
       </button>
 
       {/* Right Slide Button */}
       <button
         type="button"
         onClick={nextSlide}
-        className="absolute -right-3 sm:-right-5 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-lg border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-sm"
+        className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
         aria-label="Next Slide"
       >
-        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-900 stroke-[2.2]" />
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-900 stroke-[2.2]" />
       </button>
     </div>
   );
