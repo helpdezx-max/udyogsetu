@@ -19,12 +19,24 @@ import {
   ChevronRight,
   GraduationCap,
   Sparkles,
-  Info,
+  ArrowUpRight,
+  ShieldAlert,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useLocale } from '../hooks/useLocale';
 import { JobCard } from '../components/common/JobCard';
 import { CHAKAN_PILOT_LOCATIONS } from '../data/pilot-locations';
+
+const POPULAR_SEARCHES = [
+  'VMC Operator',
+  'CNC Lathe',
+  'MIG Welder',
+  'Quality Inspector',
+  'ITI Fitter',
+  '10th Pass Helper',
+  'Tool & Die',
+  'Assembly Line',
+];
 
 export default function HomePage() {
   const router = useRouter();
@@ -45,6 +57,13 @@ export default function HomePage() {
     });
   };
 
+  const handleQuickSearch = (term: string) => {
+    router.push({
+      pathname: '/jobs',
+      query: { q: term },
+    });
+  };
+
   const getCategoryCount = (catName: string) => jobs.filter((j) => j.category === catName).length;
 
   const categories = [
@@ -52,43 +71,31 @@ export default function HomePage() {
       name: 'Machining & CNC',
       count: getCategoryCount('Machining & CNC'),
       icon: <Cpu className="w-5 h-5 text-zinc-900" />,
-      bg: 'bg-white',
-      border: 'border-zinc-200/90',
     },
     {
       name: 'Welding & Fabrication',
       count: getCategoryCount('Welding & Fabrication'),
       icon: <Layers className="w-5 h-5 text-zinc-900" />,
-      bg: 'bg-white',
-      border: 'border-zinc-200/90',
     },
     {
       name: 'Assembly & Line',
       count: getCategoryCount('Assembly & Line'),
       icon: <Wrench className="w-5 h-5 text-zinc-900" />,
-      bg: 'bg-white',
-      border: 'border-zinc-200/90',
     },
     {
       name: 'Quality Control & CMM',
       count: getCategoryCount('Quality Control & CMM'),
       icon: <CheckCircle className="w-5 h-5 text-zinc-900" />,
-      bg: 'bg-white',
-      border: 'border-zinc-200/90',
     },
     {
       name: 'Maintenance & Electrical',
       count: getCategoryCount('Maintenance & Electrical'),
       icon: <Factory className="w-5 h-5 text-zinc-900" />,
-      bg: 'bg-white',
-      border: 'border-zinc-200/90',
     },
     {
       name: 'Warehouse & Logistics',
       count: getCategoryCount('Warehouse & Logistics'),
       icon: <Building2 className="w-5 h-5 text-zinc-900" />,
-      bg: 'bg-white',
-      border: 'border-zinc-200/90',
     },
   ];
 
@@ -101,32 +108,24 @@ export default function HomePage() {
       prefix: '10th',
       desc: 'Assembly Helper, Press Feeder, Store Assistant',
       count: getQualCount('10th'),
-      bg: 'bg-white',
-      border: 'border-zinc-200/90',
     },
     {
       title: 'ITI Certificate Holders',
       prefix: 'ITI',
       desc: 'VMC Operator, CNC Lathe, Die Setter, Maintenance',
       count: getQualCount('ITI'),
-      bg: 'bg-white',
-      border: 'border-zinc-200/90',
     },
     {
       title: 'Diploma (Mechanical / Auto)',
       prefix: 'Diploma',
       desc: 'Junior Engineer, CMM Quality Inspector, Toolmaker',
       count: getQualCount('Diploma'),
-      bg: 'bg-white',
-      border: 'border-zinc-200/90',
     },
     {
       title: 'B.E. / B.Tech Engineers',
       prefix: 'B.E.',
       desc: 'Production Shift Incharge, EHS Safety Officer',
       count: getQualCount('B.E.'),
-      bg: 'bg-white',
-      border: 'border-zinc-200/90',
     },
   ];
 
@@ -144,83 +143,105 @@ export default function HomePage() {
         />
       </Head>
 
-      <div className="space-y-12 pb-16">
+      <div className="w-full space-y-16 pb-20">
         {/* 1. HERO SECTION (Mobbin Style) */}
-        <section className="px-5 sm:px-10 lg:px-14 pt-10 sm:pt-14 pb-12 border-b border-zinc-100 bg-gradient-to-b from-zinc-50/60 to-white">
-          <div className="max-w-4xl mx-auto text-center space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 text-zinc-800 border border-zinc-200/80 text-3xs sm:text-2xs font-semibold tracking-wide">
+        <section className="relative border-b border-zinc-200/80 bg-gradient-to-b from-zinc-50/70 via-white to-white pt-12 sm:pt-20 pb-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            {/* Pill Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-100 text-zinc-900 border border-zinc-200 text-xs font-semibold tracking-tight shadow-2xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Direct Factory Recruitment • Chakan MIDC &amp; Pune Belt</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-zinc-950 leading-tight">
-              {t('hero.headline') || 'Find Your Next Job Closer to Home.'}
+            {/* Main Headline */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 leading-[1.08] max-w-4xl mx-auto">
+              Find Verified Factory Jobs, <br className="hidden sm:inline" />
+              <span className="text-zinc-500">Without Middlemen.</span>
             </h1>
 
-            <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed max-w-2xl mx-auto">
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base text-zinc-600 leading-relaxed max-w-2xl mx-auto">
               {t('hero.subheadline') ||
-                'Discover genuine factory, manufacturing and industrial job opportunities across Chakan and surrounding industrial areas.'}
+                'Direct manufacturing vacancies across Chakan Phases 1–4, Khed City, Kuruli & Pune. Confirmed in-hand wages, transparent plant gate walk-ins, and zero candidate fees.'}
             </p>
 
-            {/* Prominent Mobbin-style Search Bar */}
-            <form
-              onSubmit={handleHeroSearch}
-              className="mt-6 p-2 rounded-2xl bg-white border border-zinc-200 shadow-mobbin hover:border-zinc-300 transition-all text-zinc-900 grid grid-cols-1 md:grid-cols-12 gap-2 text-left"
-            >
-              <div className="md:col-span-5 relative">
-                <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5 pointer-events-none" />
-                <input
-                  type="text"
-                  value={keyword}
-                  onChange={(e) => setKeyword(e.target.value)}
-                  placeholder={t('hero.searchPlaceholder') || 'Job title, machine, skill (e.g. VMC Operator, Welder)...'}
-                  className="w-full text-xs sm:text-sm pl-10 pr-3 py-2.5 rounded-xl bg-zinc-50/70 border border-transparent focus:bg-white focus:border-zinc-300 focus:outline-none"
-                />
-              </div>
+            {/* Mobbin-style Floating Search Bar */}
+            <div className="max-w-3xl mx-auto pt-2">
+              <form
+                onSubmit={handleHeroSearch}
+                className="p-2 rounded-2xl sm:rounded-full bg-white border border-zinc-200/90 shadow-subtle hover:border-zinc-300 hover:shadow-mobbin transition-all text-zinc-900 flex flex-col sm:flex-row items-center gap-2"
+              >
+                <div className="flex-1 w-full relative">
+                  <Search className="w-4 h-4 text-zinc-400 absolute left-4 top-3.5 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={keyword}
+                    onChange={(e) => setKeyword(e.target.value)}
+                    placeholder={t('hero.searchPlaceholder') || 'Job title, machine, skill (e.g. VMC Operator, Welder)...'}
+                    className="w-full text-xs sm:text-sm pl-11 pr-3 py-2.5 rounded-xl sm:rounded-full bg-transparent border-none focus:outline-none placeholder:text-zinc-400"
+                  />
+                </div>
 
-              <div className="md:col-span-4 relative">
-                <MapPin className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5 pointer-events-none" />
-                <select
-                  value={cluster}
-                  onChange={(e) => setCluster(e.target.value)}
-                  className="w-full text-xs sm:text-sm pl-10 pr-3 py-2.5 rounded-xl bg-zinc-50/70 border border-transparent focus:bg-white focus:border-zinc-300 focus:outline-none text-zinc-800 cursor-pointer"
-                >
-                  <option value="">{t('hero.locationPlaceholder') || 'All Industrial Clusters'}</option>
-                  {CHAKAN_PILOT_LOCATIONS.map((cl) => (
-                    <option key={cl.id} value={cl.name}>
-                      {cl.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                <div className="hidden sm:block h-6 w-px bg-zinc-200" />
 
-              <div className="md:col-span-3">
+                <div className="w-full sm:w-56 relative">
+                  <MapPin className="w-4 h-4 text-zinc-400 absolute left-3 top-3.5 pointer-events-none" />
+                  <select
+                    value={cluster}
+                    onChange={(e) => setCluster(e.target.value)}
+                    className="w-full text-xs sm:text-sm pl-9 pr-3 py-2.5 rounded-xl sm:rounded-full bg-transparent border-none focus:outline-none text-zinc-800 cursor-pointer"
+                  >
+                    <option value="">{t('hero.locationPlaceholder') || 'All Industrial Clusters'}</option>
+                    {CHAKAN_PILOT_LOCATIONS.map((cl) => (
+                      <option key={cl.id} value={cl.name}>
+                        {cl.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
                 <button
                   type="submit"
-                  className="w-full bg-zinc-950 hover:bg-zinc-800 text-white text-xs sm:text-sm font-semibold py-2.5 px-4 rounded-xl shadow-xs transition-colors flex items-center justify-center gap-1.5"
+                  className="w-full sm:w-auto bg-zinc-950 hover:bg-zinc-800 text-white text-xs sm:text-sm font-semibold py-3 px-6 rounded-xl sm:rounded-full shadow-xs transition-colors flex items-center justify-center gap-2 shrink-0 cursor-pointer"
                 >
                   <Search className="w-4 h-4" />
                   <span>{t('hero.ctaButton') || 'Search Vacancies'}</span>
                 </button>
-              </div>
-            </form>
+              </form>
 
-            {/* Quick CTAs (Mobbin Pills) */}
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-2.5">
+              {/* Popular Searches Pill Chips */}
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5 text-xs">
+                <span className="text-zinc-400 text-2xs uppercase tracking-wider font-semibold mr-1">Popular:</span>
+                {POPULAR_SEARCHES.map((term) => (
+                  <button
+                    key={term}
+                    type="button"
+                    onClick={() => handleQuickSearch(term)}
+                    className="px-3 py-1 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-zinc-950 text-2xs font-medium transition-colors"
+                  >
+                    {term}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
               <Link href="/jobs">
-                <button className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-5 py-2.5 rounded-full shadow-xs transition-colors">
-                  Browse All Jobs
+                <button className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-5 py-2.5 rounded-full shadow-xs transition-colors flex items-center gap-1.5">
+                  <Search className="w-3.5 h-3.5" />
+                  <span>Browse All Jobs</span>
                 </button>
               </Link>
               <Link href="/walk-ins">
-                <button className="bg-zinc-100 hover:bg-zinc-200/80 text-zinc-800 border border-zinc-200/80 text-xs font-semibold px-4 py-2.5 rounded-full transition-colors flex items-center gap-1.5">
+                <button className="bg-white hover:bg-zinc-50 text-zinc-900 border border-zinc-200 text-xs font-semibold px-4 py-2.5 rounded-full transition-colors flex items-center gap-1.5 shadow-2xs">
                   <CalendarCheck2 className="w-3.5 h-3.5 text-amber-500" />
                   <span>Plant Gate Walk-ins</span>
                 </button>
               </Link>
               <Link href="/employer/post-job">
-                <button className="border border-zinc-200 text-zinc-800 hover:bg-zinc-50 text-xs font-semibold px-4 py-2.5 rounded-full transition-colors">
-                  Post a Job (Plant HR)
+                <button className="bg-white hover:bg-zinc-50 border border-zinc-200 text-zinc-700 hover:text-zinc-950 text-xs font-semibold px-4 py-2.5 rounded-full transition-colors flex items-center gap-1.5 shadow-2xs">
+                  <span>Post a Job (Plant HR)</span>
                 </button>
               </Link>
             </div>
@@ -228,58 +249,58 @@ export default function HomePage() {
         </section>
 
         {/* 2. FEATURED INDUSTRIAL VACANCIES */}
-        <section className="px-5 sm:px-10 lg:px-14 space-y-6">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
-              <div className="text-3xs font-bold uppercase tracking-wider text-neutral-400 mb-1">
+              <div className="text-3xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
                 Verified Vacancies
               </div>
-              <h2 className="text-xl sm:text-2xl font-black text-neutral-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
                 Featured Factory Positions
               </h2>
-              <p className="text-xs text-neutral-500 mt-0.5">
+              <p className="text-xs sm:text-sm text-zinc-500 mt-1">
                 Authentic direct manufacturing vacancies with confirmed in-hand monthly salaries.
               </p>
             </div>
 
             <Link
               href="/jobs"
-              className="text-xs font-bold text-neutral-900 hover:underline flex items-center gap-1"
+              className="text-xs font-semibold text-zinc-900 hover:text-zinc-600 flex items-center gap-1 group"
             >
               <span>Explore all vacancies</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
 
           {featuredJobs.length === 0 ? (
-            <div className="bg-[#F7F8FA] border border-[#E4E6EB] rounded-3xl p-8 sm:p-12 text-center space-y-4 max-w-2xl mx-auto">
-              <div className="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-2xs flex items-center justify-center mx-auto text-neutral-500">
+            <div className="bg-zinc-50 border border-zinc-200/90 rounded-2xl p-8 sm:p-12 text-center space-y-4 max-w-2xl mx-auto">
+              <div className="w-12 h-12 rounded-xl bg-white border border-zinc-200 shadow-2xs flex items-center justify-center mx-auto text-zinc-500">
                 <Briefcase className="w-6 h-6" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-bold text-neutral-900">
+                <h3 className="text-sm sm:text-base font-bold text-zinc-900">
                   New Industrial Vacancies Coming Soon
                 </h3>
-                <p className="text-xs text-neutral-500 leading-relaxed max-w-md mx-auto">
+                <p className="text-xs text-zinc-500 leading-relaxed max-w-md mx-auto">
                   Direct manufacturing units in Chakan Phase 1–4 and Khed City are currently onboarding positions. Check
                   back for verified factory roles or set up instant WhatsApp alerts.
                 </p>
               </div>
               <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                 <Link href="/candidate/assistant">
-                  <button className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors">
+                  <button className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-colors">
                     Set Up Job Alert on WhatsApp
                   </button>
                 </Link>
                 <Link href="/locations">
-                  <button className="bg-white hover:bg-neutral-50 border border-neutral-200 text-neutral-800 text-xs font-semibold px-4 py-2 rounded-xl transition-colors">
+                  <button className="bg-white hover:bg-zinc-50 border border-zinc-200 text-zinc-800 text-xs font-semibold px-4 py-2.5 rounded-full transition-colors">
                     Explore 12 Industrial Belts
                   </button>
                 </Link>
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {featuredJobs.map((job, idx) => (
                 <JobCard key={job.id} job={job} index={idx} />
               ))}
@@ -288,34 +309,34 @@ export default function HomePage() {
         </section>
 
         {/* 3. TODAY'S WALK-IN SPOTLIGHT */}
-        <section className="px-5 sm:px-10 lg:px-14 space-y-6">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
               <div className="text-3xs font-bold uppercase tracking-wider text-amber-700 mb-1">
                 Gate Walk-in Calendar
               </div>
-              <h2 className="text-xl sm:text-2xl font-black text-neutral-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
                 Spot Hiring Drives in Chakan
               </h2>
-              <p className="text-xs text-neutral-500 mt-0.5">
+              <p className="text-xs sm:text-sm text-zinc-500 mt-1">
                 Report directly to verified factory gates with original certificates and safety shoes.
               </p>
             </div>
 
             <Link
               href="/walk-ins"
-              className="text-xs font-bold text-neutral-900 hover:underline flex items-center gap-1"
+              className="text-xs font-semibold text-zinc-900 hover:text-zinc-600 flex items-center gap-1 group"
             >
               <span>View Full Calendar</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
 
           {todayWalkIns.length === 0 ? (
-            <div className="bg-[#FFF9EE] border border-[#FAECBF] rounded-3xl p-6 text-center space-y-2">
-              <CalendarCheck2 className="w-6 h-6 text-amber-700 mx-auto" />
-              <h3 className="text-xs font-bold text-neutral-900">No Spot Gate Drives Scheduled Today</h3>
-              <p className="text-2xs text-neutral-600 max-w-sm mx-auto">
+            <div className="bg-white border border-zinc-200/90 rounded-2xl p-8 text-center space-y-2 max-w-2xl mx-auto shadow-subtle">
+              <CalendarCheck2 className="w-7 h-7 text-amber-500 mx-auto" />
+              <h3 className="text-sm font-bold text-zinc-900">No Spot Gate Drives Scheduled Today</h3>
+              <p className="text-xs text-zinc-500 max-w-sm mx-auto">
                 Verified walk-in drives are typically conducted on Mondays and Saturdays. Browse regular vacancies or
                 check back for upcoming plant gate drives.
               </p>
@@ -325,42 +346,43 @@ export default function HomePage() {
               {todayWalkIns.map((walkin) => (
                 <div
                   key={walkin.id}
-                  className="bg-[#FFF9EE] border border-[#FAECBF] rounded-3xl p-5 flex flex-col justify-between space-y-4 hover:shadow-card transition-all"
+                  className="bg-white border border-zinc-200/90 rounded-2xl p-5 flex flex-col justify-between space-y-4 hover:border-zinc-300 hover:shadow-mobbin-hover transition-all"
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-3xs font-bold px-2.5 py-0.5 rounded-full bg-[#FAEDC8] text-[#7C5104] uppercase tracking-wide">
+                      <span className="text-2xs font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60 uppercase tracking-wide">
                         {walkin.eventDates}
                       </span>
-                      <span className="text-xs font-bold text-[#7C5104]">
+                      <span className="text-xs font-bold text-zinc-900">
                         {walkin.openingsCount} Vacancies
                       </span>
                     </div>
 
                     <div>
-                      <h3 className="font-bold text-neutral-900 text-sm">{walkin.jobTitle}</h3>
-                      <p className="text-xs font-medium text-neutral-600">{walkin.companyName}</p>
+                      <h3 className="font-bold text-zinc-950 text-sm">{walkin.jobTitle}</h3>
+                      <p className="text-xs font-medium text-zinc-500">{walkin.companyName}</p>
                     </div>
 
-                    <div className="text-xs space-y-1.5 py-2.5 border-y border-amber-200/50 text-neutral-600">
+                    <div className="text-xs space-y-1.5 py-2.5 border-y border-zinc-100 text-zinc-600">
                       <div className="flex items-start gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+                        <Clock className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
                         <span>{walkin.reportingTime}</span>
                       </div>
                       <div className="flex items-start gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+                        <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
                         <span className="line-clamp-2">{walkin.venueAddress}</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between pt-1">
-                    <span className="text-xs font-bold text-neutral-900">
+                    <span className="text-xs font-bold text-zinc-950">
                       {walkin.salaryDisplay.split('+')[0]}
                     </span>
                     <Link href={`/jobs/${walkin.jobId}`}>
-                      <button className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-xs transition-colors">
-                        View Venue
+                      <button className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-2xs transition-colors flex items-center gap-1">
+                        <span>View Venue</span>
+                        <ArrowUpRight className="w-3 h-3" />
                       </button>
                     </Link>
                   </div>
@@ -370,16 +392,16 @@ export default function HomePage() {
           )}
         </section>
 
-        {/* 4. EXPLORE BY TRADE */}
-        <section className="px-5 sm:px-10 lg:px-14 space-y-6">
+        {/* 4. EXPLORE BY TRADE (Mobbin Minimalist Cards) */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div>
-            <div className="text-3xs font-bold uppercase tracking-wider text-neutral-400 mb-1">
+            <div className="text-3xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
               Industrial Trades
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-neutral-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
               Browse by Machine &amp; Skill
             </h2>
-            <p className="text-xs text-neutral-500 mt-0.5">
+            <p className="text-xs sm:text-sm text-zinc-500 mt-1">
               Positions mapped specifically to technical trade certifications and shop-floor experience.
             </p>
           </div>
@@ -389,16 +411,16 @@ export default function HomePage() {
               <Link
                 key={cat.name}
                 href={`/jobs?category=${encodeURIComponent(cat.name)}`}
-                className={`${cat.bg} ${cat.border} border rounded-2xl p-4 text-center flex flex-col items-center justify-center space-y-2 group transition-all hover:-translate-y-0.5 hover:shadow-card`}
+                className="bg-white border border-zinc-200/90 rounded-2xl p-4 text-center flex flex-col items-center justify-center space-y-2 group transition-all hover:border-zinc-300 hover:shadow-mobbin-hover"
               >
-                <div className="p-2.5 rounded-xl bg-white shadow-2xs group-hover:scale-105 transition-transform">
+                <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-100 group-hover:scale-105 transition-transform">
                   {cat.icon}
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-neutral-900 group-hover:underline">
+                  <div className="text-xs font-bold text-zinc-950 group-hover:underline">
                     {cat.name}
                   </div>
-                  <div className="text-3xs text-neutral-500 mt-0.5">
+                  <div className="text-2xs text-zinc-400 mt-0.5">
                     {cat.count > 0 ? `${cat.count} Vacancies` : 'Explore Sector'}
                   </div>
                 </div>
@@ -408,12 +430,12 @@ export default function HomePage() {
         </section>
 
         {/* 5. JOBS BY QUALIFICATION */}
-        <section className="px-5 sm:px-10 lg:px-14 space-y-6">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div>
-            <div className="text-3xs font-bold uppercase tracking-wider text-neutral-400 mb-1">
+            <div className="text-3xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
               Targeted Eligibility
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-neutral-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
               Jobs by Educational Qualification
             </h2>
           </div>
@@ -422,22 +444,22 @@ export default function HomePage() {
             {qualifications.map((q) => (
               <div
                 key={q.title}
-                className={`${q.bg} ${q.border} border rounded-3xl p-5 flex flex-col justify-between space-y-3 transition-all hover:shadow-card`}
+                className="bg-white border border-zinc-200/90 rounded-2xl p-5 flex flex-col justify-between space-y-3 transition-all hover:border-zinc-300 hover:shadow-mobbin-hover"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <GraduationCap className="w-5 h-5 text-neutral-700" />
-                    <span className="text-3xs font-bold text-neutral-700 bg-white/90 px-2 py-0.5 rounded-full border border-neutral-200">
+                    <GraduationCap className="w-5 h-5 text-zinc-700" />
+                    <span className="text-2xs font-semibold text-zinc-700 bg-zinc-100 px-2 py-0.5 rounded-full border border-zinc-200/60">
                       {q.count > 0 ? `${q.count} Openings` : 'Explore'}
                     </span>
                   </div>
-                  <h3 className="text-sm font-bold text-neutral-900 mb-1">{q.title}</h3>
-                  <p className="text-xs text-neutral-600">{q.desc}</p>
+                  <h3 className="text-sm font-bold text-zinc-950 mb-1">{q.title}</h3>
+                  <p className="text-xs text-zinc-500 leading-relaxed">{q.desc}</p>
                 </div>
 
                 <Link
                   href={`/jobs?qualification=${encodeURIComponent(q.title.split(' ')[0])}`}
-                  className="text-xs font-semibold text-neutral-900 hover:underline flex items-center gap-1 pt-2"
+                  className="text-xs font-semibold text-zinc-900 hover:underline flex items-center gap-1 pt-2"
                 >
                   <span>Browse Vacancies</span>
                   <ArrowRight className="w-3 h-3" />
@@ -448,39 +470,39 @@ export default function HomePage() {
         </section>
 
         {/* 6. VERIFIED COMPANIES */}
-        <section className="px-5 sm:px-10 lg:px-14 space-y-6">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
               <div className="text-3xs font-bold uppercase tracking-wider text-emerald-800 mb-1">
                 Employer Network
               </div>
-              <h2 className="text-xl sm:text-2xl font-black text-neutral-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
                 Verified Industrial Plants Hiring in Pune
               </h2>
-              <p className="text-xs text-neutral-500 mt-0.5">
+              <p className="text-xs sm:text-sm text-zinc-500 mt-1">
                 Every listed plant has a verified physical footprint and authenticated Udyam credentials.
               </p>
             </div>
 
             <Link
               href="/companies"
-              className="text-xs font-bold text-neutral-900 hover:underline flex items-center gap-1"
+              className="text-xs font-semibold text-zinc-900 hover:text-zinc-600 flex items-center gap-1 group"
             >
               <span>View All Plants</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
 
           {verifiedCompanies.length === 0 ? (
-            <div className="bg-[#F1F8F4] border border-[#D5ECE0] rounded-3xl p-6 sm:p-8 text-center space-y-3">
-              <Building2 className="w-8 h-8 text-emerald-700 mx-auto" />
-              <h3 className="text-sm font-bold text-neutral-900">Expanding Manufacturing Employer Network</h3>
-              <p className="text-xs text-neutral-600 max-w-md mx-auto">
+            <div className="bg-white border border-zinc-200/90 rounded-2xl p-6 sm:p-8 text-center space-y-3 max-w-2xl mx-auto shadow-subtle">
+              <Building2 className="w-8 h-8 text-zinc-400 mx-auto" />
+              <h3 className="text-sm font-bold text-zinc-900">Expanding Manufacturing Employer Network</h3>
+              <p className="text-xs text-zinc-500 max-w-md mx-auto">
                 Industrial plants in Chakan MIDC are currently undergoing statutory Udyam and GSTIN verification audit.
                 Verified manufacturing units will appear here once audited.
               </p>
-              <Link href="/employer/register">
-                <button className="bg-neutral-900 text-white text-xs font-semibold px-4 py-2 rounded-xl">
+              <Link href="/employer/signup">
+                <button className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-4 py-2 rounded-full transition-colors">
                   Register Your Manufacturing Plant
                 </button>
               </Link>
@@ -490,7 +512,7 @@ export default function HomePage() {
               {verifiedCompanies.map((comp) => (
                 <div
                   key={comp.id}
-                  className="bg-[#F7F8FA] border border-[#E4E6EB] rounded-3xl p-5 flex flex-col justify-between space-y-4 hover:shadow-card transition-all"
+                  className="bg-white border border-zinc-200/90 rounded-2xl p-5 flex flex-col justify-between space-y-4 hover:border-zinc-300 hover:shadow-mobbin-hover transition-all"
                 >
                   <div>
                     <div className="flex items-start gap-3 mb-3">
@@ -501,28 +523,29 @@ export default function HomePage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <h3 className="font-bold text-neutral-900 text-sm truncate">{comp.name}</h3>
+                          <h3 className="font-bold text-zinc-950 text-sm truncate">{comp.name}</h3>
                           <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                         </div>
-                        <p className="text-3xs text-neutral-500">{comp.industry}</p>
-                        <p className="text-3xs text-neutral-400 mt-0.5 flex items-center gap-1">
+                        <p className="text-2xs text-zinc-500">{comp.industry}</p>
+                        <p className="text-2xs text-zinc-400 mt-0.5 flex items-center gap-1">
                           <MapPin className="w-2.5 h-2.5" /> {comp.clusterName}
                         </p>
                       </div>
                     </div>
 
-                    <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-zinc-600 line-clamp-2 leading-relaxed">
                       {comp.description}
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-neutral-200/60 flex items-center justify-between text-xs">
-                    <span className="font-bold text-neutral-900 text-3xs bg-white px-2 py-0.5 rounded-md border border-neutral-200">
+                  <div className="pt-3 border-t border-zinc-100 flex items-center justify-between text-xs">
+                    <span className="font-semibold text-zinc-700 text-2xs bg-zinc-100 px-2.5 py-0.5 rounded-full border border-zinc-200/60">
                       {comp.openVacanciesCount} Vacancies
                     </span>
                     <Link href={`/companies/${comp.slug || comp.id}`}>
-                      <button className="text-xs font-semibold text-neutral-900 hover:underline">
-                        Plant Profile →
+                      <button className="text-xs font-semibold text-zinc-900 hover:underline flex items-center gap-1">
+                        <span>Plant Profile</span>
+                        <ArrowUpRight className="w-3 h-3" />
                       </button>
                     </Link>
                   </div>
@@ -533,15 +556,15 @@ export default function HomePage() {
         </section>
 
         {/* 7. INDUSTRIAL CLUSTERS */}
-        <section className="px-5 sm:px-10 lg:px-14 space-y-6">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div>
-            <div className="text-3xs font-bold uppercase tracking-wider text-neutral-400 mb-1">
+            <div className="text-3xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
               Hyperlocal Geography
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-neutral-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
               12 Industrial Hubs Across Chakan &amp; North Pune
             </h2>
-            <p className="text-xs text-neutral-500 mt-0.5">
+            <p className="text-xs sm:text-sm text-zinc-500 mt-1">
               Target vacancies situated within direct commuting distance of your residence or bus routes.
             </p>
           </div>
@@ -558,26 +581,26 @@ export default function HomePage() {
                 <Link
                   key={cl.id}
                   href={`/locations/${cl.id}`}
-                  className="p-5 rounded-3xl bg-[#F7F8FA] border border-[#E4E6EB] hover:bg-white hover:shadow-card transition-all group flex flex-col justify-between"
+                  className="p-5 rounded-2xl bg-white border border-zinc-200/90 hover:border-zinc-300 hover:shadow-mobbin-hover transition-all group flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-3xs font-bold text-neutral-700 bg-white px-2 py-0.5 rounded border border-neutral-200">
+                      <span className="text-2xs font-semibold text-zinc-700 bg-zinc-100 px-2 py-0.5 rounded-full border border-zinc-200/60">
                         PIN {cl.pincode}
                       </span>
-                      <span className="text-xs font-bold text-neutral-900">
+                      <span className="text-xs font-semibold text-zinc-950">
                         {plantOpenings > 0 ? `${plantOpenings} Openings` : 'Explore Hub'}
                       </span>
                     </div>
-                    <h3 className="font-bold text-neutral-900 text-sm group-hover:underline">
+                    <h3 className="font-bold text-zinc-950 text-sm group-hover:underline">
                       {cl.name}
                     </h3>
-                    <p className="text-3xs text-neutral-500 mt-1 line-clamp-1">{cl.landmark}</p>
+                    <p className="text-2xs text-zinc-500 mt-1 line-clamp-1">{cl.landmark}</p>
                   </div>
 
-                  <div className="mt-4 pt-2 border-t border-neutral-200/60 text-3xs text-neutral-500 flex items-center justify-between">
+                  <div className="mt-4 pt-2 border-t border-zinc-100 text-2xs text-zinc-500 flex items-center justify-between">
                     <span>{cl.zone}</span>
-                    <ArrowRight className="w-3 h-3 text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 transition-all" />
+                    <ArrowRight className="w-3 h-3 text-zinc-400 group-hover:text-zinc-950 group-hover:translate-x-0.5 transition-all" />
                   </div>
                 </Link>
               );
@@ -586,17 +609,17 @@ export default function HomePage() {
         </section>
 
         {/* 8. CANDIDATE SAFETY GUARANTEE */}
-        <section className="px-5 sm:px-10 lg:px-14">
-          <div className="p-6 rounded-3xl bg-[#F1F8F4] border border-[#D5ECE0] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="p-6 sm:p-8 rounded-2xl bg-emerald-50/50 border border-emerald-200/70 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex items-start gap-4">
-              <div className="p-3 bg-white text-emerald-700 rounded-2xl shadow-2xs shrink-0">
-                <ShieldCheck className="w-7 h-7" />
+              <div className="p-3 bg-white text-emerald-700 rounded-xl border border-emerald-200/60 shadow-2xs shrink-0">
+                <ShieldCheck className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-neutral-950">
+                <h3 className="text-sm sm:text-base font-bold text-zinc-950">
                   Candidate Safety &amp; Anti-Fraud Guarantee
                 </h3>
-                <p className="text-xs text-neutral-600 mt-1 max-w-2xl leading-relaxed">
+                <p className="text-xs text-zinc-600 mt-1 max-w-2xl leading-relaxed">
                   UdyogSetu strictly prohibits any recruitment charges. No legitimate factory or contractor will ask for
                   registration fees, uniform security deposits, or file charges. If anyone asks for money, report them
                   immediately.
@@ -605,34 +628,34 @@ export default function HomePage() {
             </div>
 
             <Link href="/trust-and-safety">
-              <button className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-4 py-2.5 rounded-xl whitespace-nowrap shadow-xs transition-colors">
+              <button className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-5 py-2.5 rounded-full whitespace-nowrap shadow-xs transition-colors shrink-0">
                 Read Trust Guidelines
               </button>
             </Link>
           </div>
         </section>
 
-        {/* 9. FACTORY HR RECRUITMENT CTA */}
-        <section className="px-5 sm:px-10 lg:px-14">
-          <div className="p-8 sm:p-10 rounded-3xl bg-neutral-900 text-white text-center space-y-4">
-            <span className="inline-block px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-3xs font-bold uppercase tracking-wider">
+        {/* 9. FACTORY HR RECRUITMENT CTA (Mobbin Dark Card) */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="p-8 sm:p-12 rounded-3xl bg-zinc-950 text-white text-center space-y-4 border border-zinc-900 shadow-xl">
+            <span className="inline-block px-3 py-1 rounded-full bg-zinc-800 text-zinc-300 text-2xs font-semibold uppercase tracking-wider border border-zinc-700">
               Factory HR &amp; Plant Managers
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black tracking-tight max-w-xl mx-auto">
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight max-w-xl mx-auto">
               Hire Skilled Machine Operators, Fitters &amp; Line Workers Faster
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-400 max-w-lg mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm text-zinc-400 max-w-lg mx-auto leading-relaxed">
               Connect directly with verified ITI certificate holders, diploma engineers, and manufacturing technicians
               residing along direct Chakan transit corridors.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <Link href="/employer/post-job">
-                <button className="bg-white hover:bg-neutral-100 text-neutral-900 text-xs font-bold px-5 py-2.5 rounded-xl shadow-xs transition-colors">
+                <button className="bg-white hover:bg-zinc-100 text-zinc-950 text-xs font-bold px-6 py-2.5 rounded-full shadow-xs transition-colors">
                   Post Vacancy Now
                 </button>
               </Link>
-              <Link href="/employer/register">
-                <button className="border border-neutral-700 text-white hover:bg-neutral-800 text-xs font-semibold px-5 py-2.5 rounded-xl transition-colors">
+              <Link href="/employer/signup">
+                <button className="border border-zinc-700 text-zinc-200 hover:bg-zinc-900 text-xs font-semibold px-5 py-2.5 rounded-full transition-colors">
                   Create Factory Account
                 </button>
               </Link>

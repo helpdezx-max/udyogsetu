@@ -1,30 +1,107 @@
 import React from 'react';
 import Link from 'next/link';
+import { Factory, ShieldCheck, HeartHandshake, CheckCircle2 } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full flex flex-col sm:flex-row items-center justify-between gap-2.5 text-3xs text-zinc-400 px-1">
-      <div className="flex flex-wrap items-center gap-2">
-        <span>
-          © 2026 <strong className="text-zinc-100 font-semibold">UdyogSetu</strong> • Hyperlocal Industrial Employment Network
-        </span>
-        <span className="hidden sm:inline text-zinc-700">•</span>
-        <span className="hidden sm:inline text-zinc-500">
-          Chakan MIDC (Phases 1–4), Khed City, Mahalunge & Pune Belt
-        </span>
-      </div>
+    <footer className="w-full border-t border-zinc-200/80 bg-zinc-50/70 text-zinc-600 text-xs mt-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12">
+          {/* Brand & Mission */}
+          <div className="md:col-span-2 space-y-4">
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="w-8 h-8 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-2xs group-hover:bg-zinc-800 transition-colors">
+                <Factory className="w-4 h-4 text-amber-400" />
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-base font-black tracking-tight text-zinc-950">
+                  UdyogSetu
+                </span>
+                <span className="bg-zinc-200/80 text-zinc-800 text-3xs font-extrabold uppercase px-1.5 py-0.5 rounded-md tracking-wider">
+                  CHAKAN
+                </span>
+              </div>
+            </Link>
 
-      <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-zinc-400">
-        <Link href="/" className="hover:text-white transition-colors">Home</Link>
-        <Link href="/jobs" className="hover:text-white transition-colors">Find Jobs</Link>
-        <Link href="/walk-ins" className="hover:text-white transition-colors">Walk-ins</Link>
-        <Link href="/companies" className="hover:text-white transition-colors">Companies</Link>
-        <Link href="/locations" className="hover:text-white transition-colors">Clusters</Link>
-        <Link href="/trust-and-safety" className="hover:text-white transition-colors">Trust & Safety</Link>
-        <Link href="/about" className="hover:text-white transition-colors">About</Link>
-        <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-        <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
-        <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <p className="text-xs text-zinc-500 leading-relaxed max-w-sm">
+              Hyperlocal industrial employment network connecting verified factories across Chakan MIDC (Phases 1–4),
+              Khed City, and Pune belt with skilled shopfloor workers, ITI technicians, and production engineers.
+            </p>
+
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/60 text-2xs font-semibold">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <span>₹0 Fee Guarantee: 100% Free Forever for Job Seekers</span>
+            </div>
+          </div>
+
+          {/* Column 1: Candidates */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900">For Job Seekers</h4>
+            <ul className="space-y-2 text-zinc-500 text-xs">
+              <li>
+                <Link href="/jobs" className="hover:text-zinc-950 transition-colors">Find Industrial Jobs</Link>
+              </li>
+              <li>
+                <Link href="/walk-ins" className="hover:text-zinc-950 transition-colors">Plant Gate Walk-ins</Link>
+              </li>
+              <li>
+                <Link href="/locations" className="hover:text-zinc-950 transition-colors">12 Industrial Belts</Link>
+              </li>
+              <li>
+                <Link href="/candidate/assistant" className="hover:text-zinc-950 transition-colors">WhatsApp Job Alerts</Link>
+              </li>
+              <li>
+                <Link href="/trust-and-safety" className="hover:text-zinc-950 transition-colors">Fee Scam Protection</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 2: Employers */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900">For Plant HR & MSMEs</h4>
+            <ul className="space-y-2 text-zinc-500 text-xs">
+              <li>
+                <Link href="/employer/post-job" className="hover:text-zinc-950 transition-colors">Post a Factory Vacancy</Link>
+              </li>
+              <li>
+                <Link href="/employer/signup" className="hover:text-zinc-950 transition-colors">Register Manufacturing Unit</Link>
+              </li>
+              <li>
+                <Link href="/companies" className="hover:text-zinc-950 transition-colors">Verified Plant Directory</Link>
+              </li>
+              <li>
+                <Link href="/signin" className="hover:text-zinc-950 transition-colors">Employer Workspace</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Platform */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900">Governance & Trust</h4>
+            <ul className="space-y-2 text-zinc-500 text-xs">
+              <li>
+                <Link href="/about" className="hover:text-zinc-950 transition-colors">About UdyogSetu</Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-zinc-950 transition-colors">Report Illegal Placement Agency</Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="hover:text-zinc-950 transition-colors">Privacy Policy</Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-zinc-950 transition-colors">Terms of Statutory Service</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="mt-12 pt-6 border-t border-zinc-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-3xs text-zinc-400">
+          <p>© 2026 UdyogSetu. All rights reserved. Direct shopfloor industrial recruitment platform.</p>
+          <p className="flex items-center gap-1.5 text-zinc-500">
+            <span>Built for Chakan MIDC, Khed City, Mahalunge, Kuruli & Pune Industrial Belt</span>
+          </p>
+        </div>
       </div>
     </footer>
   );

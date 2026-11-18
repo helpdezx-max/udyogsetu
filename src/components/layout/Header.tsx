@@ -55,8 +55,9 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="w-full bg-white rounded-2xl sm:rounded-3xl shadow-mobbin border border-zinc-200/90 px-4 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3 sm:gap-4 relative z-40">
-      {/* Brand Logo */}
+    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-zinc-200/80 transition-all">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5 flex items-center justify-between gap-3 sm:gap-4">
+        {/* Brand Logo */}
       <Link href="/" className="flex items-center gap-2.5 group shrink-0">
         <div className="w-9 h-9 rounded-xl bg-zinc-950 text-white flex items-center justify-center shadow-xs group-hover:bg-zinc-800 transition-colors">
           <Factory className="w-4 h-4 text-amber-400" />
@@ -298,10 +299,11 @@ export const Header: React.FC = () => {
           {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
         </button>
       </div>
+      </div>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border border-neutral-200 shadow-xl px-5 py-4 space-y-3 z-50">
+        <div className="lg:hidden border-t border-zinc-200 bg-white shadow-xl px-5 py-4 space-y-3">
           {user && (
             <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200 flex items-center justify-between">
               <div>

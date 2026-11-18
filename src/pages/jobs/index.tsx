@@ -224,7 +224,8 @@ export default function FindJobsPage() {
       </Head>
 
       {/* MAIN DISCOVERY INTERFACE (Left Filter Panel + Results Area) */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 min-h-[720px]">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[720px] gap-8">
             
             {/* 3. LEFT FILTER PANEL */}
             <aside
@@ -710,6 +711,7 @@ export default function FindJobsPage() {
               </div>
             </main>
           </div>
+        </div>
     </>
   );
 }
