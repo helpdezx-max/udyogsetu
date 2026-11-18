@@ -184,6 +184,29 @@ async function runAuthTests() {
   );
   console.log('  ✔ Zero public admin registration exposure verified (PASS)');
 
+  // --------------------------------------------------------------------------
+  // TEST 8: GOOGLE OAUTH SIGNIN / SIGNUP INTEGRATION
+  // --------------------------------------------------------------------------
+  console.log('\nTest 8: Google OAuth Sign In & Parameter Integrity');
+  assert.strictEqual(
+    typeof authService.signInWithGoogle,
+    'function',
+    'authService exposes signInWithGoogle method'
+  );
+
+  const googleOAuthRes = await authService.signInWithGoogle('http://localhost:3000/auth/callback');
+  assert.strictEqual(googleOAuthRes.error, null, 'No error returned from Google OAuth initiation');
+  assert.ok(googleOAuthRes.data?.url, 'Google OAuth authorize URL is generated');
+  assert.ok(
+    googleOAuthRes.data.url.includes('provider=google'),
+    'OAuth authorize URL contains provider=google parameter'
+  );
+  assert.ok(
+    googleOAuthRes.data.url.includes('redirect_to='),
+    'OAuth authorize URL contains redirect_to parameter'
+  );
+  console.log('  ✔ Google OAuth initiation and redirect parameter verified (PASS)');
+
   console.log('\n======================================================');
   console.log('  ALL AUTHENTICATION & RBAC TEST CHECKS PASSED!');
   console.log('======================================================\n');

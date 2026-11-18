@@ -17,11 +17,12 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
+import { GoogleSignInButton } from '../components/auth/GoogleSignInButton';
 
 export default function UnifiedSignInPage() {
   const router = useRouter();
-  const { redirect, logged_out, verified } = router.query;
-  const { signIn, isConfigured } = useAuth();
+  const { redirect, logged_out, verified, error: urlError } = router.query;
+  const { signIn, signInWithGoogle, isConfigured } = useAuth();
   const { setActiveRole } = useApp();
 
   const [email, setEmail] = useState('');
@@ -31,13 +32,35 @@ export default function UnifiedSignInPage() {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
 
   useEffect(() => {
-    if (logged_out) {
-      // Clear any remaining state
+    if (urlError && typeof urlError === 'string') {
+      setErrorMessage(decodeURIComponent(urlError));
     }
-  }, [logged_out]);
+  }, [urlError]);
+
+  const handleGoogleSignIn = async () => {
+    setErrorMessage('');
+    setIsGoogleLoading(true);
+
+    try {
+      const redirectUrl = typeof window !== 'undefined'
+        ? `${window.location.origin}/auth/callback`
+        : undefined;
+
+      const { error } = await signInWithGoogle(redirectUrl);
+      if (error) {
+        setErrorMessage(error.message || 'Failed to initiate Google sign in.');
+        setIsGoogleLoading(false);
+      }
+      // Note: Supabase will automatically redirect to Google OAuth URL on success
+    } catch (err: any) {
+      setErrorMessage(err.message || 'An unexpected error occurred connecting to Google.');
+      setIsGoogleLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -148,92 +171,113 @@ export default function UnifiedSignInPage() {
           )}
 
           {!loginSuccess && (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Email Address */}
-              <div>
-                <label className="block text-xs font-bold text-industrial-800 mb-1.5">
-                  Email Address *
-                </label>
-                <div className="relative">
-                  <Mail className="w-4 h-4 text-industrial-400 absolute left-3.5 top-3.5" />
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@domain.com"
-                    autoComplete="email"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-industrial-200 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-industrial-900 font-medium"
-                  />
-                </div>
-              </div>
-
-              {/* Password */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-bold text-industrial-800">
-                    Password *
-                  </label>
-                  <Link
-                    href="/forgot-password"
-                    className="text-xs text-amber-700 hover:text-amber-800 font-semibold hover:underline"
-                  >
-                    Forgot Password?
-                  </Link>
-                </div>
-                <div className="relative">
-                  <Lock className="w-4 h-4 text-industrial-400 absolute left-3.5 top-3.5" />
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    autoComplete="current-password"
-                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-industrial-200 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-industrial-900 font-medium"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-industrial-400 hover:text-industrial-700"
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-
-              {/* Remember me */}
-              <div className="flex items-center justify-between pt-1">
-                <label className="flex items-center gap-2 cursor-pointer text-xs text-industrial-600">
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                    className="h-4 w-4 rounded border-industrial-300 text-neutral-900 focus:ring-neutral-900"
-                  />
-                  <span>Remember my session</span>
-                </label>
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
+            <div className="space-y-4">
+              {/* Google Sign In Button */}
+              <GoogleSignInButton
+                onClick={handleGoogleSignIn}
+                isLoading={isGoogleLoading}
                 disabled={isSubmitting}
-                className="w-full py-3 px-6 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    <span>Signing in...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Sign In</span>
-                    <ArrowRight className="w-4 h-4 text-amber-400" />
-                  </>
-                )}
-              </button>
-            </form>
+                text="Sign in with Google"
+              />
+
+              {/* Or separator */}
+              <div className="relative flex items-center justify-center my-4">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-industrial-200" />
+                </div>
+                <div className="relative px-3 bg-white text-[11px] font-semibold text-industrial-400 uppercase tracking-wider">
+                  Or continue with email
+                </div>
+              </div>
+
+              {/* Email & Password Form */}
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Email Address */}
+                <div>
+                  <label className="block text-xs font-bold text-industrial-800 mb-1.5">
+                    Email Address *
+                  </label>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 text-industrial-400 absolute left-3.5 top-3.5" />
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@domain.com"
+                      autoComplete="email"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-industrial-200 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-industrial-900 font-medium"
+                    />
+                  </div>
+                </div>
+
+                {/* Password */}
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-xs font-bold text-industrial-800">
+                      Password *
+                    </label>
+                    <Link
+                      href="/forgot-password"
+                      className="text-xs text-amber-700 hover:text-amber-800 font-semibold hover:underline"
+                    >
+                      Forgot Password?
+                    </Link>
+                  </div>
+                  <div className="relative">
+                    <Lock className="w-4 h-4 text-industrial-400 absolute left-3.5 top-3.5" />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="••••••••"
+                      autoComplete="current-password"
+                      className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-industrial-200 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-industrial-900 font-medium"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-3 text-industrial-400 hover:text-industrial-700"
+                    >
+                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Remember me */}
+                <div className="flex items-center justify-between pt-1">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs text-industrial-600">
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                      className="h-4 w-4 rounded border-industrial-300 text-neutral-900 focus:ring-neutral-900"
+                    />
+                    <span>Remember my session</span>
+                  </label>
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting || isGoogleLoading}
+                  className="w-full py-3 px-6 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span>Signing in...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Sign In</span>
+                      <ArrowRight className="w-4 h-4 text-amber-400" />
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
           )}
 
           {/* Quick links to registration */}

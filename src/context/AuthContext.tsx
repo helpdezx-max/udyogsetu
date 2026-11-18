@@ -26,6 +26,7 @@ interface AuthContextType {
   isLoading: boolean;
   isConfigured: boolean;
   signIn: (emailOrPhone: string, password: string) => Promise<{ error: Error | null; targetRoute?: string }>;
+  signInWithGoogle: (redirectTo?: string) => Promise<{ error: Error | null; url?: string | null }>;
   signUpCandidate: typeof authService.signUpCandidate;
   signUpEmployer: typeof authService.signUpEmployer;
   signUpAgency: typeof authService.signUpAgency;
@@ -187,6 +188,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return { error: error as Error | null, targetRoute };
   };
 
+  const signInWithGoogle = async (redirectTo?: string) => {
+    setIsLoading(true);
+    const { data, error } = await authService.signInWithGoogle(redirectTo);
+    if (error) {
+      setIsLoading(false);
+      return { error: error as Error | null, url: null };
+    }
+    return { error: null, url: data?.url || null };
+  };
+
   const signOut = async () => {
     setIsLoading(true);
     await authService.signOut();
@@ -261,6 +272,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         isLoading,
         isConfigured,
         signIn,
+        signInWithGoogle,
         signUpCandidate: authService.signUpCandidate,
         signUpEmployer: authService.signUpEmployer,
         signUpAgency: authService.signUpAgency,

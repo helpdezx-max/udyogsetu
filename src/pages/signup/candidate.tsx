@@ -19,10 +19,11 @@ import {
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { useAuth } from '../../context/AuthContext';
+import { GoogleSignInButton } from '../../components/auth/GoogleSignInButton';
 
 export default function CandidateSignupPage() {
   const router = useRouter();
-  const { signUpCandidate, isConfigured } = useAuth();
+  const { signUpCandidate, signInWithGoogle, isConfigured } = useAuth();
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -36,6 +37,7 @@ export default function CandidateSignupPage() {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [registeredSuccess, setRegisteredSuccess] = useState(false);
 
   // Password strength calculation
@@ -49,6 +51,26 @@ export default function CandidateSignupPage() {
   };
 
   const passwordStrength = getPasswordStrength(password);
+
+  const handleGoogleSignUp = async () => {
+    setErrorMessage('');
+    setIsGoogleLoading(true);
+
+    try {
+      const redirectUrl = typeof window !== 'undefined'
+        ? `${window.location.origin}/auth/callback`
+        : undefined;
+
+      const { error } = await signInWithGoogle(redirectUrl);
+      if (error) {
+        setErrorMessage(error.message || 'Failed to initiate Google sign up.');
+        setIsGoogleLoading(false);
+      }
+    } catch (err: any) {
+      setErrorMessage(err.message || 'An unexpected error occurred connecting to Google.');
+      setIsGoogleLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -170,7 +192,26 @@ export default function CandidateSignupPage() {
           )}
 
           {!registeredSuccess && (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-4">
+              {/* Google One-Tap Registration */}
+              <GoogleSignInButton
+                onClick={handleGoogleSignUp}
+                isLoading={isGoogleLoading}
+                disabled={isSubmitting}
+                text="Sign up with Google"
+              />
+
+              {/* Or separator */}
+              <div className="relative flex items-center justify-center my-4">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-industrial-200" />
+                </div>
+                <div className="relative px-3 bg-white text-[11px] font-semibold text-industrial-400 uppercase tracking-wider">
+                  Or register with form details
+                </div>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
               {/* Full Legal Name */}
               <div>
                 <label className="block text-xs font-bold text-industrial-800 mb-1.5">
@@ -377,6 +418,7 @@ export default function CandidateSignupPage() {
                 )}
               </button>
             </form>
+            </div>
           )}
 
           {/* Switch to Signin */}

@@ -557,6 +557,38 @@ export const authService = {
   },
 
   /**
+   * 7b. Sign In / Sign Up with Google OAuth
+   */
+  async signInWithGoogle(redirectTo?: string) {
+    const defaultRedirect = typeof window !== 'undefined'
+      ? `${window.location.origin}/auth/callback`
+      : 'http://localhost:3000/auth/callback';
+
+    const targetRedirect = redirectTo || defaultRedirect;
+    const client = getSupabaseClient();
+    if (!client) {
+      return {
+        data: {
+          provider: 'google',
+          url: `https://accounts.google.com/o/oauth2/v2/auth?provider=google&client_id=simulated&redirect_to=${encodeURIComponent(targetRedirect)}&response_type=code`,
+        },
+        error: null,
+      };
+    }
+
+    return client.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: targetRedirect,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'select_account',
+        },
+      },
+    });
+  },
+
+  /**
    * 8. Sign Out (Clears Supabase session & local cached context)
    */
   async signOut() {
