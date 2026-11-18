@@ -129,7 +129,7 @@ export const HeroBannerSlider: React.FC = () => {
       <button
         type="button"
         onClick={prevSlide}
-        className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
+        className="absolute left-1.5 sm:-left-5 lg:-left-6 xl:-left-7 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer backdrop-blur-md"
         aria-label="Previous Slide"
       >
         <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-900 stroke-[2.2]" />
@@ -139,7 +139,7 @@ export const HeroBannerSlider: React.FC = () => {
       <button
         type="button"
         onClick={nextSlide}
-        className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
+        className="absolute right-1.5 sm:-right-5 lg:-right-6 xl:-right-7 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer backdrop-blur-md"
         aria-label="Next Slide"
       >
         <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-900 stroke-[2.2]" />
