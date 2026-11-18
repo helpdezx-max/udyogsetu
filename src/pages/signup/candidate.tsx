@@ -144,7 +144,7 @@ export default function CandidateSignupPage() {
   return (
     <>
       <Head>
-        <title>Candidate Registration • UdyogSetu Chakan</title>
+        <title>Candidate Registration • Rozzy Chakan</title>
         <meta
           name="description"
           content="Register as a technician, machinist, operator or industrial job seeker in Chakan MIDC. 100% free candidate registration."
@@ -178,7 +178,7 @@ export default function CandidateSignupPage() {
                 <span>Account Created Successfully!</span>
               </div>
               <p className="text-xs text-emerald-700">
-                Welcome to UdyogSetu. Initializing your candidate profile and redirecting to your dashboard...
+                Welcome to Rozzy. Initializing your candidate profile and redirecting to your dashboard...
               </p>
             </div>
           )}
@@ -395,7 +395,7 @@ export default function CandidateSignupPage() {
                   <Link href="/privacy" target="_blank" className="font-bold text-industrial-900 underline">
                     Privacy Policy
                   </Link>
-                  . I understand that UdyogSetu strictly charges ₹0 to candidates and never demands fees.
+                  . I understand that Rozzy strictly charges ₹0 to candidates and never demands fees.
                 </label>
               </div>
 

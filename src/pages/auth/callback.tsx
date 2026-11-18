@@ -142,7 +142,7 @@ export default function AuthCallbackPage() {
   return (
     <>
       <Head>
-        <title>Verifying Authentication • UdyogSetu</title>
+        <title>Verifying Authentication • Rozzy</title>
       </Head>
 
       <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-10 px-4">
@@ -161,7 +161,7 @@ export default function AuthCallbackPage() {
           ) : (
             <>
               <div className="w-10 h-10 border-3 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto" />
-              <h2 className="text-base font-bold text-industrial-900">UdyogSetu Authentication</h2>
+              <h2 className="text-base font-bold text-industrial-900">Rozzy Authentication</h2>
               <p className="text-xs text-industrial-500 font-medium">{statusText}</p>
             </>
           )}

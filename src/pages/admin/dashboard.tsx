@@ -30,7 +30,7 @@ export default function AdminDashboardPage() {
   return (
     <AdminLayout>
       <Head>
-        <title>Trust, Safety & Moderation Console • UdyogSetu Admin</title>
+        <title>Trust, Safety & Moderation Console • Rozzy Admin</title>
       </Head>
 
       <div className="space-y-6">

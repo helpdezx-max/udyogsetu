@@ -18,7 +18,7 @@ export default function AccountSuspendedPage() {
   return (
     <>
       <Head>
-        <title>Account Suspended • UdyogSetu</title>
+        <title>Account Suspended • Rozzy</title>
       </Head>
 
       <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-10 px-4">
@@ -41,7 +41,7 @@ export default function AccountSuspendedPage() {
               <span>Compliance & Safety Policy Trigger</span>
             </div>
             <p className="text-3xs text-red-800 leading-relaxed">
-              UdyogSetu enforces zero tolerance for candidate recruitment fees, counterfeit factory credentials, impersonation of industrial employers, and expired contract labor licenses.
+              Rozzy enforces zero tolerance for candidate recruitment fees, counterfeit factory credentials, impersonation of industrial employers, and expired contract labor licenses.
             </p>
           </div>
 

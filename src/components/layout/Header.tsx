@@ -62,7 +62,7 @@ export const Header: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xl font-bold tracking-tight text-zinc-950 group-hover:text-zinc-700 transition-colors">
-              UdyogSetu
+              Rozzy
             </span>
             <span className="bg-zinc-100 text-zinc-800 text-3xs font-extrabold uppercase px-1.5 py-0.5 rounded-md border border-zinc-200/60 tracking-wider">
               CHAKAN

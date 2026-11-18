@@ -135,10 +135,10 @@ export default function EmployerSignupPage() {
   return (
     <>
       <Head>
-        <title>Employer Registration • UdyogSetu Chakan</title>
+        <title>Employer Registration • Rozzy Chakan</title>
         <meta
           name="description"
-          content="Register your manufacturing plant, automotive supplier or factory on UdyogSetu for verified hiring in Chakan & Pune."
+          content="Register your manufacturing plant, automotive supplier or factory on Rozzy for verified hiring in Chakan & Pune."
         />
       </Head>
 

@@ -7,7 +7,7 @@ export default function TrustAndSafetyPage() {
   return (
     <>
       <Head>
-        <title>Trust, Verification & Safety Policy • UdyogSetu Industrial Platform</title>
+        <title>Trust, Verification & Safety Policy • Rozzy Industrial Platform</title>
       </Head>
 
       <div className="flex-1 p-5 sm:p-8 space-y-8 max-w-5xl mx-auto w-full">
@@ -21,7 +21,7 @@ export default function TrustAndSafetyPage() {
             Our Commitment to 100% Genuine Recruitment
           </h1>
           <p className="text-xs sm:text-sm text-neutral-500 leading-relaxed">
-            The foundation of UdyogSetu is uncompromising trust. We strictly audit company identities and enforce zero-tolerance policies for job scams.
+            The foundation of Rozzy is uncompromising trust. We strictly audit company identities and enforce zero-tolerance policies for job scams.
           </p>
         </div>
 
@@ -32,7 +32,7 @@ export default function TrustAndSafetyPage() {
             <span>Golden Rule: Never Pay for a Job Interview or Appointment Letter</span>
           </div>
           <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
-            No registered factory or authorized contractor on UdyogSetu is allowed to demand money from candidates under any pretext, including:
+            No registered factory or authorized contractor on Rozzy is allowed to demand money from candidates under any pretext, including:
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-neutral-800 font-medium">
             <div className="bg-white/90 p-3 rounded-2xl border border-[#F4E3DA]">✗ Registration or Form Processing Fees</div>

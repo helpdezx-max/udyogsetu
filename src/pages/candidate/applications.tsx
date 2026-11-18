@@ -38,7 +38,7 @@ export default function CandidateApplicationsPage() {
   return (
     <CandidateLayout>
       <Head>
-        <title>My Factory Applications & Interviews • UdyogSetu</title>
+        <title>My Factory Applications & Interviews • Rozzy</title>
       </Head>
 
       <div className="space-y-6">

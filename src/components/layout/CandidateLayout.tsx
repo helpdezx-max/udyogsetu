@@ -144,7 +144,7 @@ export const CandidateLayout: React.FC<{ children: React.ReactNode; title?: stri
                 <span>Zero Candidate Fee Guarantee</span>
               </div>
               <p className="text-3xs text-neutral-600 leading-relaxed">
-                Applying for factory jobs on UdyogSetu is 100% free. Never pay any fee or deposit for interviews or gate passes.
+                Applying for factory jobs on Rozzy is 100% free. Never pay any fee or deposit for interviews or gate passes.
               </p>
             </div>
           </aside>

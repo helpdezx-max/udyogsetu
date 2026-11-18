@@ -12,7 +12,7 @@ export default function AgencyApplicationsPage() {
   return (
     <AgencyLayout>
       <Head>
-        <title>Agency Candidate Pool • UdyogSetu Agency Portal</title>
+        <title>Agency Candidate Pool • Rozzy Agency Portal</title>
       </Head>
 
       <div className="space-y-6">

@@ -62,7 +62,7 @@ export default function LocationDetailPage() {
   return (
     <>
       <Head>
-        <title>{`${location.name} (${location.marathiName}) • Industrial Jobs & Manufacturing Hub • UdyogSetu`}</title>
+        <title>{`${location.name} (${location.marathiName}) • Industrial Jobs & Manufacturing Hub • Rozzy`}</title>
         <meta
           name="description"
           content={`Explore verified industrial vacancies, machine shop roles, plant transit routes, and manufacturing units in ${location.name}, Pune.`}

@@ -52,7 +52,7 @@ export default function ManageJobsPage() {
         <div className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200 text-xs text-amber-900 flex items-start gap-3">
           <Clock className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
           <div className="space-y-0.5">
-            <span className="font-bold">UdyogSetu Freshness & Authenticity Policy</span>
+            <span className="font-bold">Rozzy Freshness & Authenticity Policy</span>
             <p className="text-2xs text-amber-800 leading-relaxed">
               Industrial candidates depend on live, authentic vacancies. Listings unconfirmed for over 14 days enter the &quot;Reconfirmation Required&quot; queue. After 30 days without reconfirmation, listings become &quot;Temporarily Unavailable&quot; to prevent ghost recruiting.
             </p>

@@ -50,7 +50,7 @@ export const BADGE_DEFINITIONS: Record<
   company_verified: {
     title: 'Company Verified',
     shortLabel: 'Company Verified',
-    description: 'Confirms that the manufacturing unit’s legal identity, physical factory address, and business registration (GSTIN/Udyam/Factory License) have been vetted by UdyogSetu moderation auditors.',
+    description: 'Confirms that the manufacturing unit’s legal identity, physical factory address, and business registration (GSTIN/Udyam/Factory License) have been vetted by Rozzy moderation auditors.',
     criteria: [
       'Active GSTIN registration and Maharashtra state tax filing match',
       'MSME Udyam certificate matches industrial plot records',
@@ -82,7 +82,7 @@ export const BADGE_DEFINITIONS: Record<
     criteria: [
       'Valid Labour Contractor License number on file',
       'Official manpower agency registration documentation audited',
-      'Zero pending wage withholding or fraud complaints on UdyogSetu',
+      'Zero pending wage withholding or fraud complaints on Rozzy',
     ],
     colorBg: 'bg-blue-50',
     colorText: 'text-blue-800',
@@ -208,7 +208,7 @@ export const TrustBadge: React.FC<TrustBadgeProps> = ({
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
           title={def.title}
-          description="UdyogSetu Trust & Authenticity Standard"
+          description="Rozzy Trust & Authenticity Standard"
           maxWidth="md"
         >
           <div className="space-y-4 py-1 text-xs">
@@ -237,7 +237,7 @@ export const TrustBadge: React.FC<TrustBadgeProps> = ({
             </div>
 
             <div className="p-3 bg-industrial-50 rounded-xl border border-industrial-200 text-3xs text-industrial-500">
-              UdyogSetu trust badges are strictly assigned by administrative compliance auditors following document verification. Badges cannot be purchased or self-assigned.
+              Rozzy trust badges are strictly assigned by administrative compliance auditors following document verification. Badges cannot be purchased or self-assigned.
             </div>
           </div>
         </Modal>
@@ -254,13 +254,13 @@ export const TrustBadgeExplainerModal: React.FC<{ isOpen: boolean; onClose: () =
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="UdyogSetu Trust & Verification Architecture"
+      title="Rozzy Trust & Verification Architecture"
       description="Our independent verification indicators ensure total transparency for industrial candidates."
       maxWidth="xl"
     >
       <div className="space-y-4 py-2 text-xs max-h-[70vh] overflow-y-auto pr-1">
         <p className="text-industrial-600 text-2xs">
-          To combat recruitment fraud, fake salaries, and unauthorized job postings, UdyogSetu uses independent, non-combining verification badges. Each badge represents a specific audited aspect of hiring.
+          To combat recruitment fraud, fake salaries, and unauthorized job postings, Rozzy uses independent, non-combining verification badges. Each badge represents a specific audited aspect of hiring.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

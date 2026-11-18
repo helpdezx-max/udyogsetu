@@ -118,10 +118,10 @@ export default function AgencySignupPage() {
   return (
     <>
       <Head>
-        <title>Recruitment Agency Registration • UdyogSetu Chakan</title>
+        <title>Recruitment Agency Registration • Rozzy Chakan</title>
         <meta
           name="description"
-          content="Register an authorized staffing agency or manpower contractor on UdyogSetu industrial network in Chakan & Pune."
+          content="Register an authorized staffing agency or manpower contractor on Rozzy industrial network in Chakan & Pune."
         />
       </Head>
 

@@ -37,7 +37,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'The administrative, commercial, and logistics nerve centre of Chakan MIDC connecting Phase 1 through Phase 4, housing core plant suppliers and banking institutions.',
     pilotPriority: 'high',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
   {
     id: 'chakan-phase-1',
@@ -56,7 +56,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'Premier automotive manufacturing corridor featuring global OEM anchor plants, robotic stamping lines, and high-precision powertrain fabrication facilities.',
     pilotPriority: 'high',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
   {
     id: 'chakan-phase-2',
@@ -75,7 +75,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'Specialized in precision CNC turning, powder coating, heavy fabrication, hydraulic cylinders, and Tier-2 auto stamping plants.',
     pilotPriority: 'high',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
   {
     id: 'chakan-phase-3',
@@ -94,7 +94,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'Home to luxury automotive sub-assembly plants, advanced tool & die rooms, automated paint lines, and modern Grade-A logistics warehouses.',
     pilotPriority: 'high',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
   {
     id: 'chakan-phase-4',
@@ -113,7 +113,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'Fast-growing industrial sector featuring next-generation EV powertrain plants, tire manufacturing, high-pressure die casting, and wire harness assemblies.',
     pilotPriority: 'high',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
   {
     id: 'khed-city',
@@ -132,7 +132,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'Integrated smart industrial city housing European multinational manufacturers, export-oriented precision engineering, and aerospace grade machining units.',
     pilotPriority: 'high',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
   {
     id: 'kanersar',
@@ -151,7 +151,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'Developing manufacturing pocket focused on heavy structural welding, industrial gas distribution, sheet metal components, and plant engineering support.',
     pilotPriority: 'medium',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
   {
     id: 'mahalunge',
@@ -170,7 +170,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'Crucial transit and warehousing anchor between Chakan and Talegaon MIDC, housing automated distribution centres, tier-1 shock absorber and rubber molding plants.',
     pilotPriority: 'high',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
   {
     id: 'kuruli',
@@ -189,7 +189,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'High-density corridor of small and medium enterprises specializing in CNC/VMC job-work, metallurgical heat treatment, specialized fasteners, and electrical harnesses.',
     pilotPriority: 'high',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
   {
     id: 'nighoje',
@@ -208,7 +208,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'Strategic connector corridor linking PCMC industrial belt to Chakan Phase 4, housing EV battery packaging units, electronic sub-assemblies, and corrugated packaging plants.',
     pilotPriority: 'high',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
   {
     id: 'khalumbre',
@@ -227,7 +227,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'Specialized manufacturing hub for plastic polymer compounding, precision injection molding, automotive headlights/taillights, and inspection fixtures.',
     pilotPriority: 'medium',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
   {
     id: 'vasuli',
@@ -246,7 +246,7 @@ export const CHAKAN_PILOT_LOCATIONS: PilotLocation[] = [
       'Rapidly industrializing sector featuring large-span contract stamping facilities, trailer fabrication yards, and regional freight transport terminals.',
     pilotPriority: 'medium',
     disclaimer:
-      'UdyogSetu is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
+      'Rozzy is an expanding local employment network in Pune District. Listings represent verified participating plants and authorized partners, not the totality of all manufacturing units.',
   },
 ];
 

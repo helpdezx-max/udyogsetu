@@ -50,10 +50,10 @@ export default function ForgotPasswordPage() {
   return (
     <>
       <Head>
-        <title>Reset Your Password • UdyogSetu</title>
+        <title>Reset Your Password • Rozzy</title>
         <meta
           name="description"
-          content="Recover access to your candidate or corporate employer account on UdyogSetu industrial network."
+          content="Recover access to your candidate or corporate employer account on Rozzy industrial network."
         />
       </Head>
 

@@ -25,7 +25,7 @@ export default function EmployerDashboardPage() {
   return (
     <EmployerLayout>
       <Head>
-        <title>Plant HR Recruitment Dashboard • UdyogSetu</title>
+        <title>Plant HR Recruitment Dashboard • Rozzy</title>
       </Head>
 
       <div className="space-y-6">

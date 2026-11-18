@@ -7,7 +7,7 @@ export default function AboutPage() {
   return (
     <>
       <Head>
-        <title>About UdyogSetu • Hyperlocal Industrial Employment Network</title>
+        <title>About Rozzy • Hyperlocal Industrial Employment Network</title>
       </Head>
 
       <div className="flex-1 p-5 sm:p-8 space-y-8 max-w-5xl mx-auto w-full">
@@ -27,7 +27,7 @@ export default function AboutPage() {
 
         {/* Narrative */}
         <div className="p-6 sm:p-8 rounded-3xl bg-[#F7F8FA] border border-[#E4E6EB] space-y-4">
-          <h2 className="text-lg font-bold text-neutral-950">Why UdyogSetu Exists</h2>
+          <h2 className="text-lg font-bold text-neutral-950">Why Rozzy Exists</h2>
           <p className="text-xs sm:text-sm leading-relaxed text-neutral-700">
             Every month, thousands of skilled machine operators, welders, fitters, and line operators travel to Chakan MIDC
             seeking factory employment. Too often, they face fraudulent job flyers at bus stands, unverified consultants demanding
@@ -35,7 +35,7 @@ export default function AboutPage() {
           </p>
           <p className="text-xs sm:text-sm leading-relaxed text-neutral-700">
             At the same time, factory HR heads struggle to recruit reliable, locally residing technical workforce for their
-            rotational shift schedules. UdyogSetu bridges this gap by creating a verified digital network directly anchored in
+            rotational shift schedules. Rozzy bridges this gap by creating a verified digital network directly anchored in
             statutory company identity and transparent pay structures.
           </p>
         </div>

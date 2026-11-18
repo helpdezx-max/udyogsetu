@@ -78,7 +78,7 @@ export default function PostJobPage() {
 
     if (riskEval.riskLevel === 'critical') {
       setModerationError(
-        'Submission Blocked: Job content contains prohibited keywords (such as registration fees or deposits). Under UdyogSetu zero-charge policies, candidates cannot be charged under any circumstances.'
+        'Submission Blocked: Job content contains prohibited keywords (such as registration fees or deposits). Under Rozzy zero-charge policies, candidates cannot be charged under any circumstances.'
       );
       return;
     }

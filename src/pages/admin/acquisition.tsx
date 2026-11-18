@@ -151,7 +151,7 @@ export default function EmployerAcquisitionPage() {
   return (
     <AdminLayout>
       <Head>
-        <title>Employer Acquisition Operations &amp; Funnel • UdyogSetu Admin</title>
+        <title>Employer Acquisition Operations &amp; Funnel • Rozzy Admin</title>
       </Head>
 
       <div className="space-y-6">
@@ -445,7 +445,7 @@ export default function EmployerAcquisitionPage() {
               <div className="flex items-center gap-2">
                 <Building2 className="w-5 h-5 text-neutral-900" />
                 <h3 className="text-base font-bold text-neutral-950">
-                  UdyogSetu Official Employer Introduction Kit
+                  Rozzy Official Employer Introduction Kit
                 </h3>
               </div>
               <p className="text-xs text-neutral-600 leading-relaxed">
@@ -460,7 +460,7 @@ export default function EmployerAcquisitionPage() {
                     <span>The Zero-Fee Candidate Purity Pledge</span>
                   </h4>
                   <p className="text-2xs text-neutral-600 leading-relaxed">
-                    Candidates never pay registration fees, application charges, or uniform deposits on UdyogSetu. This
+                    Candidates never pay registration fees, application charges, or uniform deposits on Rozzy. This
                     guarantees higher trust, genuine applicants, and higher turnouts for technical gate interviews.
                   </p>
                 </div>
@@ -515,11 +515,11 @@ export default function EmployerAcquisitionPage() {
               </div>
               <div className="bg-neutral-900 text-neutral-100 p-4 rounded-2xl text-xs font-mono space-y-2 leading-relaxed overflow-x-auto">
                 <p>
-                  <strong>Subject:</strong> Verified Technical Manpower for [Company Name] — UdyogSetu Chakan Pilot
+                  <strong>Subject:</strong> Verified Technical Manpower for [Company Name] — Rozzy Chakan Pilot
                 </p>
                 <p>Dear [Name],</p>
                 <p>
-                  I hope this finds you well. I am writing from UdyogSetu, the hyperlocal employment network dedicated
+                  I hope this finds you well. I am writing from Rozzy, the hyperlocal employment network dedicated
                   to manufacturing plants in Chakan MIDC (Phases 1–4) and Khed City.
                 </p>
                 <p>
@@ -538,7 +538,7 @@ export default function EmployerAcquisitionPage() {
                   <br />
                   Warm regards,
                   <br />
-                  Operations &amp; Growth Team, UdyogSetu Pune
+                  Operations &amp; Growth Team, Rozzy Pune
                 </p>
               </div>
             </Card>
@@ -558,7 +558,7 @@ export default function EmployerAcquisitionPage() {
                 <p>
                   <strong>Field Executive Dialogue:</strong>
                   <br />
-                  &quot;नमस्कार! आम्ही उद्योगसेतू (UdyogSetu) पुणे येथून आलो आहोत. चाकण एमआयडीसी परिसरातील उत्पादन
+                  &quot;नमस्कार! आम्ही उद्योगसेतू (Rozzy) पुणे येथून आलो आहोत. चाकण एमआयडीसी परिसरातील उत्पादन
                   कंपन्यांसाठी आम्ही स्थानिक कुशल तंत्रज्ञ (CNC ऑपरेटर, फिटर, वेल्डर) थेट उपलब्ध करून देत आहोत. आमच्या
                   प्लॅटफॉर्मवर उमेदवारांकडून कोणताही चार्ज घेतला जात नाही. कंपनीच्या HR व्यवस्थापकांशी किंवा प्लांट
                   हेडशी ५ मिनिटे चर्चा होऊ शकेल का? आम्ही आमचे मोफत इंडस्ट्रियल पायलट ब्राऊशर आणि व्हेरीफिकेशन फॉर्म

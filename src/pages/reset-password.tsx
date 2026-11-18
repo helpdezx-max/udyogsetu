@@ -68,7 +68,7 @@ export default function ResetPasswordPage() {
   return (
     <>
       <Head>
-        <title>Set New Password • UdyogSetu</title>
+        <title>Set New Password • Rozzy</title>
       </Head>
 
       <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-10 px-4">

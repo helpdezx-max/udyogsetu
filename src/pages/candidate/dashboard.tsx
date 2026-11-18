@@ -30,7 +30,7 @@ export default function CandidateDashboard() {
   return (
     <CandidateLayout>
       <Head>
-        <title>Candidate Dashboard • UdyogSetu</title>
+        <title>Candidate Dashboard • Rozzy</title>
       </Head>
 
       <div className="space-y-6">

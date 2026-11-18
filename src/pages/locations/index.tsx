@@ -24,7 +24,7 @@ export default function IndustrialLocationsPage() {
   return (
     <>
       <Head>
-        <title>Chakan &amp; Khed Industrial Locations (12 Belts) • UdyogSetu Pilot</title>
+        <title>Chakan &amp; Khed Industrial Locations (12 Belts) • Rozzy Pilot</title>
         <meta
           name="description"
           content="Explore the 12 active industrial manufacturing clusters in Chakan MIDC, Khed City, Kuruli, and Pune District."
@@ -52,7 +52,7 @@ export default function IndustrialLocationsPage() {
           <div className="space-y-0.5">
             <span className="font-bold">Pilot Expansion Transparency Notice:</span>
             <p className="text-2xs text-amber-800/90 leading-relaxed">
-              UdyogSetu is an expanding local employment network in Pune District. Listings represent verified
+              Rozzy is an expanding local employment network in Pune District. Listings represent verified
               participating plants and authorized partners, not the totality of all manufacturing units.
             </p>
           </div>

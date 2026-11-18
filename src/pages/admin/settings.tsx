@@ -21,7 +21,7 @@ export default function AdminSettingsPage() {
   return (
     <AdminLayout>
       <Head>
-        <title>Admin System Settings • UdyogSetu</title>
+        <title>Admin System Settings • Rozzy</title>
       </Head>
 
       <div className="space-y-6">

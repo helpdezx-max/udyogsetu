@@ -20,7 +20,7 @@ export default function AccessDeniedPage() {
   return (
     <>
       <Head>
-        <title>Access Denied (403) • UdyogSetu</title>
+        <title>Access Denied (403) • Rozzy</title>
       </Head>
 
       <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-10 px-4">

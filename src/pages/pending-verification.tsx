@@ -16,7 +16,7 @@ export default function PendingVerificationPage() {
   return (
     <>
       <Head>
-        <title>Verification Pending • UdyogSetu</title>
+        <title>Verification Pending • Rozzy</title>
       </Head>
 
       <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-10 px-4">

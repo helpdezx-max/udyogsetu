@@ -116,10 +116,10 @@ export default function UnifiedSignInPage() {
   return (
     <>
       <Head>
-        <title>Sign In • UdyogSetu Industrial Network</title>
+        <title>Sign In • Rozzy Industrial Network</title>
         <meta
           name="description"
-          content="Sign in to your candidate, employer, or agency workspace on UdyogSetu industrial recruitment platform."
+          content="Sign in to your candidate, employer, or agency workspace on Rozzy industrial recruitment platform."
         />
       </Head>
 
@@ -131,7 +131,7 @@ export default function UnifiedSignInPage() {
               <Lock className="w-6 h-6 text-amber-400" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-black text-industrial-950 tracking-tight">
-              Sign In to UdyogSetu
+              Sign In to Rozzy
             </h1>
             <p className="text-xs text-industrial-500">
               Access your verified candidate profile, employer ATS, or agency workspace.

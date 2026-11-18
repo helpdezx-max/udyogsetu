@@ -16,7 +16,7 @@ export default function CandidateSavedJobsPage() {
   return (
     <CandidateLayout>
       <Head>
-        <title>Saved Industrial Vacancies • UdyogSetu</title>
+        <title>Saved Industrial Vacancies • Rozzy</title>
       </Head>
 
       <div className="space-y-6">

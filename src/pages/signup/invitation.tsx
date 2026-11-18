@@ -187,7 +187,7 @@ export default function TeamInvitationPage() {
   return (
     <>
       <Head>
-        <title>Accept Team Invitation • UdyogSetu</title>
+        <title>Accept Team Invitation • Rozzy</title>
         <meta
           name="description"
           content="Accept official team invitation to join an authorized employer manufacturing recruitment workspace in Chakan & Pune."
@@ -204,7 +204,7 @@ export default function TeamInvitationPage() {
               Company Team Invitation
             </h1>
             <p className="text-xs sm:text-sm text-industrial-600">
-              Join an authorized manufacturing employer workspace on UdyogSetu.
+              Join an authorized manufacturing employer workspace on Rozzy.
             </p>
           </div>
 

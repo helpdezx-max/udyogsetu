@@ -25,7 +25,7 @@ export default function CandidateAssistantPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: 'assistant',
-      text: 'Namaskar! I am UdyogSetu AI, your industrial career assistant. I can help you prepare for factory walk-ins in Chakan, understand ITI/Diploma machine requirements, and find jobs with company bus facilities. How can I help you today?',
+      text: 'Namaskar! I am Rozzy AI, your industrial career assistant. I can help you prepare for factory walk-ins in Chakan, understand ITI/Diploma machine requirements, and find jobs with company bus facilities. How can I help you today?',
       time: 'Just now'
     }
   ]);
@@ -99,7 +99,7 @@ export default function CandidateAssistantPage() {
           <div>
             <h1 className="text-xl font-bold text-neutral-900 flex items-center gap-2">
               <Bot className="w-5 h-5 text-amber-500" />
-              UdyogSetu AI • Factory Career Assistant
+              Rozzy AI • Factory Career Assistant
             </h1>
             <p className="text-xs text-neutral-500 mt-0.5">
               Vernacular assistance for Chakan MIDC factory walk-ins, ITI trades, and document checklists.
@@ -186,7 +186,7 @@ export default function CandidateAssistantPage() {
             {isLoading && (
               <div className="flex items-center gap-2 text-xs text-neutral-500 italic">
                 <Sparkles className="w-4 h-4 animate-spin text-amber-500" />
-                <span>UdyogSetu AI is analyzing manufacturing guidance...</span>
+                <span>Rozzy AI is analyzing manufacturing guidance...</span>
               </div>
             )}
           </div>

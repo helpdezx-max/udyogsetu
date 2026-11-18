@@ -48,7 +48,7 @@ export default function AdminAgenciesPage() {
   return (
     <AdminLayout>
       <Head>
-        <title>Recruitment Agency &amp; Contractor Network • UdyogSetu Admin</title>
+        <title>Recruitment Agency &amp; Contractor Network • Rozzy Admin</title>
       </Head>
 
       <div className="space-y-6">

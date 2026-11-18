@@ -118,7 +118,7 @@ export default function EmployerVerificationPage() {
   return (
     <EmployerLayout>
       <Head>
-        <title>Plant Verification & Statutory Trust Engine • UdyogSetu</title>
+        <title>Plant Verification & Statutory Trust Engine • Rozzy</title>
       </Head>
 
       <div className="space-y-6">

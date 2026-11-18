@@ -39,7 +39,7 @@ export default function WalkInInterviewsPage() {
   return (
     <>
       <Head>
-        <title>Walk-in Interviews & Spot Hiring Drives • UdyogSetu Chakan MIDC</title>
+        <title>Walk-in Interviews & Spot Hiring Drives • Rozzy Chakan MIDC</title>
       </Head>
 
       <div className="flex-1 p-5 sm:p-8 space-y-7">

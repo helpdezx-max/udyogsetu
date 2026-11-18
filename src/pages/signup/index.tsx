@@ -7,10 +7,10 @@ export default function SignupLandingPage() {
   return (
     <>
       <Head>
-        <title>Create Your Account • UdyogSetu Industrial Network</title>
+        <title>Create Your Account • Rozzy Industrial Network</title>
         <meta
           name="description"
-          content="Join UdyogSetu industrial recruitment network in Chakan MIDC & Pune. Register as candidate, employer, or recruitment agency."
+          content="Join Rozzy industrial recruitment network in Chakan MIDC & Pune. Register as candidate, employer, or recruitment agency."
         />
       </Head>
 

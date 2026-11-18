@@ -16,7 +16,7 @@ export default function AgencyDashboardPage() {
   return (
     <AgencyLayout>
       <Head>
-        <title>Recruitment Agency &amp; Contractor Portal • UdyogSetu</title>
+        <title>Recruitment Agency &amp; Contractor Portal • Rozzy</title>
       </Head>
 
       <div className="space-y-6">

@@ -16,7 +16,7 @@ export default function ContactPage() {
   return (
     <>
       <Head>
-        <title>Contact UdyogSetu • Chakan MIDC Recruitment Helpdesk</title>
+        <title>Contact Rozzy • Chakan MIDC Recruitment Helpdesk</title>
       </Head>
 
       <div className="flex-1 p-5 sm:p-8 space-y-7 max-w-5xl mx-auto w-full">

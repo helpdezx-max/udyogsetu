@@ -137,7 +137,7 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>UdyogSetu • Genuine Industrial Jobs in Chakan MIDC &amp; Pune Belt</title>
+        <title>Rozzy • Genuine Industrial Jobs in Chakan MIDC &amp; Pune Belt</title>
         <meta
           name="description"
           content="Find verified direct factory jobs, CNC machining, welding, assembly, and ITI apprenticeship positions across Chakan MIDC and Pune."
@@ -146,7 +146,7 @@ export default function HomePage() {
 
       <div className="w-full space-y-16 pb-20">
         {/* 1. HERO SECTION (Mobbin Style) */}
-        <section className="relative border-b border-zinc-200/80 bg-gradient-to-b from-zinc-50/70 via-white to-white pt-8 sm:pt-12 pb-16">
+        <section className="relative border-b border-zinc-200/80 bg-gradient-to-b from-zinc-50/70 via-white to-white pt-3 sm:pt-4 pb-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             {/* Visual Graphic Banner Carousel (with slide buttons on both sides) */}
             <HeroBannerSlider />
@@ -618,7 +618,7 @@ export default function HomePage() {
                   Candidate Safety &amp; Anti-Fraud Guarantee
                 </h3>
                 <p className="text-xs text-zinc-600 mt-1 max-w-2xl leading-relaxed">
-                  UdyogSetu strictly prohibits any recruitment charges. No legitimate factory or contractor will ask for
+                  Rozzy strictly prohibits any recruitment charges. No legitimate factory or contractor will ask for
                   registration fees, uniform security deposits, or file charges. If anyone asks for money, report them
                   immediately.
                 </p>

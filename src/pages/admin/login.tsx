@@ -53,7 +53,7 @@ export default function AdminLoginPage() {
   return (
     <>
       <Head>
-        <title>Admin Moderation Desk Login • UdyogSetu</title>
+        <title>Admin Moderation Desk Login • Rozzy</title>
       </Head>
 
       <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-12 px-4 bg-industrial-950/20">

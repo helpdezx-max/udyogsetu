@@ -72,7 +72,7 @@ export default function AdminModerationPage() {
   return (
     <AdminLayout>
       <Head>
-        <title>Vacancy Moderation &amp; Pre-Moderation Desk • UdyogSetu Admin</title>
+        <title>Vacancy Moderation &amp; Pre-Moderation Desk • Rozzy Admin</title>
       </Head>
 
       <div className="space-y-6">

@@ -5,7 +5,7 @@ export default function TermsPage() {
   return (
     <>
       <Head>
-        <title>Terms and Conditions • UdyogSetu Industrial Platform</title>
+        <title>Terms and Conditions • Rozzy Industrial Platform</title>
       </Head>
 
       <div className="flex-1 p-5 sm:p-8 max-w-4xl mx-auto w-full space-y-6">
@@ -18,7 +18,7 @@ export default function TermsPage() {
           <div>
             <h2 className="text-sm font-bold text-neutral-950 mb-1">1. Acceptance of Terms</h2>
             <p>
-              By accessing UdyogSetu, users agree to abide by our industrial integrity guidelines. Employers represent that all
+              By accessing Rozzy, users agree to abide by our industrial integrity guidelines. Employers represent that all
               vacancies, salaries, and plant addresses posted are genuine and physically active.
             </p>
           </div>
@@ -32,7 +32,7 @@ export default function TermsPage() {
           </div>
 
           <div className="p-4 bg-neutral-100 border border-neutral-200 rounded-2xl text-neutral-700 font-medium text-xs">
-            UdyogSetu connects candidates directly with verified manufacturing employers and authorized contractors. Employment agreements and statutory compliance remain the direct responsibility of the respective hiring entities.
+            Rozzy connects candidates directly with verified manufacturing employers and authorized contractors. Employment agreements and statutory compliance remain the direct responsibility of the respective hiring entities.
           </div>
         </div>
       </div>

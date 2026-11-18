@@ -243,7 +243,7 @@ export default function AdminSourcesPage() {
   return (
     <AdminLayout title="Job Sources & Vacancy Discovery Engine">
       <Head>
-        <title>Discovery Engine & Sources Registry • UdyogSetu Admin</title>
+        <title>Discovery Engine & Sources Registry • Rozzy Admin</title>
       </Head>
 
       <div className="space-y-6">

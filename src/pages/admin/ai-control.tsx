@@ -119,7 +119,7 @@ export default function AdminAIControlPage() {
   return (
     <AdminLayout title="AI Recruitment Intelligence & WhatsApp Control">
       <Head>
-        <title>AI Control Center • UdyogSetu Admin</title>
+        <title>AI Control Center • Rozzy Admin</title>
       </Head>
 
       <div className="space-y-6">

@@ -101,7 +101,7 @@ export default function AdminVerificationsPage() {
   return (
     <AdminLayout>
       <Head>
-        <title>Plant Verification Desk &amp; Statutory Audits • UdyogSetu Admin</title>
+        <title>Plant Verification Desk &amp; Statutory Audits • Rozzy Admin</title>
       </Head>
 
       <div className="space-y-6">

@@ -129,7 +129,7 @@ export default function EmployerSettingsPage() {
   return (
     <EmployerLayout>
       <Head>
-        <title>HR Portal Settings & Team • UdyogSetu</title>
+        <title>HR Portal Settings & Team • Rozzy</title>
       </Head>
 
       <div className="space-y-6">

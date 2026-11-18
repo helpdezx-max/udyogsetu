@@ -91,7 +91,7 @@ export const AdminLayout: React.FC<{ children: React.ReactNode; title?: string }
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-base font-bold text-neutral-950">UdyogSetu Moderation & Trust Desk</h2>
+                <h2 className="text-base font-bold text-neutral-950">Rozzy Moderation & Trust Desk</h2>
                 <span className="text-3xs font-black uppercase px-2 py-0.5 rounded-full bg-neutral-900 text-amber-400">
                   ADMIN CONSOLE
                 </span>

@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
             <Link href="/" className="flex items-center group">
               <div className="flex items-center gap-2">
                 <span className="text-lg font-bold tracking-tight text-zinc-950">
-                  UdyogSetu
+                  Rozzy
                 </span>
                 <span className="bg-zinc-200/80 text-zinc-800 text-3xs font-extrabold uppercase px-1.5 py-0.5 rounded-md tracking-wider">
                   CHAKAN
@@ -77,7 +77,7 @@ export const Footer: React.FC = () => {
             <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900">Governance & Trust</h4>
             <ul className="space-y-2 text-zinc-500 text-xs">
               <li>
-                <Link href="/about" className="hover:text-zinc-950 transition-colors">About UdyogSetu</Link>
+                <Link href="/about" className="hover:text-zinc-950 transition-colors">About Rozzy</Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-zinc-950 transition-colors">Report Illegal Placement Agency</Link>
@@ -94,7 +94,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-6 border-t border-zinc-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-3xs text-zinc-400">
-          <p>© 2026 UdyogSetu. All rights reserved. Direct shopfloor industrial recruitment platform.</p>
+          <p>© 2026 Rozzy. All rights reserved. Direct shopfloor industrial recruitment platform.</p>
           <p className="flex items-center gap-1.5 text-zinc-500">
             <span>Built for Chakan MIDC, Khed City, Mahalunge, Kuruli & Pune Industrial Belt</span>
           </p>

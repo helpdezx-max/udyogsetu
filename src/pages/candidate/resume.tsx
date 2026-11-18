@@ -115,7 +115,7 @@ export default function CandidateResumePage() {
           <div className="flex items-center gap-2 text-2xs text-industrial-500 bg-industrial-100/60 p-3 rounded-lg">
             <Lock className="w-3.5 h-3.5 text-industrial-700 shrink-0" />
             <span>
-              Resumes in UdyogSetu are non-public. They cannot be crawled by search engines or downloaded by unauthorized parties.
+              Resumes in Rozzy are non-public. They cannot be crawled by search engines or downloaded by unauthorized parties.
             </span>
           </div>
         </Card>

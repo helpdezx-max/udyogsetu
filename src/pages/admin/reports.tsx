@@ -56,7 +56,7 @@ export default function AdminReportsPage() {
   return (
     <AdminLayout>
       <Head>
-        <title>Fraud Investigations &amp; Complaints Desk • UdyogSetu Admin</title>
+        <title>Fraud Investigations &amp; Complaints Desk • Rozzy Admin</title>
       </Head>
 
       <div className="space-y-6">

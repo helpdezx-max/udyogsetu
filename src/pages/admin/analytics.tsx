@@ -23,7 +23,7 @@ export default function AdminAnalyticsPage() {
   return (
     <AdminLayout>
       <Head>
-        <title>Chakan Pilot Operations &amp; Growth Analytics • UdyogSetu Admin</title>
+        <title>Chakan Pilot Operations &amp; Growth Analytics • Rozzy Admin</title>
       </Head>
 
       <div className="space-y-6">
@@ -109,7 +109,7 @@ export default function AdminAnalyticsPage() {
         <Card className="p-6 space-y-4">
           <h3 className="text-sm font-bold text-neutral-900">11-Step Candidate Recruitment Journey Funnel</h3>
           <p className="text-xs text-neutral-500">
-            Real-time stage transitions from vacancy discovery to verified placement on UdyogSetu.
+            Real-time stage transitions from vacancy discovery to verified placement on Rozzy.
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-2 text-xs">
@@ -158,7 +158,7 @@ export default function AdminAnalyticsPage() {
             <span>Marketplace Demarcation &amp; Zero-Fee Integrity Pledge:</span>
           </div>
           <p className="text-2xs text-neutral-300 leading-relaxed">
-            All placements on UdyogSetu are conducted without charging candidates any fee at any stage. Data reflects
+            All placements on Rozzy are conducted without charging candidates any fee at any stage. Data reflects
             verified participating manufacturing units and authorized staffing partners within the Chakan–Khed pilot
             perimeter.
           </p>

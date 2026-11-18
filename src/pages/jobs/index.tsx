@@ -220,7 +220,7 @@ export default function FindJobsPage() {
   return (
     <>
       <Head>
-        <title>Discover Industrial Jobs • UdyogSetu Chakan MIDC</title>
+        <title>Discover Industrial Jobs • Rozzy Chakan MIDC</title>
       </Head>
 
       {/* MAIN DISCOVERY INTERFACE (Left Filter Panel + Results Area) */}
@@ -706,7 +706,7 @@ export default function FindJobsPage() {
 
               {/* Production Trust Footer Note */}
               <div className="pt-6 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-3xs text-neutral-500">
-                <span>UdyogSetu verifies participating employers across Chakan, Bhosari, Talegaon, and Khed City. 100% free for candidates.</span>
+                <span>Rozzy verifies participating employers across Chakan, Bhosari, Talegaon, and Khed City. 100% free for candidates.</span>
                 <span className="font-semibold text-emerald-700">Zero Candidate Fee Guaranteed</span>
               </div>
             </main>

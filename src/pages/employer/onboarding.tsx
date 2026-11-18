@@ -19,7 +19,7 @@ export default function EmployerOnboardingPage() {
   return (
     <>
       <Head>
-        <title>Plant Verification Onboarding • UdyogSetu</title>
+        <title>Plant Verification Onboarding • Rozzy</title>
       </Head>
 
       <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-12 px-4 bg-industrial-100/50">

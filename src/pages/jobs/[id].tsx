@@ -80,7 +80,7 @@ export default function JobDetailsPage() {
   return (
     <>
       <Head>
-        <title>{`${job.title} at ${job.companyName} • UdyogSetu Chakan`}</title>
+        <title>{`${job.title} at ${job.companyName} • Rozzy Chakan`}</title>
       </Head>
 
       <div className="flex-1 p-5 sm:p-8 space-y-6">
@@ -478,7 +478,7 @@ export default function JobDetailsPage() {
               Ticket: {ticketNo || 'CASE-2026-CONFIRMED'}
             </div>
             <p className="text-xs text-neutral-600 max-w-sm mx-auto">
-              Your report has been lodged with the Trust & Safety audit desk. Reporter identity is strictly protected under UdyogSetu whistleblower safeguards.
+              Your report has been lodged with the Trust & Safety audit desk. Reporter identity is strictly protected under Rozzy whistleblower safeguards.
             </p>
             <button
               onClick={() => {

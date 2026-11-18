@@ -15,7 +15,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <AuthProvider>
       <AppProvider>
         <Head>
-          <title>UdyogSetu • Hyperlocal Industrial Employment Network (Chakan MIDC)</title>
+          <title>Rozzy • Hyperlocal Industrial Employment Network (Chakan MIDC)</title>
           <meta
             name="description"
             content="Genuine factory, manufacturing and industrial job vacancies across Chakan MIDC, Khed City, Kuruli, and Pune industrial clusters. Transparent salary and direct plant hiring."

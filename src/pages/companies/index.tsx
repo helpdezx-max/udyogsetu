@@ -56,7 +56,7 @@ export default function CompanyDirectoryPage() {
   return (
     <>
       <Head>
-        <title>Industrial Companies Directory • UdyogSetu Chakan & Pune MIDC</title>
+        <title>Industrial Companies Directory • Rozzy Chakan & Pune MIDC</title>
       </Head>
 
       <div className="flex-1 p-5 sm:p-8 space-y-7">
