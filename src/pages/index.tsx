@@ -25,6 +25,7 @@ import {
 import { useApp } from '../context/AppContext';
 import { useLocale } from '../hooks/useLocale';
 import { JobCard } from '../components/common/JobCard';
+import { HeroBannerSlider } from '../components/common/HeroBannerSlider';
 import { CHAKAN_PILOT_LOCATIONS } from '../data/pilot-locations';
 
 const POPULAR_SEARCHES = [
@@ -147,16 +148,8 @@ export default function HomePage() {
         {/* 1. HERO SECTION (Mobbin Style) */}
         <section className="relative border-b border-zinc-200/80 bg-gradient-to-b from-zinc-50/70 via-white to-white pt-8 sm:pt-12 pb-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            {/* Visual Graphic Banner */}
-            <div className="max-w-4xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200/90 shadow-subtle hover:border-zinc-300 hover:shadow-mobbin transition-all">
-              <Link href="/jobs" className="block group cursor-pointer" title="Browse Verified Vacancies">
-                <img
-                  src="/images/hero-banner.jpg"
-                  alt="UdyogSetu • Direct Factory Recruitment • Chakan MIDC & Pune Belt"
-                  className="w-full h-auto object-cover block group-hover:scale-[1.005] transition-transform duration-300"
-                />
-              </Link>
-            </div>
+            {/* Visual Graphic Banner Carousel (with slide buttons on both sides) */}
+            <HeroBannerSlider />
 
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 leading-[1.08] max-w-4xl mx-auto">
