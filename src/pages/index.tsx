@@ -147,17 +147,14 @@ export default function HomePage() {
         {/* 1. HERO SECTION (Mobbin Style) */}
         <section className="relative border-b border-zinc-200/80 bg-gradient-to-b from-zinc-50/70 via-white to-white pt-12 sm:pt-20 pb-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            {/* Pill Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-100 text-zinc-900 border border-zinc-200 text-xs font-semibold tracking-tight shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Direct Factory Recruitment • Chakan MIDC &amp; Pune Belt</span>
+            {/* Hero Visual Banner */}
+            <div className="w-full max-w-5xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200/90 shadow-mobbin bg-white hover:border-zinc-300 transition-all">
+              <img
+                src="/images/hero-banner.jpg"
+                alt="UdyogSetu • Find Verified Factory Jobs Without Middlemen • Chakan MIDC & Pune Belt"
+                className="w-full h-auto object-cover block"
+              />
             </div>
-
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 leading-[1.08] max-w-4xl mx-auto">
-              Find Verified Factory Jobs, <br className="hidden sm:inline" />
-              <span className="text-zinc-500">Without Middlemen.</span>
-            </h1>
 
             {/* Subtitle */}
             <p className="text-sm sm:text-base text-zinc-600 leading-relaxed max-w-2xl mx-auto">
