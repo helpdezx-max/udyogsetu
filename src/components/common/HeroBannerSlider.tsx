@@ -34,10 +34,30 @@ const BANNERS: BannerSlide[] = [
   },
 ];
 
+// Triple-extended slides for smooth multi-item carousel looping
+const EXTENDED_SLIDES = [...BANNERS, ...BANNERS, ...BANNERS];
+
 export const HeroBannerSlider: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [itemsPerView, setItemsPerView] = useState(3);
   const touchStartXRef = useRef<number | null>(null);
+
+  // Responsive items count detector
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setItemsPerView(3);
+      } else if (window.innerWidth >= 640) {
+        setItemsPerView(2);
+      } else {
+        setItemsPerView(1);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % BANNERS.length);
@@ -48,7 +68,7 @@ export const HeroBannerSlider: React.FC = () => {
   }, []);
 
   const goToSlide = (idx: number) => {
-    setCurrentIndex(idx);
+    setCurrentIndex(idx % BANNERS.length);
   };
 
   // Auto-advance timer (every 5 seconds, pauses when hovered)
@@ -78,58 +98,69 @@ export const HeroBannerSlider: React.FC = () => {
     touchStartXRef.current = null;
   };
 
+  const slidePercentage = 100 / itemsPerView;
+
   return (
     <div
-      className="relative w-full mx-auto group select-none"
+      className="relative w-full mx-auto select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       {/* Slider Window */}
-      <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/90 shadow-subtle hover:border-zinc-300 hover:shadow-mobbin transition-all relative bg-zinc-50 aspect-[1024/341]">
+      <div className="overflow-hidden py-1">
         {/* Slides Track */}
         <div
-          className="flex transition-transform duration-500 ease-out h-full"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          className="flex -mx-1.5 sm:-mx-2 transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${currentIndex * slidePercentage}%)` }}
         >
-          {BANNERS.map((banner, idx) => (
-            <div key={banner.id} className="w-full h-full shrink-0 relative">
-              <Link href={banner.link} className="block w-full h-full cursor-pointer" title={banner.title}>
-                <img
-                  src={banner.image}
-                  alt={banner.alt}
-                  className="w-full h-full object-cover block"
-                  loading={idx === 0 ? 'eager' : 'lazy'}
-                />
-              </Link>
+          {EXTENDED_SLIDES.map((banner, idx) => (
+            <div
+              key={`${banner.id}-${idx}`}
+              className="w-full sm:w-1/2 lg:w-1/3 shrink-0 px-1.5 sm:px-2 relative"
+            >
+              <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/90 shadow-subtle hover:border-zinc-300 hover:shadow-mobbin transition-all relative bg-zinc-50 aspect-[1024/341]">
+                <Link
+                  href={banner.link}
+                  className="block w-full h-full cursor-pointer hover:scale-[1.02] transition-transform duration-300"
+                  title={banner.title}
+                >
+                  <img
+                    src={banner.image}
+                    alt={banner.alt}
+                    className="w-full h-full object-cover block"
+                    loading={idx < 3 ? 'eager' : 'lazy'}
+                  />
+                </Link>
+              </div>
             </div>
           ))}
         </div>
+      </div>
 
-        {/* Slide Indicators (Pill Dots) */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 bg-black/35 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-          {BANNERS.map((_, idx) => (
-            <button
-              key={idx}
-              type="button"
-              onClick={() => goToSlide(idx)}
-              className={`transition-all duration-300 rounded-full cursor-pointer ${
-                currentIndex === idx
-                  ? 'w-6 h-1.5 bg-white'
-                  : 'w-1.5 h-1.5 bg-white/50 hover:bg-white/80'
-              }`}
-              aria-label={`Go to slide ${idx + 1}`}
-            />
-          ))}
-        </div>
+      {/* Slide Indicators (Pill Dots) */}
+      <div className="flex items-center justify-center gap-1.5 mt-3 sm:mt-3.5">
+        {BANNERS.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => goToSlide(idx)}
+            className={`transition-all duration-300 rounded-full cursor-pointer ${
+              currentIndex === idx
+                ? 'w-6 h-1.5 bg-zinc-950'
+                : 'w-1.5 h-1.5 bg-zinc-300 hover:bg-zinc-500'
+            }`}
+            aria-label={`Go to slide ${idx + 1}`}
+          />
+        ))}
       </div>
 
       {/* Left Slide Button */}
       <button
         type="button"
         onClick={prevSlide}
-        className="absolute left-1.5 sm:-left-5 lg:-left-6 xl:-left-7 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer backdrop-blur-md"
+        className="absolute left-1.5 sm:-left-5 lg:-left-6 xl:-left-7 top-[calc(50%-12px)] -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer backdrop-blur-md"
         aria-label="Previous Slide"
       >
         <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-900 stroke-[2.2]" />
@@ -139,7 +170,7 @@ export const HeroBannerSlider: React.FC = () => {
       <button
         type="button"
         onClick={nextSlide}
-        className="absolute right-1.5 sm:-right-5 lg:-right-6 xl:-right-7 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer backdrop-blur-md"
+        className="absolute right-1.5 sm:-right-5 lg:-right-6 xl:-right-7 top-[calc(50%-12px)] -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer backdrop-blur-md"
         aria-label="Next Slide"
       >
         <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-900 stroke-[2.2]" />
