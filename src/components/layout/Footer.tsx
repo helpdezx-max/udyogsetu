@@ -9,15 +9,15 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand & Mission */}
           <div className="md:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center group">
-              <div className="flex items-center gap-2">
-                <span className="text-lg font-bold tracking-tight text-zinc-950">
-                  Rozzy
-                </span>
-                <span className="bg-zinc-200/80 text-zinc-800 text-3xs font-extrabold uppercase px-1.5 py-0.5 rounded-md tracking-wider">
-                  CHAKAN
-                </span>
-              </div>
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <img
+                src="/images/logo.png"
+                alt="Rozzy • Industrial Employment Network"
+                className="h-6 sm:h-7 w-auto object-contain block"
+              />
+              <span className="bg-zinc-200/80 text-zinc-800 text-3xs font-extrabold uppercase px-1.5 py-0.5 rounded-md tracking-wider self-center">
+                CHAKAN
+              </span>
             </Link>
 
             <p className="text-xs text-zinc-500 leading-relaxed max-w-sm">

@@ -123,20 +123,80 @@ export default function UnifiedSignInPage() {
         />
       </Head>
 
-      <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-10 px-4">
-        <div className="max-w-md w-full bg-white rounded-3xl border border-industrial-200 p-7 sm:p-9 shadow-xl space-y-6">
-          {/* Brand & Heading */}
-          <div className="text-center space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-neutral-900 text-white flex items-center justify-center mx-auto shadow-sm">
-              <Lock className="w-6 h-6 text-amber-400" />
+      <div className="min-h-[calc(100vh-65px)] w-full grid grid-cols-1 lg:grid-cols-2 bg-white">
+        {/* Left Column: Split-screen Image (50% on desktop) */}
+        <div className="relative hidden lg:flex flex-col justify-between overflow-hidden bg-zinc-950 p-10 xl:p-14 text-white">
+          {/* Background Hero Image */}
+          <img
+            src="/images/auth-hero.jpg"
+            alt="Rozzy Industrial Workplace"
+            className="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.80] contrast-[1.05]"
+          />
+          {/* Ambient Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/40 to-zinc-950/50 pointer-events-none" />
+
+          {/* Top Branding Pill / Badge */}
+          <div className="relative z-10 flex items-center justify-between">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs font-semibold text-white shadow-lg">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Direct Factory Recruitment • Pune Belt</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-industrial-950 tracking-tight">
-              Sign In to Rozzy
-            </h1>
-            <p className="text-xs text-industrial-500">
-              Access your verified candidate profile, employer ATS, or agency workspace.
-            </p>
+            <span className="text-3xs uppercase tracking-widest font-extrabold text-white/80 bg-white/10 border border-white/20 px-3 py-1 rounded-md backdrop-blur-md">
+              CHAKAN MIDC
+            </span>
           </div>
+
+          {/* Bottom Value Proposition & Trust Highlights */}
+          <div className="relative z-10 space-y-6 max-w-lg">
+            <div className="space-y-2.5">
+              <h2 className="text-3xl xl:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                Authentic Factory Jobs. <br />
+                <span className="text-amber-400">Zero Middlemen. Zero Fees.</span>
+              </h2>
+              <p className="text-sm text-zinc-300 leading-relaxed">
+                Connect directly with verified automotive OEMs, CNC engineering plants, and tier-1 suppliers across Chakan, Khed City, Kuruli, and Mahalunge.
+              </p>
+            </div>
+
+            {/* Statutory Trust Metrics */}
+            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/15 text-2xs text-zinc-300">
+              <div className="space-y-1">
+                <span className="block text-lg font-black text-white">₹0</span>
+                <span className="text-zinc-400 font-medium">Candidate Fee</span>
+              </div>
+              <div className="space-y-1">
+                <span className="block text-lg font-black text-white">100%</span>
+                <span className="text-zinc-400 font-medium">Verified Plants</span>
+              </div>
+              <div className="space-y-1">
+                <span className="block text-lg font-black text-white">48h</span>
+                <span className="text-zinc-400 font-medium">Response SLA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Sign In Form (50% on desktop) */}
+        <div className="flex items-center justify-center p-6 sm:p-10 lg:p-12 xl:p-16 bg-white min-h-[calc(100vh-65px)]">
+          <div className="max-w-md w-full bg-white rounded-3xl border border-zinc-200/90 p-7 sm:p-9 shadow-subtle hover:shadow-mobbin transition-all space-y-6">
+            {/* Brand Logo & Heading */}
+            <div className="text-center space-y-3">
+              <div className="flex justify-center">
+                <img
+                  src="/images/logo.png"
+                  alt="Rozzy"
+                  className="h-9 sm:h-10 w-auto object-contain block"
+                />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
+                  Sign In to Rozzy
+                </h1>
+                <p className="text-xs text-zinc-500 mt-1">
+                  Access your verified candidate profile, employer ATS, or agency workspace.
+                </p>
+              </div>
+            </div>
 
           {/* Logged out notice */}
           {logged_out && !errorMessage && !loginSuccess && (
@@ -301,6 +361,7 @@ export default function UnifiedSignInPage() {
           </div>
         </div>
       </div>
-    </>
-  );
+    </div>
+  </>
+);
 }
