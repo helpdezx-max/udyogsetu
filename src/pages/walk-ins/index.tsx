@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   CalendarCheck2,
   Clock,
@@ -13,10 +14,13 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import { INDUSTRIAL_CLUSTERS } from '../../data/demo-data';
 
 export default function WalkInInterviewsPage() {
+  const router = useRouter();
   const { walkIns, openApplyModal, jobs, applications } = useApp();
+  const { user } = useAuth();
 
   const [clusterFilter, setClusterFilter] = useState('');
   const [search, setSearch] = useState('');
@@ -263,7 +267,13 @@ export default function WalkInInterviewsPage() {
                       correspondingJob && (
                         <button
                           type="button"
-                          onClick={() => openApplyModal(correspondingJob)}
+                          onClick={() => {
+                            if (!user) {
+                              router.push(`/signin?redirect=${encodeURIComponent(router.asPath)}`);
+                              return;
+                            }
+                            openApplyModal(correspondingJob);
+                          }}
                           className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-xs transition-colors"
                         >
                           Pre-Register for Drive

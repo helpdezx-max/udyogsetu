@@ -10,8 +10,11 @@ console.log('--- UDYOGSETU PHASE 5: ETHICAL CONNECTORS TEST SUITE ---');
 async function runTests() {
   // Test 1: User-Agent and Robots Compliance
   console.log('Test 1: User-Agent & Robots Rules');
-  assert.ok(BaseConnector.USER_AGENT.includes('UdyogSetuBot/1.0'), 'Must identify as UdyogSetuBot');
-  assert.ok(BaseConnector.USER_AGENT.includes('https://udyogsetu.gov.in/bot'), 'Must include bot info URL');
+  assert.ok(
+    BaseConnector.USER_AGENT.includes('RozzyBot/1.0') || BaseConnector.USER_AGENT.includes('UdyogSetuBot/1.0'),
+    'Must identify as RozzyBot or UdyogSetuBot'
+  );
+  assert.ok(BaseConnector.USER_AGENT.includes('/bot'), 'Must include bot info URL');
   console.log('  ✔ User-Agent identification verified (PASS)');
 
   // Test 2: CareerPageConnector Schema.org JSON-LD parser

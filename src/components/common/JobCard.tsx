@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   Building2,
   MapPin,
@@ -12,6 +13,7 @@ import {
 } from 'lucide-react';
 import { JobVacancy } from '../../data/demo-data';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import { useLocale } from '../../hooks/useLocale';
 
 export interface JobCardProps {
@@ -20,7 +22,9 @@ export interface JobCardProps {
 }
 
 export const JobCard: React.FC<JobCardProps> = ({ job, index = 0 }) => {
+  const router = useRouter();
   const { toggleSaveJob, isJobSaved, openApplyModal, applications } = useApp();
+  const { user } = useAuth();
   const { t } = useLocale();
 
   const saved = isJobSaved(job.id);
@@ -57,6 +61,10 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index = 0 }) => {
             type="button"
             onClick={(e) => {
               e.preventDefault();
+              if (!user) {
+                router.push(`/signin?redirect=${encodeURIComponent(router.asPath)}`);
+                return;
+              }
               toggleSaveJob(job.id);
             }}
             className="w-8 h-8 rounded-xl bg-zinc-50 hover:bg-zinc-100 text-zinc-600 border border-zinc-200/80 flex items-center justify-center transition-colors shrink-0"
@@ -143,7 +151,13 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index = 0 }) => {
           ) : (
             <button
               type="button"
-              onClick={() => openApplyModal(job)}
+              onClick={() => {
+                if (!user) {
+                  router.push(`/signin?redirect=${encodeURIComponent(router.asPath)}`);
+                  return;
+                }
+                openApplyModal(job);
+              }}
               className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-xs transition-all active:scale-95"
             >
               Apply now

@@ -20,6 +20,7 @@ import {
   Check,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import { TrustBadge } from '../../components/ui/TrustBadge';
 import { Modal } from '../../components/ui/Modal';
 import { trustService } from '../../services/trustService';
@@ -28,6 +29,7 @@ export default function JobDetailsPage() {
   const router = useRouter();
   const { id } = router.query;
   const { jobs, companies, isJobSaved, toggleSaveJob, openApplyModal, applications } = useApp();
+  const { user } = useAuth();
 
   const [reportModalOpen, setReportModalOpen] = useState(false);
   const [reportReason, setReportReason] = useState('Demanded Money / Registration Fee');
@@ -125,7 +127,13 @@ export default function JobDetailsPage() {
                   </button>
 
                   <button
-                    onClick={() => toggleSaveJob(job.id)}
+                    onClick={() => {
+                      if (!user) {
+                        router.push(`/signin?redirect=${encodeURIComponent(router.asPath)}`);
+                        return;
+                      }
+                      toggleSaveJob(job.id);
+                    }}
                     className="p-2 rounded-full border border-neutral-200 bg-white text-neutral-600 hover:text-black transition-colors shadow-2xs"
                     title={saved ? 'Remove from Saved' : 'Save Job'}
                   >
@@ -182,7 +190,13 @@ export default function JobDetailsPage() {
                   ) : (
                     <button
                       type="button"
-                      onClick={() => openApplyModal(job)}
+                      onClick={() => {
+                        if (!user) {
+                          router.push(`/signin?redirect=${encodeURIComponent(router.asPath)}`);
+                          return;
+                        }
+                        openApplyModal(job);
+                      }}
                       className="bg-neutral-900 hover:bg-black text-white text-xs font-semibold px-6 py-2.5 rounded-xl shadow-xs transition-colors"
                     >
                       Apply Directly Now

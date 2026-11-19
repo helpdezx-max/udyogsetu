@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import { Modal } from '../ui/Modal';
 import { Button } from '../ui/Button';
 import { Input } from '../../components/ui/Input';
-import { CheckCircle2, ShieldCheck, AlertCircle, Building2, MapPin } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, AlertCircle, Building2, MapPin, Lock } from 'lucide-react';
 
 export const ApplyModal: React.FC = () => {
+  const router = useRouter();
+  const { user } = useAuth();
   const { applyingJob, closeApplyModal, candidateProfile, submitApplication } = useApp();
   const [notes, setNotes] = useState('');
   const [phone, setPhone] = useState(candidateProfile.phone);
@@ -17,6 +21,11 @@ export const ApplyModal: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user) {
+      const redirectPath = router.asPath || `/jobs/${applyingJob.id}`;
+      router.push(`/signin?redirect=${encodeURIComponent(redirectPath)}`);
+      return;
+    }
     setIsSubmitting(true);
     const result = await submitApplication(applyingJob.id, `${notes} | Shift Pref: ${shiftPreference}`);
     setSubmittedStatus(result);
@@ -28,6 +37,64 @@ export const ApplyModal: React.FC = () => {
     setNotes('');
     closeApplyModal();
   };
+
+  if (!user) {
+    const redirectPath = router.asPath || `/jobs/${applyingJob.id}`;
+    return (
+      <Modal
+        isOpen={!!applyingJob}
+        onClose={handleClose}
+        title="Candidate Sign In Required"
+        description="Please sign in or create your candidate account to apply directly for verified plant vacancies."
+        maxWidth="md"
+      >
+        <div className="text-center py-6 space-y-4">
+          <div className="w-14 h-14 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto border border-amber-200">
+            <Lock className="w-7 h-7" />
+          </div>
+          <div>
+            <h4 className="text-lg font-bold text-zinc-950">Candidate Account Required</h4>
+            <p className="text-xs text-zinc-600 mt-1 max-w-sm mx-auto leading-relaxed">
+              To submit your application directly to plant recruitment and receive official interview passes, please sign in or register. Registration is 100% free forever for job seekers.
+            </p>
+          </div>
+
+          <div className="p-3 bg-zinc-50 rounded-xl border border-zinc-200 text-left text-xs space-y-1 max-w-sm mx-auto">
+            <div className="font-semibold text-zinc-900 truncate">{applyingJob.title}</div>
+            <div className="text-zinc-500 text-3xs">{applyingJob.companyName} • {applyingJob.clusterName}</div>
+            <div className="text-emerald-700 font-bold text-2xs">₹{applyingJob.salary.inHandMonthly.toLocaleString('en-IN')}/mo in-hand</div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-2">
+            <Button
+              variant="primary"
+              onClick={() => {
+                closeApplyModal();
+                router.push(`/signin?redirect=${encodeURIComponent(redirectPath)}`);
+              }}
+              className="w-full sm:w-auto"
+            >
+              Sign In to Apply
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                closeApplyModal();
+                router.push(`/signup/candidate?redirect=${encodeURIComponent(redirectPath)}`);
+              }}
+              className="w-full sm:w-auto"
+            >
+              Create Free Account
+            </Button>
+          </div>
+
+          <div className="pt-2 text-3xs text-zinc-400">
+            Rozzy Guarantee: ₹0 fees • Direct plant connection • No middleman
+          </div>
+        </div>
+      </Modal>
+    );
+  }
 
   return (
     <Modal

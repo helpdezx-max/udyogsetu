@@ -206,6 +206,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   const toggleSaveJob = (jobId: string) => {
+    if (!user) {
+      if (typeof window !== 'undefined') {
+        const currentPath = window.location.pathname + window.location.search;
+        window.location.href = `/signin?redirect=${encodeURIComponent(currentPath)}`;
+      }
+      return;
+    }
     setSavedJobIds((prev) => {
       const isSaved = prev.includes(jobId);
       const updated = isSaved ? prev.filter((id) => id !== jobId) : [...prev, jobId];
@@ -223,6 +230,12 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     jobId: string,
     notes?: string
   ): Promise<{ success: boolean; message: string }> => {
+    if (!user) {
+      return {
+        success: false,
+        message: 'Candidate authentication required. Please sign in or register to submit your application.',
+      };
+    }
     const existing = applications.find((a) => a.jobId === jobId);
     if (existing) {
       return { success: false, message: 'You have already submitted an application for this vacancy.' };
