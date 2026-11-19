@@ -220,7 +220,7 @@ export default function CandidateSignupPage() {
                 <img
                   src="/images/logo.png"
                   alt="Rozzy"
-                  className="h-6 sm:h-7 w-auto object-contain block"
+                  className="h-9 sm:h-10 w-auto object-contain block"
                 />
               </div>
               <div>
