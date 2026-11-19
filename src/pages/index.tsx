@@ -159,7 +159,7 @@ export default function HomePage() {
                 <img
                   src="/images/verified-badge.png"
                   alt="Verified"
-                  className="w-7 h-7 sm:w-10 sm:h-10 lg:w-12 lg:h-12 select-none shrink-0 inline-block align-middle"
+                  className="w-9 h-9 sm:w-[52px] sm:h-[52px] lg:w-[62px] lg:h-[62px] select-none shrink-0 inline-block align-middle"
                 />
               </span>{' '}
               Factory Jobs, <br className="hidden sm:inline" />
