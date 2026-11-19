@@ -1,5 +1,5 @@
 // ============================================================================
-// UDYOGSETU (उद्योगसेतू) — PRODUCTION AUTHENTICATION EMAIL TEMPLATES
+// ROZZY (रॉझी) — PRODUCTION AUTHENTICATION EMAIL TEMPLATES
 // Branded, Accessible & Multilingual (English & Marathi) Industrial Notice Templates
 // ============================================================================
 
@@ -19,7 +19,7 @@ export const authEmailTemplates = {
     recipientName: string;
     verificationUrl: string;
   }): { subject: string; htmlBody: string; textBody: string } {
-    const subject = 'Verify your email address • UdyogSetu Industrial Network';
+    const subject = 'Verify your email address • Rozzy Industrial Network';
     const htmlBody = `
 <!DOCTYPE html>
 <html>
@@ -27,13 +27,13 @@ export const authEmailTemplates = {
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #F4F4F5; margin: 0; padding: 24px;">
   <div style="max-width: 560px; margin: 0 auto; background-color: #FFFFFF; border-radius: 16px; border: 1px solid #E4E4E7; overflow: hidden;">
     <div style="background-color: #18181B; padding: 24px; text-align: center;">
-      <h1 style="color: #F59E0B; margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">उद्योगसेतू • UDYOGSETU</h1>
+      <h1 style="color: #F59E0B; margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">ROZZY CHAKAN</h1>
       <p style="color: #A1A1AA; margin: 4px 0 0 0; font-size: 11px;">Chakan–Khed Industrial Employment Network</p>
     </div>
     <div style="padding: 32px 24px; color: #18181B;">
       <h2 style="font-size: 18px; font-weight: 800; margin-top: 0;">Welcome, ${params.recipientName}!</h2>
       <p style="font-size: 14px; line-height: 1.6; color: #52525B;">
-        Thank you for creating an account on UdyogSetu. Please confirm your email address to activate your industrial profile and receive verified vacancy alerts across Chakan MIDC and Pune.
+        Thank you for creating an account on Rozzy. Please confirm your email address to activate your industrial profile and receive verified vacancy alerts across Chakan MIDC and Pune.
       </p>
       <div style="text-align: center; margin: 28px 0;">
         <a href="${params.verificationUrl}" style="background-color: #18181B; color: #FFFFFF; font-weight: 700; font-size: 14px; padding: 12px 28px; border-radius: 12px; text-decoration: none; display: inline-block;">
@@ -41,16 +41,16 @@ export const authEmailTemplates = {
         </a>
       </div>
       <p style="font-size: 12px; color: #71717A; line-height: 1.5;">
-        This single-use link is valid for 24 hours. If you did not create an account on UdyogSetu, you can safely ignore this email.
+        This single-use link is valid for 24 hours. If you did not create an account on Rozzy, you can safely ignore this email.
       </p>
     </div>
     <div style="background-color: #FAFAFA; border-top: 1px solid #F4F4F5; padding: 16px 24px; text-align: center; font-size: 11px; color: #A1A1AA;">
-      UdyogSetu Chakan Desk • MIDC Central, Pune District 410501 • ₹0 Candidate Fee Guarantee
+      Rozzy Chakan Desk • MIDC Central, Pune District 410501 • ₹0 Candidate Fee Guarantee
     </div>
   </div>
 </body>
 </html>`;
-    const textBody = `Welcome ${params.recipientName}!\n\nPlease verify your UdyogSetu account by opening:\n${params.verificationUrl}\n\nValid for 24 hours.`;
+    const textBody = `Welcome ${params.recipientName}!\n\nPlease verify your Rozzy account by opening:\n${params.verificationUrl}\n\nValid for 24 hours.`;
     return { subject, htmlBody, textBody };
   },
 
@@ -61,7 +61,7 @@ export const authEmailTemplates = {
     recipientName: string;
     resetUrl: string;
   }): { subject: string; htmlBody: string; textBody: string } {
-    const subject = 'Reset your password • UdyogSetu Industrial Network';
+    const subject = 'Reset your password • Rozzy Industrial Network';
     const htmlBody = `
 <!DOCTYPE html>
 <html>
@@ -69,13 +69,13 @@ export const authEmailTemplates = {
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #F4F4F5; margin: 0; padding: 24px;">
   <div style="max-width: 560px; margin: 0 auto; background-color: #FFFFFF; border-radius: 16px; border: 1px solid #E4E4E7; overflow: hidden;">
     <div style="background-color: #18181B; padding: 24px; text-align: center;">
-      <h1 style="color: #F59E0B; margin: 0; font-size: 20px; font-weight: 800;">उद्योगसेतू • UDYOGSETU</h1>
+      <h1 style="color: #F59E0B; margin: 0; font-size: 20px; font-weight: 800;">ROZZY CHAKAN</h1>
       <p style="color: #A1A1AA; margin: 4px 0 0 0; font-size: 11px;">Account Security Notification</p>
     </div>
     <div style="padding: 32px 24px; color: #18181B;">
       <h2 style="font-size: 18px; font-weight: 800; margin-top: 0;">Password Reset Request</h2>
       <p style="font-size: 14px; line-height: 1.6; color: #52525B;">
-        Hello ${params.recipientName}, we received a request to reset the password for your UdyogSetu account. Click the button below to choose a new password:
+        Hello ${params.recipientName}, we received a request to reset the password for your Rozzy account. Click the button below to choose a new password:
       </p>
       <div style="text-align: center; margin: 28px 0;">
         <a href="${params.resetUrl}" style="background-color: #D97706; color: #FFFFFF; font-weight: 700; font-size: 14px; padding: 12px 28px; border-radius: 12px; text-decoration: none; display: inline-block;">
@@ -87,7 +87,7 @@ export const authEmailTemplates = {
       </p>
     </div>
     <div style="background-color: #FAFAFA; border-top: 1px solid #F4F4F5; padding: 16px 24px; text-align: center; font-size: 11px; color: #A1A1AA;">
-      Security Desk • UdyogSetu Chakan MIDC • Never share your password or OTP
+      Security Desk • Rozzy Chakan MIDC • Never share your password or OTP
     </div>
   </div>
 </body>
@@ -106,7 +106,7 @@ export const authEmailTemplates = {
     inviteUrl: string;
     expiresInDays: number;
   }): { subject: string; htmlBody: string; textBody: string } {
-    const subject = `Invitation: Join ${params.companyName} on UdyogSetu as ${params.roleName}`;
+    const subject = `Invitation: Join ${params.companyName} on Rozzy as ${params.roleName}`;
     const htmlBody = `
 <!DOCTYPE html>
 <html>
@@ -114,13 +114,13 @@ export const authEmailTemplates = {
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #F4F4F5; margin: 0; padding: 24px;">
   <div style="max-width: 560px; margin: 0 auto; background-color: #FFFFFF; border-radius: 16px; border: 1px solid #E4E4E7; overflow: hidden;">
     <div style="background-color: #18181B; padding: 24px; text-align: center;">
-      <h1 style="color: #F59E0B; margin: 0; font-size: 20px; font-weight: 800;">उद्योगसेतू • UDYOGSETU</h1>
+      <h1 style="color: #F59E0B; margin: 0; font-size: 20px; font-weight: 800;">ROZZY CHAKAN</h1>
       <p style="color: #A1A1AA; margin: 4px 0 0 0; font-size: 11px;">Corporate Recruitment Team Invitation</p>
     </div>
     <div style="padding: 32px 24px; color: #18181B;">
       <h2 style="font-size: 18px; font-weight: 800; margin-top: 0;">You've Been Invited to Join ${params.companyName}</h2>
       <p style="font-size: 14px; line-height: 1.6; color: #52525B;">
-        ${params.inviterName} has invited you to join the recruitment team for <strong>${params.companyName}</strong> on the UdyogSetu industrial network.
+        ${params.inviterName} has invited you to join the recruitment team for <strong>${params.companyName}</strong> on the Rozzy industrial network.
       </p>
       <div style="background-color: #FEF3C7; border: 1px solid #FDE68A; border-radius: 12px; padding: 14px 18px; margin: 20px 0;">
         <span style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: #92400E; display: block;">Assigned Role</span>
@@ -136,7 +136,7 @@ export const authEmailTemplates = {
       </p>
     </div>
     <div style="background-color: #FAFAFA; border-top: 1px solid #F4F4F5; padding: 16px 24px; text-align: center; font-size: 11px; color: #A1A1AA;">
-      Corporate HR Desk • UdyogSetu Chakan MIDC & Pune Belt
+      Corporate HR Desk • Rozzy Chakan MIDC & Pune Belt
     </div>
   </div>
 </body>
@@ -152,7 +152,7 @@ export const authEmailTemplates = {
     recipientName: string;
     changedAt: string;
   }): { subject: string; htmlBody: string; textBody: string } {
-    const subject = 'Security Notice: Your UdyogSetu password was changed';
+    const subject = 'Security Notice: Your Rozzy password was changed';
     const htmlBody = `
 <!DOCTYPE html>
 <html>
@@ -160,21 +160,21 @@ export const authEmailTemplates = {
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #F4F4F5; margin: 0; padding: 24px;">
   <div style="max-width: 560px; margin: 0 auto; background-color: #FFFFFF; border-radius: 16px; border: 1px solid #E4E4E7; overflow: hidden;">
     <div style="background-color: #18181B; padding: 20px; text-align: center;">
-      <h1 style="color: #F59E0B; margin: 0; font-size: 18px; font-weight: 800;">उद्योगसेतू • UDYOGSETU</h1>
+      <h1 style="color: #F59E0B; margin: 0; font-size: 18px; font-weight: 800;">ROZZY CHAKAN</h1>
     </div>
     <div style="padding: 24px; color: #18181B;">
       <h2 style="font-size: 16px; font-weight: 800; margin-top: 0;">Password Updated Successfully</h2>
       <p style="font-size: 13px; color: #52525B; line-height: 1.5;">
-        Hello ${params.recipientName}, the password for your UdyogSetu account was updated on <strong>${params.changedAt}</strong>.
+        Hello ${params.recipientName}, the password for your Rozzy account was updated on <strong>${params.changedAt}</strong>.
       </p>
       <p style="font-size: 12px; color: #DC2626; line-height: 1.5;">
-        If you did not make this change, please immediately reset your password and contact security@udyogsetu.internal.
+        If you did not make this change, please immediately reset your password and contact security@rozzy.in.
       </p>
     </div>
   </div>
 </body>
 </html>`;
-    const textBody = `Your UdyogSetu password was changed on ${params.changedAt}. If you did not authorize this, contact security@udyogsetu.internal immediately.`;
+    const textBody = `Your Rozzy password was changed on ${params.changedAt}. If you did not authorize this, contact security@rozzy.in immediately.`;
     return { subject, htmlBody, textBody };
   },
 };

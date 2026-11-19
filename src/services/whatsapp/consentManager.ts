@@ -51,7 +51,7 @@ class ConsentManager {
 
       return {
         actionTaken: 'opted_out',
-        replyText: 'You have been unsubscribed from UdyogSetu WhatsApp alerts. Reply START anytime to re-enable.'
+        replyText: 'You have been unsubscribed from Rozzy WhatsApp alerts. Reply START anytime to re-enable.'
       };
     }
 
@@ -59,7 +59,7 @@ class ConsentManager {
       this.recordOptIn(cleanPhone);
       return {
         actionTaken: 'opted_in',
-        replyText: 'Welcome back! UdyogSetu industrial job & interview notifications have been re-enabled.'
+        replyText: 'Welcome back! Rozzy industrial job & interview notifications have been re-enabled.'
       };
     }
 

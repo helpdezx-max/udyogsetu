@@ -224,7 +224,7 @@ export default function AdminAIControlPage() {
 
                 <button
                   onClick={() => toggleFeature(feat.key)}
-                  className="shrink-0 text-neutral-600 hover:text-neutral-900 focus:outline-none"
+                  className="shrink-0 text-neutral-600 hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 rounded-lg"
                   title="Toggle AI Feature"
                 >
                   {feat.enabled ? (

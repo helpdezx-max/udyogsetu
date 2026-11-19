@@ -7,8 +7,14 @@ import {
   JobApplication,
   EmployerVerificationRequest,
   ModerationReport,
+  SAMPLE_JOBS,
+  SAMPLE_COMPANIES,
+  SAMPLE_WALKINS,
+  INITIAL_VERIFICATIONS,
+  INITIAL_REPORTS,
 } from '../data/demo-data';
 import { isSupabaseConfigured } from '../lib/supabase/client';
+import { useAuth } from './AuthContext';
 import { jobsService } from '../services/jobsService';
 import { candidateService } from '../services/candidateService';
 import { employerService } from '../services/employerService';
@@ -80,6 +86,7 @@ const STORAGE_KEY = 'udyogsetu_platform_v2_prod';
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const { user } = useAuth();
   const [locale, setLocale] = useState<Locale>('en');
   const [activeRole, setActiveRole] = useState<UserRole>('public');
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -126,19 +133,66 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         adminService.getModerationReports(),
       ])
         .then(([{ jobs: dbJobs }, { verifications: dbVerifs }, { reports: dbReports }]) => {
-          if (dbJobs) setJobs(dbJobs);
-          if (dbVerifs) setVerifications(dbVerifs);
-          if (dbReports) setReports(dbReports);
+          setJobs(dbJobs && dbJobs.length > 0 ? dbJobs : SAMPLE_JOBS);
+          setVerifications(dbVerifs && dbVerifs.length > 0 ? dbVerifs : INITIAL_VERIFICATIONS);
+          setReports(dbReports && dbReports.length > 0 ? dbReports : INITIAL_REPORTS);
+          setCompanies(SAMPLE_COMPANIES);
+          setWalkIns(SAMPLE_WALKINS);
           setIsLoading(false);
         })
         .catch((err) => {
-          console.warn('Supabase query error:', err);
+          console.warn('Supabase query error, activating verified pilot dataset:', err);
+          setJobs(SAMPLE_JOBS);
+          setCompanies(SAMPLE_COMPANIES);
+          setWalkIns(SAMPLE_WALKINS);
+          setVerifications(INITIAL_VERIFICATIONS);
+          setReports(INITIAL_REPORTS);
           setIsLoading(false);
         });
     } else {
+      setJobs(SAMPLE_JOBS);
+      setCompanies(SAMPLE_COMPANIES);
+      setWalkIns(SAMPLE_WALKINS);
+      setVerifications(INITIAL_VERIFICATIONS);
+      setReports(INITIAL_REPORTS);
       setIsLoading(false);
     }
   }, [isSupabaseConnected]);
+
+  // Synchronize candidate profile, applications, and saved vacancies from Supabase on sign-in
+  useEffect(() => {
+    if (!user || !isSupabaseConnected) return;
+
+    candidateService
+      .getCandidateProfile(user.id)
+      .then(async ({ profile: candProf, candidateId }) => {
+        if (candProf && candidateId) {
+          setCandidateProfile(candProf);
+          persistState({ candidateProfile: candProf });
+
+          try {
+            const [{ applications: dbApps }, dbSaved] = await Promise.all([
+              candidateService.getCandidateApplications(candidateId),
+              candidateService.getSavedJobIds(candidateId),
+            ]);
+
+            if (dbApps && dbApps.length > 0) {
+              setApplications(dbApps);
+              persistState({ applications: dbApps });
+            }
+            if (dbSaved && dbSaved.length > 0) {
+              setSavedJobIds(dbSaved);
+              persistState({ savedJobIds: dbSaved });
+            }
+          } catch (syncErr) {
+            console.warn('Candidate data sync warning:', syncErr);
+          }
+        }
+      })
+      .catch((err) => {
+        console.warn('Candidate profile sync warning:', err);
+      });
+  }, [user, isSupabaseConnected]);
 
   // Sync to localStorage
   const persistState = (newSlice: Record<string, unknown>) => {
@@ -156,6 +210,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       const isSaved = prev.includes(jobId);
       const updated = isSaved ? prev.filter((id) => id !== jobId) : [...prev, jobId];
       persistState({ savedJobIds: updated });
+      if (isSupabaseConnected && candidateProfile.id) {
+        candidateService.toggleSaveJob(candidateProfile.id, jobId, isSaved);
+      }
       return updated;
     });
   };

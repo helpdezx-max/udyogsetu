@@ -66,7 +66,7 @@ export default function CandidateSettingsPage() {
               <select
                 value={preferredShift}
                 onChange={(e) => setPreferredShift(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-industrial-300 bg-white text-industrial-800 focus:outline-none focus:border-brand-600"
+                className="w-full text-xs p-2.5 rounded-lg border border-industrial-300 bg-white text-industrial-800 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-brand-600"
               >
                 <option value="Rotational 3-Shifts">Willing to work Rotational 3-Shifts (A/B/C)</option>
                 <option value="Day Shift Only">Day Shift Preferred Only</option>

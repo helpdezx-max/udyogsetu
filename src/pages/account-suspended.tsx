@@ -85,11 +85,11 @@ export default function AccountSuspendedPage() {
               Sign Out of Account
             </button>
             <a
-              href="mailto:trust@udyogsetu.internal"
+              href="mailto:trust@rozzy.in"
               className="text-industrial-500 hover:text-industrial-900 flex items-center gap-1"
             >
               <Mail className="w-3.5 h-3.5" />
-              <span>trust@udyogsetu.internal</span>
+              <span>trust@rozzy.in</span>
             </a>
           </div>
         </div>

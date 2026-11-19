@@ -80,7 +80,7 @@ export class JobAlertEngine {
         companyName: job.company,
         cluster: job.cluster,
         salary: `₹${job.monthlySalary.toLocaleString('en-IN')}`,
-        jobUrl: `https://udyogsetu.gov.in/jobs/${job.id}`
+        jobUrl: `https://rozzy.in/jobs/${job.id}`
       },
       idempotencyKey: `alert-${alertKey}`,
       userId: prefs.userId

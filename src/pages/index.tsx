@@ -511,7 +511,7 @@ export default function HomePage() {
                 Industrial plants in Chakan MIDC are currently undergoing statutory Udyam and GSTIN verification audit.
                 Verified manufacturing units will appear here once audited.
               </p>
-              <Link href="/employer/signup">
+              <Link href="/signup/employer">
                 <button className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-4 py-2 rounded-full transition-colors">
                   Register Your Manufacturing Plant
                 </button>
@@ -664,7 +664,7 @@ export default function HomePage() {
                   Post Vacancy Now
                 </button>
               </Link>
-              <Link href="/employer/signup">
+              <Link href="/signup/employer">
                 <button className="border border-zinc-700 text-zinc-200 hover:bg-zinc-900 text-xs font-semibold px-5 py-2.5 rounded-full transition-colors">
                   Create Factory Account
                 </button>

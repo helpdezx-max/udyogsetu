@@ -64,7 +64,7 @@ export default function CandidateOnboardingPage() {
                 min="0"
                 value={experienceMonths}
                 onChange={(e) => setExperienceMonths(Number(e.target.value))}
-                className="w-full text-xs p-2.5 rounded-lg border border-industrial-300 focus:outline-none focus:border-brand-600"
+                className="w-full text-xs p-2.5 rounded-lg border border-industrial-300 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-brand-600"
               />
             </div>
 
@@ -75,7 +75,7 @@ export default function CandidateOnboardingPage() {
               <select
                 value={preferredCluster}
                 onChange={(e) => setPreferredCluster(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-industrial-300 bg-white text-industrial-800 focus:outline-none focus:border-brand-600"
+                className="w-full text-xs p-2.5 rounded-lg border border-industrial-300 bg-white text-industrial-800 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-brand-600"
               >
                 {INDUSTRIAL_CLUSTERS.map((cl) => (
                   <option key={cl.id} value={cl.name}>

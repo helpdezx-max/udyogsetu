@@ -12,10 +12,10 @@ export const candidateAssistant = {
 
     return aiClient.generateCompletion<{ answer: string; suggestedQuestions: string[] }>({
       featureName: 'candidate_chat_assistant',
-      systemPrompt: 'You are UdyogSetu AI, an expert industrial recruitment assistant for Chakan MIDC factory workers, ITI trades, and technicians. Be concise, respectful, and factual.',
+      systemPrompt: 'You are Rozzy AI, an expert industrial recruitment assistant for Chakan MIDC factory workers, ITI trades, and technicians. Be concise, respectful, and factual.',
       userPrompt: `Candidate query in ${lang}: ${query.userMessage}`,
       fallbackGenerator: () => {
-        let answer = 'Welcome to UdyogSetu Industrial Assistance. How can I help you find verified plant vacancies in Chakan?';
+        let answer = 'Welcome to Rozzy Industrial Assistance. How can I help you find verified plant vacancies in Chakan?';
 
         if (msg.includes('document') || msg.includes('carry') || msg.includes('कागदपत्र') || msg.includes('interview')) {
           if (lang === 'mr') {

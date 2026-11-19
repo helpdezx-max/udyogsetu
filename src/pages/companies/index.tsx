@@ -85,7 +85,7 @@ export default function CompanyDirectoryPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search plant or company name..."
-              className="w-full text-xs pl-9 pr-3 py-2.5 rounded-xl bg-white border border-neutral-200 focus:outline-none focus:border-neutral-400 text-neutral-900 shadow-2xs"
+              className="w-full text-xs pl-9 pr-3 py-2.5 rounded-xl bg-white border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-neutral-400 text-neutral-900 shadow-2xs"
             />
           </div>
 

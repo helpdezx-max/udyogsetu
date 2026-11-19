@@ -61,7 +61,7 @@ export const Footer: React.FC = () => {
                 <Link href="/employer/post-job" className="hover:text-zinc-950 transition-colors">Post a Factory Vacancy</Link>
               </li>
               <li>
-                <Link href="/employer/signup" className="hover:text-zinc-950 transition-colors">Register Manufacturing Unit</Link>
+                <Link href="/signup/employer" className="hover:text-zinc-950 transition-colors">Register Manufacturing Unit</Link>
               </li>
               <li>
                 <Link href="/companies" className="hover:text-zinc-950 transition-colors">Verified Plant Directory</Link>

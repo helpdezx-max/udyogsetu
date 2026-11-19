@@ -74,7 +74,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <div className="font-bold text-neutral-900">Email Inquiries</div>
-                    <div className="text-neutral-600 text-3xs mt-0.5">help@udyogsetu.in</div>
+                    <div className="text-neutral-600 text-3xs mt-0.5">help@rozzy.in</div>
                   </div>
                 </div>
               </div>

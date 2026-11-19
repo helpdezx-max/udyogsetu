@@ -8,9 +8,9 @@ export interface TemplateDefinition {
 
 export const TEMPLATES: Record<WhatsAppTemplateType, TemplateDefinition> = {
   application_submitted: {
-    en: '✅ UdyogSetu: Your job application for {{jobTitle}} at {{companyName}} has been successfully submitted. Track your status: https://udyogsetu.gov.in/candidate/applications',
-    mr: '✅ उद्योगसेतू: {{companyName}} मधील {{jobTitle}} पदासाठीचा तुमचा अर्ज यशस्वीरीत्या सादर झाला आहे. अर्जाची स्थिती तपासा: https://udyogsetu.gov.in/candidate/applications',
-    hi: '✅ उद्योगसेतू: {{companyName}} में {{jobTitle}} पद के लिए आपका आवेदन सफलतापूर्वक जमा कर दिया गया है। स्थिति देखें: https://udyogsetu.gov.in/candidate/applications'
+    en: '✅ Rozzy: Your job application for {{jobTitle}} at {{companyName}} has been successfully submitted. Track your status: https://rozzy.in/candidate/applications',
+    mr: '✅ रॉझी: {{companyName}} मधील {{jobTitle}} पदासाठीचा तुमचा अर्ज यशस्वीरीत्या सादर झाला आहे. अर्जाची स्थिती तपासा: https://rozzy.in/candidate/applications',
+    hi: '✅ रॉज़ी: {{companyName}} में {{jobTitle}} पद के लिए आपका आवेदन सफलतापूर्वक जमा कर दिया गया है। स्थिति देखें: https://rozzy.in/candidate/applications'
   },
   interview_scheduled: {
     en: '📅 Interview Scheduled: {{companyName}} has invited you for {{jobTitle}} on {{dateTime}} at {{location}}. Please carry original Aadhar and ITI/Diploma marksheets. Reply STOP to unsubscribe.',
@@ -33,8 +33,8 @@ export const TEMPLATES: Record<WhatsAppTemplateType, TemplateDefinition> = {
     hi: '🔔 नई औद्योगिक नौकरी: {{companyName}} द्वारा {{cluster}} में {{jobTitle}} पद के लिए अवसर। वेतन: {{salary}}। बस और कैंटीन सुविधा। देखें: {{jobUrl}}'
   },
   offer_letter_issued: {
-    en: '📄 Offer Letter Issued: {{companyName}} has released your provisional employment letter for {{jobTitle}}. Login to review terms and accept: https://udyogsetu.gov.in/candidate/dashboard',
-    mr: '📄 नियुक्ती पत्र जारी: {{companyName}} ने {{jobTitle}} पदासाठी तुमचे नियुक्ती पत्र जारी केले आहे. अटी तपासून स्वीकारण्यासाठी लॉगिन करा: https://udyogsetu.gov.in/candidate/dashboard',
+    en: '📄 Offer Letter Issued: {{companyName}} has released your provisional employment letter for {{jobTitle}}. Login to review terms and accept: https://rozzy.in/candidate/dashboard',
+    mr: '📄 नियुक्ती पत्र जारी: {{companyName}} ने {{jobTitle}} पदासाठी तुमचे नियुक्ती पत्र जारी केले आहे. अटी तपासून स्वीकारण्यासाठी लॉगिन करा: https://rozzy.in/candidate/dashboard',
     hi: '📄 नियुक्ति पत्र जारी: {{companyName}} ने {{jobTitle}} पद के लिए आपका प्रस्ताव पत्र जारी किया है। देखने और स्वीकार करने के लिए लॉगिन करें।'
   }
 };
@@ -45,7 +45,7 @@ export function renderTemplate(
   parameters: Record<string, string>
 ): string {
   const tplDef = TEMPLATES[templateName];
-  if (!tplDef) return 'UdyogSetu Notification';
+  if (!tplDef) return 'Rozzy Notification';
 
   let raw = tplDef[lang] || tplDef['en'];
 

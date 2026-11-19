@@ -1,7 +1,7 @@
 import { DiscoverySource, ConnectorResult, RawDiscoveredJob } from './types';
 
 export abstract class BaseConnector {
-  public static readonly USER_AGENT = 'UdyogSetuBot/1.0 (+https://udyogsetu.gov.in/bot; Hyperlocal Industrial Recruitment Pune)';
+  public static readonly USER_AGENT = 'RozzyBot/1.0 (+https://rozzy.in/bot; Hyperlocal Industrial Recruitment Pune)';
   protected lastRequestTime: number = 0;
 
   /**
@@ -32,7 +32,7 @@ export abstract class BaseConnector {
       for (const line of lines) {
         if (line.startsWith('user-agent:')) {
           const agent = line.replace('user-agent:', '').trim();
-          relevantSection = agent === '*' || agent.includes('udyogsetubot');
+          relevantSection = agent === '*' || agent.includes('rozzybot') || agent.includes('udyogsetubot');
         } else if (relevantSection && line.startsWith('disallow:')) {
           const disallowedPath = line.replace('disallow:', '').trim();
           if (disallowedPath && targetPath.startsWith(disallowedPath)) {

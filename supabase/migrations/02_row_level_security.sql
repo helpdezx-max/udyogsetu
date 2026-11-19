@@ -296,14 +296,22 @@ CREATE POLICY "Company members access" ON company_members
         OR public.is_platform_admin()
     );
 
+CREATE OR REPLACE FUNCTION public.is_owner_of_company(comp_id UUID)
+RETURNS BOOLEAN AS $$
+BEGIN
+    RETURN EXISTS (
+        SELECT 1
+        FROM public.company_members
+        WHERE company_id = comp_id
+          AND user_id = auth.uid()
+          AND member_role = 'owner'
+    );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER STABLE;
+
 CREATE POLICY "Company owner or admin manages members" ON company_members
     FOR ALL USING (
-        EXISTS (
-            SELECT 1 FROM company_members cm
-            WHERE cm.company_id = company_members.company_id
-              AND cm.user_id = auth.uid()
-              AND cm.member_role = 'owner'
-        )
+        public.is_owner_of_company(company_id)
         OR public.is_platform_admin()
         OR auth.uid() = user_id -- Allow initial member creation on company onboarding
     );

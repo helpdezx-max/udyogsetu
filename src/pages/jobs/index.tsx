@@ -666,7 +666,7 @@ export default function FindJobsPage() {
                     </p>
                     <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                       <Link
-                        href="/alerts"
+                        href="/candidate/assistant"
                         className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors inline-flex items-center gap-1.5"
                       >
                         <span>Get Free WhatsApp Job Alerts</span>
