@@ -152,8 +152,17 @@ export default function HomePage() {
             <HeroBannerSlider />
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 leading-[1.08] max-w-4xl mx-auto">
-              Find Verified Factory Jobs, <br className="hidden sm:inline" />
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 leading-[1.08] max-w-5xl lg:max-w-6xl mx-auto">
+              Find{' '}
+              <span className="inline-flex items-center gap-1.5 sm:gap-2.5">
+                Verified
+                <img
+                  src="/images/verified-badge.png"
+                  alt="Verified"
+                  className="w-7 h-7 sm:w-10 sm:h-10 lg:w-12 lg:h-12 select-none shrink-0 inline-block align-middle"
+                />
+              </span>{' '}
+              Factory Jobs, <br className="hidden sm:inline" />
               <span className="text-zinc-500">Without Middlemen.</span>
             </h1>
 

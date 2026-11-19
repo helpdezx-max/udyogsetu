@@ -14,23 +14,23 @@ const BANNERS: BannerSlide[] = [
   {
     id: 'banner-1',
     image: '/images/banner-1.jpg',
-    alt: 'Rozzy • Find Verified Factory Jobs Without Middlemen • Chakan MIDC & Pune Belt',
+    alt: 'Rozzy • 100+ Verified Jobs • Find work. Build your future.',
     link: '/jobs',
-    title: 'Find Verified Factory Jobs Without Middlemen',
+    title: '100+ Verified Jobs • Find work. Build your future.',
   },
   {
     id: 'banner-2',
     image: '/images/banner-2.jpg',
-    alt: 'Rozzy • Good Work. Fair Hiring • Walk-in Drives & Salary Details Upfront',
+    alt: 'Rozzy • Good Work. Fair Hiring • Direct from factories',
     link: '/jobs',
-    title: 'Good Work. Fair Hiring. Direct from Factories',
+    title: 'Good Work. Fair Hiring • Direct from factories',
   },
   {
     id: 'banner-3',
     image: '/images/banner-3.jpg',
     alt: 'Rozzy • Your Next Shift Starts Here • Chakan MIDC & Pune Belt',
     link: '/jobs',
-    title: 'Your Next Shift Starts Here',
+    title: 'Your Next Shift Starts Here • Chakan MIDC & Pune Belt',
   },
 ];
 
@@ -120,7 +120,7 @@ export const HeroBannerSlider: React.FC = () => {
               key={`${banner.id}-${idx}`}
               className="w-full sm:w-1/2 lg:w-1/3 shrink-0 px-1.5 sm:px-2 relative"
             >
-              <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/90 shadow-subtle hover:border-zinc-300 hover:shadow-mobbin transition-all relative bg-zinc-50 aspect-[1024/341]">
+              <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/90 shadow-subtle hover:border-zinc-300 hover:shadow-mobbin transition-all relative bg-zinc-50 aspect-[2/1]">
                 <Link
                   href={banner.link}
                   className="block w-full h-full cursor-pointer hover:scale-[1.02] transition-transform duration-300"
