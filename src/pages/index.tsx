@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -144,39 +144,40 @@ export default function HomePage() {
         />
       </Head>
 
-      <div className="w-full space-y-16 pb-20">
+      <div className="w-full space-y-12 sm:space-y-16 pb-24 md:pb-20">
         {/* 1. HERO SECTION (Mobbin Style) */}
-        <section className="relative border-b border-zinc-200/80 bg-gradient-to-b from-zinc-50/70 via-white to-white pt-3 sm:pt-4 pb-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+        <section className="relative border-b border-zinc-200/80 bg-gradient-to-b from-zinc-50/70 via-white to-white pt-3 sm:pt-4 pb-12 sm:pb-16 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5 sm:space-y-6">
             {/* Visual Graphic Banner Carousel (with slide buttons on both sides) */}
             <HeroBannerSlider />
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 leading-[1.08] max-w-5xl lg:max-w-6xl mx-auto">
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-zinc-950 leading-[1.15] max-w-5xl lg:max-w-6xl mx-auto">
               Find{' '}
               <span className="inline-flex items-center gap-1.5 sm:gap-2.5">
                 Verified
                 <img
                   src="/images/verified-badge.png"
                   alt="Verified"
-                  className="w-9 h-9 sm:w-[52px] sm:h-[52px] lg:w-[62px] lg:h-[62px] select-none shrink-0 inline-block align-middle"
+                  className="w-7 h-7 sm:w-11 sm:h-11 lg:w-[62px] lg:h-[62px] select-none shrink-0 inline-block align-middle"
                 />
               </span>{' '}
+              <br className="inline sm:hidden" />
               Factory Jobs, <br className="hidden sm:inline" />
               <span className="text-zinc-500">Without Middlemen.</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-sm sm:text-base text-zinc-600 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xs sm:text-base text-zinc-600 leading-relaxed max-w-2xl mx-auto px-2">
               {t('hero.subheadline') ||
                 'Direct manufacturing vacancies across Chakan Phases 1–4, Khed City, Kuruli & Pune. Confirmed in-hand wages, transparent plant gate walk-ins, and zero candidate fees.'}
             </p>
 
             {/* Mobbin-style Floating Search Bar */}
-            <div className="max-w-3xl mx-auto pt-2">
+            <div className="max-w-3xl mx-auto pt-1 sm:pt-2">
               <form
                 onSubmit={handleHeroSearch}
-                className="p-2 rounded-2xl sm:rounded-full bg-white border border-zinc-200/90 shadow-subtle hover:border-zinc-300 hover:shadow-mobbin transition-all text-zinc-900 flex flex-col sm:flex-row items-center gap-2"
+                className="p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-white border border-zinc-200/90 shadow-subtle hover:border-zinc-300 hover:shadow-mobbin transition-all text-zinc-900 flex flex-col sm:flex-row items-center gap-2"
               >
                 <div className="flex-1 w-full relative">
                   <Search className="w-4 h-4 text-zinc-400 absolute left-4 top-3.5 pointer-events-none" />
@@ -217,8 +218,8 @@ export default function HomePage() {
               </form>
             </div>
 
-            {/* Popular Searches Pill Chips (Single Line) */}
-            <div className="mt-3 flex items-center justify-center gap-1.5 text-xs max-w-5xl mx-auto overflow-x-auto no-scrollbar py-1 whitespace-nowrap">
+            {/* Popular Searches Pill Chips (Smooth Scrollable on Mobile) */}
+            <div className="mt-2 sm:mt-3 flex items-center gap-1.5 text-xs max-w-5xl mx-auto overflow-x-auto no-scrollbar py-1 whitespace-nowrap px-4 -mx-4 sm:mx-auto sm:px-0 justify-start sm:justify-center">
               <span className="text-zinc-400 text-2xs uppercase tracking-wider font-semibold mr-1 shrink-0">Popular:</span>
               <div className="flex items-center gap-1.5 shrink-0">
                 {POPULAR_SEARCHES.map((term) => (
@@ -226,7 +227,7 @@ export default function HomePage() {
                     key={term}
                     type="button"
                     onClick={() => handleQuickSearch(term)}
-                    className="px-2.5 py-1 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-zinc-950 text-2xs font-medium transition-colors shrink-0 whitespace-nowrap cursor-pointer"
+                    className="px-2.5 py-1 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-zinc-950 text-2xs font-medium transition-colors shrink-0 whitespace-nowrap cursor-pointer active:scale-95"
                   >
                     {term}
                   </button>

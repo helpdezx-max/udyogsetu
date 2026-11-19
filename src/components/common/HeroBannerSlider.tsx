@@ -102,7 +102,7 @@ export const HeroBannerSlider: React.FC = () => {
 
   return (
     <div
-      className="relative w-full mx-auto select-none"
+      className="relative w-full mx-auto select-none overflow-hidden sm:overflow-visible"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -156,21 +156,21 @@ export const HeroBannerSlider: React.FC = () => {
         ))}
       </div>
 
-      {/* Left Slide Button */}
+      {/* Left Slide Button (Tablet & Desktop only; Mobile uses native touch swipe) */}
       <button
         type="button"
         onClick={prevSlide}
-        className="absolute left-1.5 sm:-left-5 lg:-left-6 xl:-left-7 top-[calc(50%-12px)] -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer backdrop-blur-md"
+        className="hidden sm:flex absolute left-1.5 sm:-left-5 lg:-left-6 xl:-left-7 top-[calc(50%-12px)] -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 shadow-xl border border-zinc-200/90 items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer backdrop-blur-md"
         aria-label="Previous Slide"
       >
         <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-900 stroke-[2.2]" />
       </button>
 
-      {/* Right Slide Button */}
+      {/* Right Slide Button (Tablet & Desktop only; Mobile uses native touch swipe) */}
       <button
         type="button"
         onClick={nextSlide}
-        className="absolute right-1.5 sm:-right-5 lg:-right-6 xl:-right-7 top-[calc(50%-12px)] -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 shadow-xl border border-zinc-200/90 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer backdrop-blur-md"
+        className="hidden sm:flex absolute right-1.5 sm:-right-5 lg:-right-6 xl:-right-7 top-[calc(50%-12px)] -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 shadow-xl border border-zinc-200/90 items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer backdrop-blur-md"
         aria-label="Next Slide"
       >
         <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-900 stroke-[2.2]" />

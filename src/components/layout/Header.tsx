@@ -144,7 +144,7 @@ export const Header: React.FC = () => {
         {/* Saved Jobs Icon */}
         <Link
           href="/candidate/saved-jobs"
-          className="relative p-2 rounded-full border border-zinc-200/90 text-zinc-600 hover:text-zinc-950 hover:bg-zinc-50 transition-colors"
+          className="relative p-2 rounded-full border border-zinc-200/90 text-zinc-600 hover:text-zinc-950 hover:bg-zinc-50 transition-colors hidden sm:flex"
           title="Saved Jobs"
         >
           <Bookmark className="w-4 h-4" />
@@ -162,7 +162,7 @@ export const Header: React.FC = () => {
             <button
               type="button"
               onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-              className="flex items-center gap-2 pl-2 pr-3 py-1 rounded-full border border-neutral-200 hover:border-neutral-300 bg-neutral-50 hover:bg-neutral-100 transition-colors"
+              className="flex items-center gap-1.5 sm:gap-2 pl-1.5 sm:pl-2 pr-2.5 sm:pr-3 py-1 rounded-full border border-neutral-200 hover:border-neutral-300 bg-neutral-50 hover:bg-neutral-100 transition-colors"
             >
               <div className="w-6 h-6 rounded-full bg-neutral-900 text-white text-3xs font-black flex items-center justify-center uppercase">
                 {profile?.full_name?.charAt(0) || user.email?.charAt(0) || 'U'}
@@ -256,7 +256,7 @@ export const Header: React.FC = () => {
           <div className="flex items-center gap-1.5 sm:gap-2">
             <Link
               href="/signin"
-              className="text-xs font-semibold text-zinc-700 hover:text-zinc-950 px-3 py-1.5 rounded-full hover:bg-zinc-100 transition-colors flex items-center gap-1.5"
+              className="text-xs font-semibold text-zinc-900 bg-zinc-100 hover:bg-zinc-200 sm:bg-transparent sm:text-zinc-700 sm:hover:text-zinc-950 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1"
             >
               <LogIn className="w-3.5 h-3.5" />
               <span>Sign In</span>
@@ -264,7 +264,7 @@ export const Header: React.FC = () => {
 
             <Link
               href="/signup"
-              className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-4 py-1.5 rounded-full shadow-xs transition-all flex items-center gap-1.5"
+              className="hidden sm:flex bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-4 py-1.5 rounded-full shadow-xs transition-all items-center gap-1.5"
             >
               <UserPlus className="w-3.5 h-3.5 text-amber-400" />
               <span>Register</span>

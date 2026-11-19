@@ -59,11 +59,16 @@
     font-family: 'Product Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    max-width: 100%;
   }
 
   body {
     @apply bg-white text-zinc-900 antialiased selection:bg-zinc-950 selection:text-white min-h-screen;
     font-family: 'Product Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    max-width: 100%;
+    position: relative;
   }
 
   /* Custom crisp scrollbars inspired by mobbin.com */
@@ -94,5 +99,13 @@
 
   .mobbin-pill-active {
     @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-zinc-900 text-white shadow-xs transition-colors cursor-pointer;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
