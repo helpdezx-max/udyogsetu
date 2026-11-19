@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { CHAKAN_PILOT_LOCATIONS } from '../../data/pilot-locations';
+import { fireConfettiBlast } from '../../utils/confetti';
 
 export default function EmployerSignupPage() {
   const router = useRouter();
@@ -121,6 +122,12 @@ export default function EmployerSignupPage() {
 
       setRegistrationComplete(true);
       setIsSubmitting(false);
+
+      // Fire celebratory confetti blast
+      fireConfettiBlast();
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('just_signed_in', 'true');
+      }
 
       setTimeout(() => {
         router.push('/employer/onboarding');

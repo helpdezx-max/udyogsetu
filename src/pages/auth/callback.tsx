@@ -126,6 +126,9 @@ export default function AuthCallbackPage() {
           const roles = await authService.getUserRoles(user.id);
           const target = authService.getDashboardRouteForUser(roles);
           setStatusText('Authentication successful. Redirecting to your workspace...');
+          if (typeof window !== 'undefined') {
+            sessionStorage.setItem('just_signed_in', 'true');
+          }
           router.push(target);
         } else {
           router.push('/signin');

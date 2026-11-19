@@ -18,6 +18,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
 import { GoogleSignInButton } from '../components/auth/GoogleSignInButton';
+import { fireConfettiBlast } from '../utils/confetti';
 
 export default function UnifiedSignInPage() {
   const router = useRouter();
@@ -83,6 +84,14 @@ export default function UnifiedSignInPage() {
       setLoginSuccess(true);
       setIsSubmitting(false);
 
+      // Fire celebratory confetti blast immediately on sign-in
+      fireConfettiBlast();
+
+      // Flag session so the destination dashboard also greets the user with celebratory confetti
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('just_signed_in', 'true');
+      }
+
       // Determine redirect destination
       let destination = targetRoute || '/candidate/dashboard';
 
@@ -105,7 +114,7 @@ export default function UnifiedSignInPage() {
 
       setTimeout(() => {
         router.push(destination);
-      }, 700);
+      }, 1400);
 
     } catch (err: any) {
       setErrorMessage(err.message || 'An unexpected error occurred during sign in.');

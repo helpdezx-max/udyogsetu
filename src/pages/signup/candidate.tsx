@@ -20,6 +20,7 @@ import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { useAuth } from '../../context/AuthContext';
 import { GoogleSignInButton } from '../../components/auth/GoogleSignInButton';
+import { fireConfettiBlast } from '../../utils/confetti';
 
 export default function CandidateSignupPage() {
   const router = useRouter();
@@ -129,6 +130,12 @@ export default function CandidateSignupPage() {
 
       setRegisteredSuccess(true);
       setIsSubmitting(false);
+
+      // Fire celebratory confetti blast
+      fireConfettiBlast();
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('just_signed_in', 'true');
+      }
 
       // Auto redirect to candidate dashboard after 1.5s
       setTimeout(() => {

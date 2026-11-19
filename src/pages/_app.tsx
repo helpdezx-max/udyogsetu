@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -7,9 +8,24 @@ import { AppProvider } from '../context/AppContext';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 import { ApplyModal } from '../components/common/ApplyModal';
+import { fireConfettiBlast } from '../utils/confetti';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
+  // Trigger celebratory confetti blast whenever a user arrives post-signin or post-registration
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const justSignedIn = sessionStorage.getItem('just_signed_in');
+      if (justSignedIn === 'true') {
+        sessionStorage.removeItem('just_signed_in');
+        const timer = setTimeout(() => {
+          fireConfettiBlast();
+        }, 400);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [router.asPath]);
 
   return (
     <AuthProvider>
