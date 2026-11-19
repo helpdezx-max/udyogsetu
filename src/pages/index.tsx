@@ -25,6 +25,7 @@ import {
 import { useApp } from '../context/AppContext';
 import { useLocale } from '../hooks/useLocale';
 import { JobCard } from '../components/common/JobCard';
+import { WalkInCard } from '../components/common/WalkInCard';
 import { HeroBannerSlider } from '../components/common/HeroBannerSlider';
 import { CHAKAN_PILOT_LOCATIONS } from '../data/pilot-locations';
 
@@ -352,51 +353,13 @@ export default function HomePage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {todayWalkIns.map((walkin) => (
-                <div
+                <WalkInCard
                   key={walkin.id}
-                  className="bg-white border border-zinc-200/90 rounded-2xl p-5 flex flex-col justify-between space-y-4 hover:border-zinc-300 hover:shadow-mobbin-hover transition-all"
-                >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xs font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60 uppercase tracking-wide">
-                        {walkin.eventDates}
-                      </span>
-                      <span className="text-xs font-bold text-zinc-900">
-                        {walkin.openingsCount} Vacancies
-                      </span>
-                    </div>
-
-                    <div>
-                      <h3 className="font-bold text-zinc-950 text-sm">{walkin.jobTitle}</h3>
-                      <p className="text-xs font-medium text-zinc-500">{walkin.companyName}</p>
-                    </div>
-
-                    <div className="text-xs space-y-1.5 py-2.5 border-y border-zinc-100 text-zinc-600">
-                      <div className="flex items-start gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                        <span>{walkin.reportingTime}</span>
-                      </div>
-                      <div className="flex items-start gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                        <span className="line-clamp-2">{walkin.venueAddress}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-1">
-                    <span className="text-xs font-bold text-zinc-950">
-                      {walkin.salaryDisplay.split('+')[0]}
-                    </span>
-                    <Link href={`/jobs/${walkin.jobId}`}>
-                      <button className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-2xs transition-colors flex items-center gap-1">
-                        <span>View Venue</span>
-                        <ArrowUpRight className="w-3 h-3" />
-                      </button>
-                    </Link>
-                  </div>
-                </div>
+                  walkin={walkin}
+                  correspondingJob={jobs.find((j) => j.id === walkin.jobId)}
+                />
               ))}
             </div>
           )}
