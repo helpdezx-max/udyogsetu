@@ -263,7 +263,7 @@ export default function HomePage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
-              <div className="text-3xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
+              <div className="text-xs font-semibold text-zinc-500 mb-1">
                 Verified Vacancies
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
@@ -323,7 +323,7 @@ export default function HomePage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
-              <div className="text-3xs font-bold uppercase tracking-wider text-amber-700 mb-1">
+              <div className="text-xs font-semibold text-amber-700 mb-1">
                 Gate Walk-in Calendar
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
@@ -368,7 +368,7 @@ export default function HomePage() {
         {/* 4. EXPLORE BY TRADE (Mobbin Minimalist Cards) */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div>
-            <div className="text-3xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
+            <div className="text-xs font-semibold text-zinc-500 mb-1">
               Industrial Trades
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
@@ -405,7 +405,7 @@ export default function HomePage() {
         {/* 5. JOBS BY QUALIFICATION */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div>
-            <div className="text-3xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
+            <div className="text-xs font-semibold text-zinc-500 mb-1">
               Targeted Eligibility
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
@@ -446,7 +446,7 @@ export default function HomePage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
-              <div className="text-3xs font-bold uppercase tracking-wider text-emerald-800 mb-1">
+              <div className="text-xs font-semibold text-emerald-800 mb-1">
                 Employer Network
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
@@ -531,7 +531,7 @@ export default function HomePage() {
         {/* 7. INDUSTRIAL CLUSTERS */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div>
-            <div className="text-3xs font-bold uppercase tracking-wider text-zinc-400 mb-1">
+            <div className="text-xs font-semibold text-zinc-500 mb-1">
               Hyperlocal Geography
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">

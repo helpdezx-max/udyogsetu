@@ -125,41 +125,31 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index = 0 }) => {
           </h3>
         </Link>
 
-        {/* Scannable Spec Tags (Mobbin pill style) */}
-        <div className="flex flex-wrap items-center gap-1.5 pt-1">
-          <span className="inline-flex items-center gap-1 rounded-lg bg-zinc-100/90 px-2.5 py-1 text-[11px] font-medium text-zinc-700 border border-zinc-200/60">
-            <Clock className="h-3 w-3 text-zinc-400 shrink-0" />
-            <span>{job.shiftType.split(' ')[0]} Shift</span>
+        {/* Clean Specification Tags */}
+        <div className="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
+          <span className="px-2.5 py-1 rounded-md bg-zinc-100 font-medium text-zinc-700">
+            {job.shiftType.split(' ')[0]} Shift
           </span>
-          <span className="inline-flex items-center gap-1 rounded-lg bg-zinc-100/90 px-2.5 py-1 text-[11px] font-medium text-zinc-700 border border-zinc-200/60">
-            <Briefcase className="h-3 w-3 text-zinc-400 shrink-0" />
-            <span>{job.qualificationRequired.split('(')[0].trim()}</span>
+          <span className="px-2.5 py-1 rounded-md bg-zinc-100 font-medium text-zinc-700">
+            {job.qualificationRequired.split('(')[0].trim()}
           </span>
-          <span className="inline-flex items-center gap-1 rounded-lg bg-zinc-100/90 px-2.5 py-1 text-[11px] font-medium text-zinc-700 border border-zinc-200/60">
-            <Users2 className="h-3 w-3 text-zinc-400 shrink-0" />
-            <span>{job.openingsCount} Vacancies</span>
+          <span className="px-2.5 py-1 rounded-md bg-zinc-100 font-medium text-zinc-700">
+            {job.openingsCount} Openings
           </span>
           {job.busFacilityProvided && (
-            <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-800 border border-emerald-200/60">
-              <Bus className="h-3 w-3 text-emerald-600 shrink-0" />
-              <span>Bus Route</span>
+            <span className="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 font-medium border border-emerald-200/60">
+              Bus Available
             </span>
           )}
         </div>
       </div>
 
-      {/* Bottom Footer: In-Hand Salary + Action Buttons */}
-      <div className="mt-5 border-t border-zinc-100 pt-4 flex items-end justify-between gap-3">
+      {/* Bottom Footer: Salary + Action Buttons */}
+      <div className="mt-5 border-t border-zinc-100 pt-4 flex items-center justify-between gap-3">
         <div>
-          <span className="block text-[10px] font-bold uppercase tracking-wider text-zinc-400">
-            In-Hand Salary
-          </span>
-          <div className="text-lg sm:text-xl font-black text-zinc-950 tracking-tight">
+          <div className="text-lg sm:text-xl font-bold text-zinc-950">
             ₹{job.salary.inHandMonthly.toLocaleString('en-IN')}{' '}
             <span className="text-xs font-normal text-zinc-500">/ mo</span>
-          </div>
-          <div className="text-[10px] font-semibold text-emerald-700 flex items-center gap-1 mt-0.5">
-            <span>✓ ₹0 Recruitment Fee</span>
           </div>
         </div>
 
