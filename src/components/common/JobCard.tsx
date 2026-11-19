@@ -38,31 +38,34 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index = 0 }) => {
       {/* Top Header Row: Status Pills & Action */}
       <div className="space-y-4">
         <div className="flex items-center justify-between gap-2">
-          {/* Status Badges */}
-          <div className="flex flex-wrap items-center gap-1.5">
+          {/* Status Indicators — Side-by-side, no capsule for verified, with blue tick */}
+          <div className="flex items-center gap-2.5 min-w-0 flex-1 overflow-hidden">
             {job.recruitmentTier === 'verified_direct' ? (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-2xs font-semibold text-emerald-800 border border-emerald-200/70 shadow-2xs">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
-                </span>
+              <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 shrink-0 whitespace-nowrap">
                 <span>Verified Direct Plant</span>
+                <svg
+                  className="w-3.5 h-3.5 text-blue-600 fill-current shrink-0 inline-block"
+                  viewBox="0 0 24 24"
+                  aria-label="Verified"
+                >
+                  <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.21.46-1.39.2-2.97-.68-4.14-1.17-.88-2.75-1.14-4.14-.68C14.67 2.66 13.43 1.75 12 1.75s-2.67.88-3.24 2.19c-1.39-.46-2.97-.2-4.14.68-.88 1.17-1.14 2.75-.68 4.14C2.63 9.33 1.75 10.57 1.75 12s.88 2.67 2.19 3.24c-.46 1.39-.2 2.97.68 4.14 1.17.88 2.75 1.14 4.14.68.57 1.31 1.81 2.19 3.24 2.19s2.67-.88 3.24-2.19c1.39.46 2.97.2 4.14-.68.88-1.17 1.14-2.75.68-4.14 1.31-.57 2.19-1.81 2.19-3.24zm-11.5 4.25l-4-4 1.41-1.41L10.75 13.42l6.84-6.84 1.41 1.41-8.25 8.26z" />
+                </svg>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-1 text-2xs font-semibold text-zinc-700 border border-zinc-200/80">
+              <span className="inline-flex items-center gap-1 text-xs font-medium text-zinc-500 shrink-0 whitespace-nowrap">
                 <span>Licensed Contractor</span>
               </span>
             )}
 
             {job.walkInAvailable && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-2xs font-semibold text-amber-800 border border-amber-200/70 shadow-2xs">
+              <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-2xs font-semibold text-amber-800 border border-amber-200/70 shrink-0 whitespace-nowrap">
                 <CalendarCheck2 className="h-3 w-3 text-amber-600" />
                 <span>Walk-in Gate</span>
               </span>
             )}
 
             {job.postedDaysAgo === 0 && (
-              <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-3xs font-extrabold uppercase tracking-wider text-blue-700 border border-blue-200/60">
+              <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-3xs font-extrabold uppercase tracking-wider text-blue-700 border border-blue-200/60 shrink-0 whitespace-nowrap">
                 Today
               </span>
             )}
@@ -99,8 +102,13 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index = 0 }) => {
           <div className="min-w-0 flex-1">
             <h4 className="truncate text-xs sm:text-[13px] font-bold text-zinc-900 flex items-center gap-1.5">
               <span className="truncate">{job.companyName}</span>
-              <span title="Verified Plant HR Desk" className="inline-flex shrink-0">
-                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+              <span title="Verified Direct Plant" className="inline-flex shrink-0">
+                <svg
+                  className="w-3.5 h-3.5 text-blue-600 fill-current shrink-0"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.21.46-1.39.2-2.97-.68-4.14-1.17-.88-2.75-1.14-4.14-.68C14.67 2.66 13.43 1.75 12 1.75s-2.67.88-3.24 2.19c-1.39-.46-2.97-.2-4.14.68-.88 1.17-1.14 2.75-.68 4.14C2.63 9.33 1.75 10.57 1.75 12s.88 2.67 2.19 3.24c-.46 1.39-.2 2.97.68 4.14 1.17.88 2.75 1.14 4.14.68.57 1.31 1.81 2.19 3.24 2.19s2.67-.88 3.24-2.19c1.39.46 2.97.2 4.14-.68.88-1.17 1.14-2.75.68-4.14 1.31-.57 2.19-1.81 2.19-3.24zm-11.5 4.25l-4-4 1.41-1.41L10.75 13.42l6.84-6.84 1.41 1.41-8.25 8.26z" />
+                </svg>
               </span>
             </h4>
             <p className="flex items-center gap-1 text-[11px] text-zinc-500 font-medium truncate mt-0.5">
