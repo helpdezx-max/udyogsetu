@@ -64,7 +64,7 @@ export const Header: React.FC = () => {
             <img
               src="/images/logo.png"
               alt="Rozzy • Industrial Employment Network"
-              className="h-6 sm:h-7 w-auto object-contain block"
+              className="h-5 sm:h-5.5 w-auto object-contain block"
             />
             <span className="bg-zinc-100 text-zinc-800 text-3xs font-extrabold uppercase px-1.5 py-0.5 rounded-md border border-zinc-200/60 tracking-wider">
               CHAKAN
